@@ -5,10 +5,12 @@ using UnityEngine;
 public class AttackTrigger : MonoBehaviour
 {
     private ZombieAnimation zombieParent;
+    [SerializeField] private GameObject hitbox;
 
     private void Awake()
     {
         zombieParent = GetComponentInParent<ZombieAnimation>();
+        hitbox.SetActive(false);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -16,6 +18,7 @@ public class AttackTrigger : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             zombieParent.StartAttack(other);
+            hitbox.SetActive(true);
         }
     }
 
@@ -24,6 +27,7 @@ public class AttackTrigger : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             zombieParent.StopAttack(other);
+            hitbox.SetActive(false);
         }
     }
 }

@@ -1484,10 +1484,16 @@ MonoBehaviour:
   checkInterval: 0.1
   alertDuration: 5
   nearbyEnemyRadius: 10
+  stoppingDistance: 0.5
   visionConeRenderer: {fileID: 4550275381857498082}
   rayCount: 50
-  rotationSpeed: 45
+  canSeePlayerNow: 0
+  lastSeenTime: -999
+  nextCheckTime: 0
+  alertTimer: 0
   rotationAngle: 45
+  rotationSpeed: 45
+  pauseTime: 1
 --- !u!1 &5943320068547070529
 GameObject:
   m_ObjectHideFlags: 0
@@ -2310,6 +2316,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 629f32cfc2444a247a78788a1c2a82af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitbox: {fileID: 4682503416199141776}
 --- !u!1 &7645250893363373096
 GameObject:
   m_ObjectHideFlags: 0

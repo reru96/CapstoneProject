@@ -20,31 +20,9 @@ public class PlayerController : MonoBehaviour
         float v = Input.GetAxis("Vertical");
         if (h != 0 || v != 0)
         {
-            isWASD = true;
-        }
-        else
-        {
-            isWASD = false;
-        }
-
-        if (isWASD)
-        {
             Vector3 dir = new Vector3(h, 0, v);
             agent.velocity = dir * agent.speed;
         }
-        else
-        {
-            if (Input.GetMouseButtonDown(0))
-            {
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                RaycastHit hit;
-                if (Physics.Raycast(ray, out hit, maxDistance))
-                {
-                    agent.SetDestination(hit.point);
-                    
-                }
-
-            }
-        }
+        
     }
 }

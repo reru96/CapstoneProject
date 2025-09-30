@@ -23,5 +23,15 @@ public class PlayerAnimation : MonoBehaviour
     {
         float speed = agent.velocity.magnitude;
         anim.SetFloat("Speed", speed);
+        if(Input.GetMouseButtonDown(0))
+        {
+            agent.speed = 0;
+            anim.SetTrigger("Attack");
+        }
+
+        if (Input.GetMouseButtonDown(1)) 
+        {
+            anim.SetTrigger("Dodge");
+        }
     }
 }
