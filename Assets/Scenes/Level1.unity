@@ -281,7 +281,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &125523402
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2270,6 +2270,58 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94582f72aeaf07b4e8ae171d114a35f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &616266769
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 616266771}
+  - component: {fileID: 616266770}
+  m_Layer: 0
+  m_Name: InputManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &616266770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 616266769}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b96b3df699d8e9a4db626d437ddfbcd0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  config:
+    dodge: 8
+    attack: 101
+    move: 304
+    pause: 27
+    ability_1: 49
+    ability_2: 50
+    ability_3: 51
+--- !u!4 &616266771
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 616266769}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -35.85404, y: -2.807876, z: 5.5236673}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &619640676
 GameObject:
   m_ObjectHideFlags: 0
@@ -2909,7 +2961,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &963277436
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3274,6 +3326,25 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!95 &1112661649 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5588752080341779448, guid: be482a227ac6e8648906acdf713cfcc9,
+    type: 3}
+  m_PrefabInstance: {fileID: 2022094237}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1112661658
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 821398609}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92f67346851e0eb4ab6309dfbe682701, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 1112661649}
 --- !u!43 &1140678983
 Mesh:
   m_ObjectHideFlags: 0
@@ -27709,6 +27780,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1112661646}
+    - targetCorrespondingSourceObject: {fileID: 5156660526780872327, guid: be482a227ac6e8648906acdf713cfcc9,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1112661658}
   m_SourcePrefab: {fileID: 100100000, guid: be482a227ac6e8648906acdf713cfcc9, type: 3}
 --- !u!1 &2048442554
 GameObject:
@@ -86106,3 +86181,4 @@ SceneRoots:
   - {fileID: 1420991405}
   - {fileID: 533451718}
   - {fileID: 331449975}
+  - {fileID: 616266771}
