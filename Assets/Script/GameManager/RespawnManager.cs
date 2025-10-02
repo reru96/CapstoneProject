@@ -17,8 +17,14 @@ public class RespawnManager : Singleton<RespawnManager>
     [SerializeField] private float respawnDelay = 2f;
 
     private GameObject player;
+    public GameObject Player => player;
 
-    protected override bool ShouldBeDestroyOnLoad() => false; 
+    [Header("Class Selection")]
+    [SerializeField] private SOPlayerClass[] availableClasses;
+    private SOPlayerClass chosenClass;
+    private GameObject playerPrefab;
+
+    protected override bool ShouldBeDestroyOnLoad() => false;
 
     protected override void Awake()
     {
@@ -28,20 +34,60 @@ public class RespawnManager : Singleton<RespawnManager>
 
     private void Start()
     {
-        FindPlayer();
         SceneManager.sceneLoaded += OnSceneLoaded;
+
+        if (chosenClass != null)
+        {
+            SetPlayerPrefab(chosenClass.prefab);
+            SpawnPlayer();
+        }
     }
 
     protected override void OnDestroy()
     {
-        base.OnDestroy(); 
+        base.OnDestroy();
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        SpawnPlayer();
         FindPlayer();
         FindObjectOfType<UILives>()?.UpdateLives();
+    }
+
+    
+    public void SelectClass(int index)
+    {
+        if (index < 0 || index >= availableClasses.Length)
+        {
+            Debug.LogWarning("Classe non valida!");
+            return;
+        }
+
+        chosenClass = availableClasses[index];
+        SetPlayerPrefab(chosenClass.prefab);
+    }
+
+
+    public void SetPlayerPrefab(GameObject prefab)
+    {
+        playerPrefab = prefab;
+    }
+
+ 
+    public void SpawnPlayer()
+    {
+        if (playerPrefab == null)
+        {
+            Debug.LogWarning("Player prefab non assegnato!");
+            return;
+        }
+
+        if (player != null)
+            Destroy(player);
+
+        player = Instantiate(playerPrefab, puntoRespawn.position, Quaternion.identity);
     }
 
     private void FindPlayer()
@@ -57,7 +103,6 @@ public class RespawnManager : Singleton<RespawnManager>
     public void PlayerDied()
     {
         leftTry--;
-
         FindObjectOfType<UILives>()?.UpdateLives();
 
         if (leftTry > 0)
@@ -76,17 +121,12 @@ public class RespawnManager : Singleton<RespawnManager>
 
         bool done = false;
         ScreenFader.Instance.FadeOut(() => done = true);
-
         while (!done) yield return null;
 
-        player.SetActive(false);
+        Destroy(player);
         yield return new WaitForSeconds(respawnDelay);
 
-        var life = player.GetComponent<LifeController>();
-        if (life != null) life.SetHp(life.GetMaxHp());
-
-        player.transform.position = puntoRespawn.position;
-        player.SetActive(true);
+        SpawnPlayer();
 
         done = false;
         ScreenFader.Instance.FadeIn(() => done = true);

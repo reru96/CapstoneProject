@@ -5,10 +5,16 @@ using UnityEngine;
 public class PlayerCombat : MonoBehaviour
 {
     public Animator animator;
+    private int attackStep = 0;
+
 
     private Queue<string> actionQueue = new Queue<string>();
     private bool isPerformingAction = false;
 
+    private void Start()
+    {
+        attackStep = 0;
+    }
     void Update()
     {
         HandleInput();
@@ -58,7 +64,6 @@ public class PlayerCombat : MonoBehaviour
     }
 
 
-    private int attackStep = 0;
     string GetAttackTrigger()
     {
         attackStep++;

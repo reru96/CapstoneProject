@@ -6,8 +6,6 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     private NavMeshAgent agent;
-    [SerializeField] private float maxDistance = 100;
-    [SerializeField] private bool isWASD = false;
 
     void Start()
     {

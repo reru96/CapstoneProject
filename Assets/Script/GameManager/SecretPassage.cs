@@ -26,7 +26,7 @@ public class SecretPassage : MonoBehaviour
 
     void Start()
     {
-        var p = GameObject.FindGameObjectWithTag("Player");
+        var p = RespawnManager.Instance.Player;
         player = p ? p.transform : null;
         if (promptText) promptText.enabled = false;
     }

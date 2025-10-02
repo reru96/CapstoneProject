@@ -1,18 +1,32 @@
 using UnityEngine;
+using Cinemachine;
 using System.Collections.Generic;
 
 public class CameraFadeWall : MonoBehaviour
 {
-    public Transform player;
+    public CinemachineVirtualCamera virtualCamera;
     public LayerMask wallMask;
     public float transparentAlpha = 0.3f;
     public float fadeSpeed = 5f;
 
     private List<Renderer> fadedWalls = new List<Renderer>();
     private Dictionary<Renderer, Color> originalColors = new Dictionary<Renderer, Color>();
+    private Transform playerTransform;
 
-    void Update()
+    private void OnEnable()
     {
+       
+        if (RespawnManager.Instance != null)
+        {
+            TrySetPlayer(RespawnManager.Instance.Player);
+        }
+    }
+
+    private void Update()
+    {
+        if (playerTransform == null) return; 
+
+       
         foreach (var rend in fadedWalls)
         {
             if (rend != null && originalColors.ContainsKey(rend))
@@ -24,7 +38,8 @@ public class CameraFadeWall : MonoBehaviour
         }
         fadedWalls.Clear();
 
-        Vector3 dir = player.position - transform.position;
+     
+        Vector3 dir = playerTransform.position - transform.position;
         Ray ray = new Ray(transform.position, dir);
         RaycastHit[] hits = Physics.RaycastAll(ray, dir.magnitude, wallMask);
 
@@ -42,6 +57,18 @@ public class CameraFadeWall : MonoBehaviour
 
                 fadedWalls.Add(rend);
             }
+        }
+    }
+
+    public void TrySetPlayer(GameObject player)
+    {
+        if (player == null) return;
+
+        playerTransform = player.transform;
+        if (virtualCamera != null)
+        {
+            virtualCamera.Follow = playerTransform;
+            virtualCamera.LookAt = playerTransform;
         }
     }
 }
