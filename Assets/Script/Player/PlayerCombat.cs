@@ -19,6 +19,17 @@ public class PlayerCombat : MonoBehaviour
     {
         HandleInput();
         ProcessQueue();
+        if (isPerformingAction)
+        {
+            AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+
+          
+            if (!stateInfo.IsTag("Attack") && !stateInfo.IsTag("Ability"))
+            {
+                OnActionEnd();
+            }
+        }
+
     }
 
     void HandleInput()
@@ -79,7 +90,7 @@ public class PlayerCombat : MonoBehaviour
         AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
         if (!stateInfo.IsTag("Attack")) attackStep = 0;
     }
-
+   
     void CancelAttack()
     {
         animator.ResetTrigger("Attack1");

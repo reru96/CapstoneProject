@@ -25,6 +25,7 @@ public class RespawnManager : Singleton<RespawnManager>
     private GameObject playerPrefab;
 
     protected override bool ShouldBeDestroyOnLoad() => false;
+    public event System.Action<GameObject> OnPlayerSpawned;
 
     protected override void Awake()
     {
@@ -88,6 +89,8 @@ public class RespawnManager : Singleton<RespawnManager>
             Destroy(player);
 
         player = Instantiate(playerPrefab, puntoRespawn.position, Quaternion.identity);
+
+        OnPlayerSpawned?.Invoke(Player);
     }
 
     private void FindPlayer()

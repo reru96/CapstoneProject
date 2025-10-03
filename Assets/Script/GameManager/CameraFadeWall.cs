@@ -13,20 +13,28 @@ public class CameraFadeWall : MonoBehaviour
     private Dictionary<Renderer, Color> originalColors = new Dictionary<Renderer, Color>();
     private Transform playerTransform;
 
+
+    private void Awake()
+    {
+        virtualCamera = GetComponent<CinemachineVirtualCamera>();
+    }
     private void OnEnable()
     {
-       
-        if (RespawnManager.Instance != null)
-        {
-            TrySetPlayer(RespawnManager.Instance.Player);
-        }
+        RespawnManager.Instance.OnPlayerSpawned += TrySetPlayer;
+
+    }
+
+    private void OnDisable()
+    {
+        RespawnManager.Instance.OnPlayerSpawned -= TrySetPlayer;
     }
 
     private void Update()
     {
-        if (playerTransform == null) return; 
+        if (playerTransform == null) return;
 
-       
+        TrySetPlayer(RespawnManager.Instance.Player);
+
         foreach (var rend in fadedWalls)
         {
             if (rend != null && originalColors.ContainsKey(rend))
