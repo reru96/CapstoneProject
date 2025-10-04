@@ -39,9 +39,9 @@ public class EnemyPathController : MonoBehaviour
 
     protected int currentWaypoint = 0;
     protected Coroutine waitCoroutine;
-    protected State currentState = State.Patrolling;
-    public State CurrentState => currentState;
-    public event Action<State> OnStateChanged;
+    protected EnemyState currentState = EnemyState.Patrolling;
+    public EnemyState CurrentState => currentState;
+    public event Action<EnemyState> OnStateChanged;
 
     public bool canSeePlayerNow;
     public float lastSeenTime = -999f;
@@ -160,19 +160,19 @@ public class EnemyPathController : MonoBehaviour
     {
         switch (currentState)
         {
-            case State.Patrolling:
+            case EnemyState.Patrolling:
                 HandlePatrolling();
                 break;
-            case State.Chasing:
+            case EnemyState.Chasing:
                 HandleChasing();
                 break;
-            case State.Alert:
+            case EnemyState.Alert:
                 HandleAlert();
                 break;
         }
     }
 
-    protected virtual void ChangeState(State newState)
+    protected virtual void ChangeState(EnemyState newState)
     {
         if (currentState == newState) return;
         currentState = newState;
@@ -183,7 +183,7 @@ public class EnemyPathController : MonoBehaviour
     {
         if (canSeePlayerNow)
         {
-            ChangeState(State.Chasing);
+            ChangeState(EnemyState.Chasing);
             return;
         }
 
@@ -203,7 +203,7 @@ public class EnemyPathController : MonoBehaviour
         }
         else
         {
-            ChangeState(State.Alert);
+            ChangeState(EnemyState.Alert);
             alertTimer = alertDuration;
         }
     }
@@ -217,7 +217,7 @@ public class EnemyPathController : MonoBehaviour
         if (canSeePlayerNow)
         {
             lastSeenPosition = targetPlayer.position;
-            ChangeState(State.Chasing);
+            ChangeState(EnemyState.Chasing);
             return;
         }
 
@@ -232,7 +232,7 @@ public class EnemyPathController : MonoBehaviour
         {
             if (alertTimer <= 0f)
             {
-                ChangeState(State.Patrolling);
+                ChangeState(EnemyState.Patrolling);
                 GoToNextWaypoint();
             }
             else
@@ -256,7 +256,7 @@ public class EnemyPathController : MonoBehaviour
     public virtual void ReceiveAlert(Transform player)
     {
         targetPlayer = player;
-        currentState = State.Alert;
+        currentState = EnemyState.Alert;
         alertTimer = alertDuration;
     }
 

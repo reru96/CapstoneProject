@@ -2,24 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace FSM
+public class StateMachine: MonoBehaviour
 {
-    public abstract class StateMachine 
+    private State currentState;
+
+    public void SwitchState(State state)
     {
-        private State currentState;
-        
-        public void SwitchState(State state)
-        {
-            currentState?.Exit();
-            currentState = state;
-            currentState.Enter();
+        currentState?.Exit();
+        currentState = state;
+        currentState.Enter();
 
-        }
+    }
 
-       
-        protected void Update()
-        {
-            currentState?.Tick();
-        }
+
+    protected void Update()
+    {
+        currentState?.Tick();
     }
 }
+

@@ -46,18 +46,18 @@ public class UIAlert : MonoBehaviour
         }
     }
 
-    private void HandleStateChanged(State newStateObj)
+    private void HandleStateChanged(EnemyState newStateObj)
     {
 
         switch (newStateObj)
         {
-            case State.Patrolling:
+            case EnemyState.Patrolling:
                 HideIcon();
                 break;
-            case State.Alert:
+            case EnemyState.Alert:
                 ShowIcon(alertColor);
                 break;
-            case State.Chasing:
+            case EnemyState.Chasing:
                 ShowIcon(chaseColor);
                 break;
         }

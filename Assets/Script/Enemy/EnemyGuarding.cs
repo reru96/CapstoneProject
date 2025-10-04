@@ -33,7 +33,7 @@ public class EnemyGuarding : EnemyPathController
 
         if (canSeePlayerNow)
         {
-            ChangeState(State.Chasing);
+            ChangeState(EnemyState.Chasing);
         }
     }
 
