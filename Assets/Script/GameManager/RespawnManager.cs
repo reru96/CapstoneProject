@@ -13,7 +13,7 @@ public class RespawnManager : Singleton<RespawnManager>
     public int MaxTry => maxTry;
 
     [Header("Respawn Settings")]
-    [SerializeField] private Transform puntoRespawn;
+    [SerializeField] private Transform respawnPoint;
     [SerializeField] private float respawnDelay = 2f;
 
     private GameObject player;
@@ -31,6 +31,8 @@ public class RespawnManager : Singleton<RespawnManager>
     {
         base.Awake();
         leftTry = maxTry;
+        FindRespawnPoint();
+
     }
 
     private void Start()
@@ -52,12 +54,21 @@ public class RespawnManager : Singleton<RespawnManager>
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        FindRespawnPoint();
         SpawnPlayer();
         FindPlayer();
         FindObjectOfType<UILives>()?.UpdateLives();
     }
 
-    
+    private void FindRespawnPoint()
+    {
+        GameObject rp = GameObject.FindGameObjectWithTag("RespawnPoint");
+        respawnPoint = rp != null ? rp.transform : null;
+        if (respawnPoint == null)
+            Debug.Log("RespawnManager: Nessun RespawnPoint trovato in questa scena.");
+    }
+
+
     public void SelectClass(int index)
     {
         if (index < 0 || index >= availableClasses.Length)
@@ -88,7 +99,7 @@ public class RespawnManager : Singleton<RespawnManager>
         if (player != null)
             Destroy(player);
 
-        player = Instantiate(playerPrefab, puntoRespawn.position, Quaternion.identity);
+        player = Instantiate(playerPrefab, respawnPoint.position + Vector3.up * 0.5f, Quaternion.identity);
 
         OnPlayerSpawned?.Invoke(Player);
     }
