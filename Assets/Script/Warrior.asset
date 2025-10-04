@@ -15,6 +15,10 @@ MonoBehaviour:
   nameClass: Warrior
   maxHP: 10
   maxMana: 10
+  maxStamina: 0
   strength: 10
   intelligence: 0
+  dexterity: 0
+  defense: 0
+  speed: 10
   prefab: {fileID: 5156660526780872327, guid: 965175182c90004459731f37915a2a13, type: 3}

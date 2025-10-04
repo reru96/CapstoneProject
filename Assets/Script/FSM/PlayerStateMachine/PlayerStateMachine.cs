@@ -6,6 +6,9 @@ using UnityEngine.AI;
 
 public class PlayerStateMachine : StateMachine
 {
+    public SOPlayerClass p_data;
+
+    public PlayerStats p_stats;
     public Animator animator {  get; set; }
     public Rigidbody rb { get; set; }
     public NavMeshAgent agent { get; set; }
@@ -18,6 +21,7 @@ public class PlayerStateMachine : StateMachine
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
         agent = GetComponent<NavMeshAgent>();
+        p_stats = GetComponent<PlayerStats>();
 
     }
 
