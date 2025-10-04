@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
 
 public class PlayerDodgeState : PlayerBaseState
@@ -10,6 +11,7 @@ public class PlayerDodgeState : PlayerBaseState
     public override void Enter()
     {
         player.animator.Play("Dodge");
+        player.isInvincible = true;
     }
 
     public override void Tick()
@@ -34,6 +36,8 @@ public class PlayerDodgeState : PlayerBaseState
 
         if (stateInfo.normalizedTime >= 1f) 
         {
+            player.isInvincible = false;
+
             if (input.sqrMagnitude > 0.01f)
             {
                 
@@ -45,6 +49,14 @@ public class PlayerDodgeState : PlayerBaseState
                 player.SwitchState(new PlayerIdleState(player));
             }
         }
+
+     
+    }
+
+    public override void Exit()
+    {
+        base.Exit();
+        player.isInvincible = false;
     }
 }
 
