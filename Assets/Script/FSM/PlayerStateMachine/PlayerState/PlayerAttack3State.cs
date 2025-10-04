@@ -17,7 +17,7 @@ public class PlayerAttack3State : PlayerBaseState
 
         if (input.sqrMagnitude > 0.01f)
         {
-            player.rb.velocity = input.normalized * player.agent.speed * 0.5f; 
+            player.rb.velocity = input.normalized * (player.agent.speed * 0.01f); 
             Quaternion targetRotation = Quaternion.LookRotation(input.normalized, Vector3.up);
             Vector3 euler = Quaternion.Slerp(player.rb.rotation, targetRotation, Time.deltaTime * player.rotationSpeed).eulerAngles;
             player.rb.MoveRotation(Quaternion.Euler(0, euler.y, 0));

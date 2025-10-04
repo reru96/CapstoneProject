@@ -8,6 +8,9 @@ public class SOWeapon : ScriptableObject
     public string nameWeapon;
     public Sprite icon;
     public GameObject prefab;
+    public AudioClip swingSound;
+    public float attackDuration;
+    public float hitDelay = 0.3f;
 
     [Header("Stats")]
    

@@ -8,6 +8,7 @@ public class PlayerAttack2State : PlayerBaseState
 
     public PlayerAttack2State(PlayerStateMachine player) : base(player) { }
 
+
     public override void Enter()
     {
         player.animator.Play("Attack2");
@@ -19,8 +20,8 @@ public class PlayerAttack2State : PlayerBaseState
         Vector3 input = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
 
         if (input.sqrMagnitude > 0.01f)
-        { 
-            player.rb.velocity = input.normalized * player.agent.speed * 0.5f;
+        {
+            player.rb.velocity = input.normalized * (player.agent.speed * 0.01f);
             Quaternion targetRotation = Quaternion.LookRotation(input.normalized, Vector3.up);
 
             Vector3 euler = Quaternion.Slerp(player.rb.rotation, targetRotation, Time.deltaTime * player.rotationSpeed).eulerAngles;
