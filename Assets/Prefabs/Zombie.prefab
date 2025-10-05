@@ -1386,8 +1386,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: -8679921383154817045}
-  - component: {fileID: 8765551705469220519}
-  - component: {fileID: 4629329904345558566}
   m_Layer: 7
   m_Name: Mremireh O Desbiens@Zombie Neck Bite
   m_TagString: Enemy
@@ -1411,42 +1409,8 @@ Transform:
   - {fileID: 5465940246521907071}
   - {fileID: -4799229518886428059}
   - {fileID: -9194433516816426548}
-  - {fileID: 8163998122362687416}
   m_Father: {fileID: 1309444074642732656}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8765551705469220519
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 919132149155446097}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 25975a015541ba84296d861713fc8da3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!95 &4629329904345558566
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 919132149155446097}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 86f044824e940c947a1a04727b5b8e97, type: 3}
-  m_Controller: {fileID: 9100000, guid: 4f7b6f40c1fbada4ba80d0cd1ac80687, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1082271958561512970
 GameObject:
   m_ObjectHideFlags: 0
@@ -1674,10 +1638,11 @@ GameObject:
   m_Component:
   - component: {fileID: 1309444074642732656}
   - component: {fileID: 7907758838941847697}
-  - component: {fileID: 7054794698188251867}
   - component: {fileID: 3166519595671490928}
   - component: {fileID: 2154837669193328430}
   - component: {fileID: 8301904204908734295}
+  - component: {fileID: 3384972753145021838}
+  - component: {fileID: 4135535478696431797}
   m_Layer: 7
   m_Name: Zombie
   m_TagString: Enemy
@@ -1727,48 +1692,6 @@ CapsuleCollider:
   m_Height: 1.3432122
   m_Direction: 1
   m_Center: {x: 0, y: 0.70860654, z: 0}
---- !u!114 &7054794698188251867
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1830648231862840522}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 020bdef1ee751e643887d640daf67b55, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targetPlayer: {fileID: 0}
-  agent: {fileID: 8301904204908734295}
-  eyes: {fileID: 4326369957768009737}
-  waypoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  waitTimeAtWaypoint: 1
-  patrollingSpeed: 1.5
-  chasingSpeed: 3.5
-  alertSpeed: 1.5
-  viewRadius: 12
-  viewAngle: 90
-  targetMask:
-    serializedVersion: 2
-    m_Bits: 8
-  obstructionMask:
-    serializedVersion: 2
-    m_Bits: 65
-  checkInterval: 0.1
-  alertDuration: 5
-  nearbyEnemyRadius: 10
-  stoppingDistance: 0.5
-  visionConeRenderer: {fileID: 3166519595671490928}
-  rayCount: 50
-  canSeePlayerNow: 0
-  lastSeenTime: -999
-  nextCheckTime: 0
-  alertTimer: 0
 --- !u!120 &3166519595671490928
 LineRenderer:
   serializedVersion: 2
@@ -1911,6 +1834,64 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &3384972753145021838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1830648231862840522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a2e32ba9b7e09443bdcc96a02499809, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetPlayer: {fileID: 0}
+  agent: {fileID: 8301904204908734295}
+  eyes: {fileID: 4326369957768009737}
+  anim: {fileID: 4135535478696431797}
+  waypoints: []
+  waitTimeAtWaypoint: 1
+  currentWaypoint: 0
+  patrollingSpeed: 1.5
+  chasingSpeed: 3.5
+  alertSpeed: 1.5
+  viewRadius: 12
+  viewAngle: 90
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 8
+  obstructionMask:
+    serializedVersion: 2
+    m_Bits: 64
+  checkInterval: 0.1
+  canSeePlayerNow: 0
+  nextCheckTime: 0
+  lastSeenPosition: {x: 0, y: 0, z: 0}
+  lastSeenTime: 0
+  alertDuration: 5
+  alertTimer: 1
+--- !u!95 &4135535478696431797
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1830648231862840522}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 86f044824e940c947a1a04727b5b8e97, type: 3}
+  m_Controller: {fileID: 9100000, guid: 4f7b6f40c1fbada4ba80d0cd1ac80687, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2158975759703390516
 GameObject:
   m_ObjectHideFlags: 0
@@ -1942,82 +1923,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 6341119541397085964}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &2223783070259232406
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8163998122362687416}
-  - component: {fileID: 7202409953589279703}
-  - component: {fileID: 437847553524083857}
-  - component: {fileID: 7584222371888301789}
-  m_Layer: 7
-  m_Name: TriggerGrab
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8163998122362687416
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2223783070259232406}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.3305414, z: 0.6849016}
-  m_LocalScale: {x: 0.6477994, y: 0.6477994, z: 1.1527591}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: -8679921383154817045}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &7202409953589279703
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2223783070259232406}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!135 &437847553524083857
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2223783070259232406}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &7584222371888301789
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2223783070259232406}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 629f32cfc2444a247a78788a1c2a82af, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hitbox: {fileID: 7955364840428442322}
 --- !u!1 &2334541885690575373
 GameObject:
   m_ObjectHideFlags: 0

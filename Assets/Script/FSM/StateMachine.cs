@@ -15,7 +15,7 @@ public class StateMachine: MonoBehaviour
     }
 
 
-    protected void Update()
+    protected virtual void Update()
     {
         currentState?.Tick();
     }
