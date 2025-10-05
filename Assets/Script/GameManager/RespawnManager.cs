@@ -66,6 +66,7 @@ public class RespawnManager : Singleton<RespawnManager>
         respawnPoint = rp != null ? rp.transform : null;
         if (respawnPoint == null)
             Debug.Log("RespawnManager: Nessun RespawnPoint trovato in questa scena.");
+        return;
     }
 
 
