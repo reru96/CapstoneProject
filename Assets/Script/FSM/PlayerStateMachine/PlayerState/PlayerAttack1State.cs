@@ -6,33 +6,23 @@ using UnityEngine;
 public class PlayerAttack1State : PlayerBaseState
 {
 
-    public event Action OnAttackStart;
-    public event Action OnAttackEnd;
-
     private WeaponCombat weapon;
     private bool bufferNextAttack;
-
+    public int number = 0;
     public PlayerAttack1State(PlayerStateMachine player) : base(player)
     {
-        weapon = player.weaponInstance; 
+        weapon = player.weaponInstance;
     }
 
     public override void Enter()
     {
         player.animator.Play("Attack1");
-
-        
-        OnAttackStart += weapon.HandleAttackStart;
-        OnAttackEnd += weapon.HandleAttackEnd;
-
         bufferNextAttack = false;
-
-        OnAttackStart?.Invoke();
+        weapon.HandleAttackStart(number); 
     }
 
     public override void Tick()
     {
-
         Vector3 input = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
 
         if (input.sqrMagnitude > 0.01f)
@@ -46,37 +36,30 @@ public class PlayerAttack1State : PlayerBaseState
             player.rb.velocity = Vector3.zero;
         }
 
-
         if (Input.GetKeyDown(InputManager.Instance.config.attack))
             bufferNextAttack = true;
 
         AnimatorStateInfo stateInfo = player.animator.GetCurrentAnimatorStateInfo(0);
 
-       
         if (stateInfo.normalizedTime >= 0.9f)
         {
-            OnAttackEnd?.Invoke(); 
+            weapon.HandleAttackEnd(); 
 
             if (bufferNextAttack)
-            {
                 player.SwitchState(new PlayerAttack2State(player));
-            }
             else
-            {
                 player.SwitchState(new PlayerIdleState(player));
-            }
         }
 
         if (Input.GetKeyDown(InputManager.Instance.config.dodge))
         {
-            OnAttackEnd?.Invoke();
+            weapon.HandleAttackEnd();
             player.SwitchState(new PlayerDodgeState(player));
         }
     }
 
     public override void Exit()
     {
-        OnAttackStart -= weapon.HandleAttackStart;
-        OnAttackEnd -= weapon.HandleAttackEnd;
+        weapon.HandleAttackEnd();
     }
 }

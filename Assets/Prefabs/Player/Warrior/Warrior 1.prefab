@@ -30,8 +30,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0.979, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 2484370156721102402}
+  m_Children: []
   m_Father: {fileID: 4593660047854779634}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5610059742488365586
@@ -92,8 +91,9 @@ GameObject:
   - component: {fileID: 7277221142035606824}
   - component: {fileID: 5639985677662380651}
   - component: {fileID: 4038690714759056641}
+  - component: {fileID: 8253045967515409049}
   m_Layer: 3
-  m_Name: Warrior
+  m_Name: Warrior 1
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -113,6 +113,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8982296555420383759}
+  - {fileID: 8690722256262182721}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &874390084344984956
@@ -326,13 +327,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   p_data: {fileID: 11400000, guid: e1c6311a5c7ec6f4fbe68d6766b8e65e, type: 2}
-  weapon: {fileID: 11400000, guid: 324df9305cf99a740af2e1953dabad09, type: 2}
+  weapon: {fileID: 11400000, guid: 1283744e46de9ba46886d310cda16ce0, type: 2}
   p_stats: {fileID: 4038690714759056641}
   rotationSpeed: 25
   isInvincible: 0
   weaponInstance: {fileID: 8901241370029514350, guid: 3866ae408f15737408f41340a6f78477,
     type: 3}
-  hand: {fileID: 4155414163691547015}
 --- !u!114 &4038690714759056641
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -346,29 +346,42 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseData: {fileID: 11400000, guid: e1c6311a5c7ec6f4fbe68d6766b8e65e, type: 2}
-  equippedWeapon: {fileID: 11400000, guid: 324df9305cf99a740af2e1953dabad09, type: 2}
---- !u!1001 &2733957669194578345
+  equippedWeapon: {fileID: 11400000, guid: 1283744e46de9ba46886d310cda16ce0, type: 2}
+--- !u!114 &8253045967515409049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5156660526780872327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f18d55b67610bc40b28721956a315ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: {fileID: 11400000, guid: 1283744e46de9ba46886d310cda16ce0, type: 2}
+--- !u!1001 &9156131015648596138
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 8982296555420383759}
+    m_TransformParent: {fileID: 4593660047854779634}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: e53e134b722213149821322a1e70c6b0,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.028
+      value: 0.034
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e53e134b722213149821322a1e70c6b0,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.017
+      value: -0.027
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e53e134b722213149821322a1e70c6b0,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.02
+      value: -0.043
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e53e134b722213149821322a1e70c6b0,
         type: 3}
@@ -410,31 +423,36 @@ PrefabInstance:
       propertyPath: m_Name
       value: Paladin WProp J Nordstrom
       objectReference: {fileID: 0}
-    - target: {fileID: 1051571768989249988, guid: e53e134b722213149821322a1e70c6b0,
+    - target: {fileID: 3099756089343826349, guid: e53e134b722213149821322a1e70c6b0,
         type: 3}
-      propertyPath: m_Name
-      value: WeaponPosition
-      objectReference: {fileID: 0}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: -2722042537685554176, guid: 3c53152bbb8c4514b946cbd4fdcb4efc,
+        type: 3}
+    - target: {fileID: 3099756089343826349, guid: e53e134b722213149821322a1e70c6b0,
+        type: 3}
+      propertyPath: m_RootBone
+      value: 
+      objectReference: {fileID: 2941470271133741102}
     - target: {fileID: 5866666021909216657, guid: e53e134b722213149821322a1e70c6b0,
         type: 3}
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 71dae9dae1f898943aa533be20d7404e, type: 2}
-    m_RemovedComponents:
-    - {fileID: 3099756089343826349, guid: e53e134b722213149821322a1e70c6b0, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e53e134b722213149821322a1e70c6b0, type: 3}
---- !u!4 &2484370156721102402 stripped
+--- !u!4 &2941470271133741102 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -2899422035419094908, guid: e53e134b722213149821322a1e70c6b0,
+    type: 3}
+  m_PrefabInstance: {fileID: 9156131015648596138}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &8690722256262182721 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: e53e134b722213149821322a1e70c6b0,
     type: 3}
-  m_PrefabInstance: {fileID: 2733957669194578345}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &4155414163691547015 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2042953256698253358, guid: e53e134b722213149821322a1e70c6b0,
-    type: 3}
-  m_PrefabInstance: {fileID: 2733957669194578345}
+  m_PrefabInstance: {fileID: 9156131015648596138}
   m_PrefabAsset: {fileID: 0}

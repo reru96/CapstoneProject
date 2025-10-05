@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class PlayerAttack3State : PlayerBaseState
 {
+    private WeaponCombat weapon;
     public PlayerAttack3State(PlayerStateMachine player) : base(player) { }
 
     public override void Enter()
     {
         player.animator.Play("Attack3");
+        weapon.HandleAttackStart(2);
     }
 
     public override void Tick()
@@ -32,13 +34,20 @@ public class PlayerAttack3State : PlayerBaseState
 
         if (stateInfo.normalizedTime >= 1f)
         {
+            weapon.HandleAttackEnd();
             player.SwitchState(new PlayerIdleState(player));
         }
 
         if (Input.GetKeyDown(InputManager.Instance.config.dodge))
         {
+            weapon.HandleAttackEnd();
             player.SwitchState(new PlayerDodgeState(player));
             return;
         }
+    }
+
+    public override void Exit()
+    {
+        weapon.HandleAttackEnd();
     }
 }

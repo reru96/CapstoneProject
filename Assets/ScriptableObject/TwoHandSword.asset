@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 16c40c636d807904cb0a4826fc7d6e00, type: 3}
-  m_Name: Sword
+  m_Name: TwoHandSword
   m_EditorClassIdentifier: 
-  nameWeapon: Sword
+  nameWeapon: TwoHand BloodSword
   icon: {fileID: 0}
-  prefab: {fileID: 3147715071939596310, guid: f97d146cb97de2b45aba15a2983fb85a, type: 3}
+  prefab: {fileID: 5156660526780872327, guid: b6f8a5d3f854fc943ba986603ce0ef36, type: 3}
   swingSound: {fileID: 0}
   attackDuration: 0
   hitDelay: 0.3
-  strengthBonus: 10
+  strengthBonus: 0
   intelligenceBonus: 0
   dexterityBonus: 0
   defenseBonus: 0

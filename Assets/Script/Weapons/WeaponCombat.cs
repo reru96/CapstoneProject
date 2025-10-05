@@ -5,63 +5,46 @@ using UnityEngine;
 
 public class WeaponCombat : MonoBehaviour
 {
+    [Header("Weapon Data")]
     public SOWeapon data;
-    private Collider hitbox;
-    private bool isAttacking;
     private PlayerStateMachine player;
+    private bool isAttacking;
 
-    private void Awake()
-    {
-        hitbox = GetComponent<Collider>();
-    }
-
+   
     public void Initialize(PlayerStateMachine owner)
     {
         player = owner;
-        hitbox = GetComponent<Collider>();
-        hitbox.enabled = false;
     }
 
-    public void HandleAttackStart()
+    public void HandleAttackStart(int number)
     {
         if (isAttacking) return;
-        StartCoroutine(AttackRoutine());
+        StartCoroutine(AttackRoutine(number));
     }
 
     public void HandleAttackEnd()
-    {
-        hitbox.enabled = false;
+    { 
         isAttacking = false;
     }
 
-    private IEnumerator AttackRoutine()
+    private IEnumerator AttackRoutine(int number)
     {
         isAttacking = true;
 
        
         yield return new WaitForSeconds(data.hitDelay);
 
-        hitbox.enabled = true;
+        GameObject attackObj = Instantiate(
+          data.attackType[number],
+          player.transform.position,
+          player.transform.rotation
+      );
 
         if (data.swingSound)
-            AudioSource.PlayClipAtPoint(data.swingSound, transform.position);
+            AudioSource.PlayClipAtPoint(data.swingSound, player.transform.position);
 
         yield return new WaitForSeconds(data.attackDuration);
 
-        hitbox.enabled = false;
         isAttacking = false;
     }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (!isAttacking) return;
-
-        if (other.CompareTag("Enemy"))
-        {
-            var health = other.GetComponent<LifeController>();
-            if (health != null)
-                health.AddHp((int)-data.strengthBonus);
-        }
-    }
-
 }

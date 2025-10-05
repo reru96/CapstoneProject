@@ -158,5 +158,28 @@ public class RespawnManager : Singleton<RespawnManager>
             ScreenFader.Instance.FadeIn();
         });
     }
+
+    public void SwitchPlayerPrefab(SOPlayerClass newClass)
+    {
+        if (newClass == null || newClass.prefab == null)
+        {
+            Debug.LogWarning("SwitchPlayerPrefab: classe o prefab non valida.");
+            return;
+        }
+
+        Vector3 lastPos = player != null ? player.transform.position : (respawnPoint?.position ?? Vector3.zero);
+        Quaternion lastRot = player != null ? player.transform.rotation : Quaternion.identity;
+
+      
+        if (player != null)
+            Destroy(player);
+
+        chosenClass = newClass;
+        playerPrefab = newClass.prefab;
+
+        player = Instantiate(playerPrefab, lastPos, lastRot);
+
+        OnPlayerSpawned?.Invoke(Player);
+    }
 }
 

@@ -4,7 +4,9 @@ using System.Collections.Generic;
 
 public class PlayerAttack2State : PlayerBaseState
 {
+    private WeaponCombat weapon;
     private bool bufferNextAttack = false;
+    public int number = 1;
 
     public PlayerAttack2State(PlayerStateMachine player) : base(player) { }
 
@@ -13,6 +15,7 @@ public class PlayerAttack2State : PlayerBaseState
     {
         player.animator.Play("Attack2");
         bufferNextAttack = false;
+        weapon.HandleAttackStart(number);
     }
 
     public override void Tick()
@@ -43,19 +46,27 @@ public class PlayerAttack2State : PlayerBaseState
 
         if (stateInfo.normalizedTime >= 0.7f && bufferNextAttack)
         {
+            weapon.HandleAttackEnd();
             player.SwitchState(new PlayerAttack3State(player));
             return;
         }
 
         if (stateInfo.normalizedTime >= 1f && !bufferNextAttack)
         {
+            weapon.HandleAttackEnd();
             player.SwitchState(new PlayerIdleState(player));
         }
 
         if (Input.GetKeyDown(InputManager.Instance.config.dodge))
         {
+            weapon.HandleAttackEnd();
             player.SwitchState(new PlayerDodgeState(player));
             return;
         }
+    }
+
+    public override void Exit()
+    {
+        weapon.HandleAttackEnd();
     }
 }

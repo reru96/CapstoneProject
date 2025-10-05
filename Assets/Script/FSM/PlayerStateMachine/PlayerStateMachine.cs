@@ -6,22 +6,19 @@ using UnityEngine.AI;
 
 public class PlayerStateMachine : StateMachine
 {
-    public SOPlayerClass p_data;
 
+    public SOPlayerClass p_data;
     public SOWeapon weapon;
 
     public PlayerStats p_stats;
-    public Animator animator {  get; set; }
-    public Rigidbody rb { get; set; }
-    public NavMeshAgent agent { get; set; }
+    public Animator animator { get; private set; }
+    public Rigidbody rb { get; private set; }
+    public NavMeshAgent agent { get; private set; }
 
     public float rotationSpeed = 25f;
-  
     public bool isInvincible = false;
 
-    public WeaponCombat weaponInstance;
-
-    public Transform hand;
+    [HideInInspector] public WeaponCombat weaponInstance;
 
     void Awake()
     {
@@ -29,28 +26,18 @@ public class PlayerStateMachine : StateMachine
         rb = GetComponent<Rigidbody>();
         agent = GetComponent<NavMeshAgent>();
         p_stats = GetComponent<PlayerStats>();
+        weaponInstance = GetComponentInChildren<WeaponCombat>();
 
+        if (weaponInstance != null)
+            weaponInstance.Initialize(this);
     }
-
-    public void EquipWeapon(SOWeapon weaponData)
-    {
-        var weaponObj = Instantiate(weaponData.prefab, hand);
-
-       
-        weaponObj.transform.localPosition = Vector3.zero;
-        weaponObj.transform.localRotation = Quaternion.identity;
-        weaponObj.transform.localScale = Vector3.one;
-        
-        weaponInstance.Initialize(this);
-
-    }
-
-    public WeaponCombat GetWeapon() => weaponInstance;
 
     private void Start()
     {
+        p_stats.EquipWeapon(weapon);
         SwitchState(new PlayerIdleState(this));
-        EquipWeapon(weapon);
     }
+
+    public WeaponCombat GetWeapon() => weaponInstance;
 
 }

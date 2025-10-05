@@ -3999,6 +3999,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: WeaponPosition
       objectReference: {fileID: 0}
+    - target: {fileID: 4155414163691547015, guid: 965175182c90004459731f37915a2a13,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.767
+      objectReference: {fileID: 0}
+    - target: {fileID: 4155414163691547015, guid: 965175182c90004459731f37915a2a13,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.416
+      objectReference: {fileID: 0}
+    - target: {fileID: 4155414163691547015, guid: 965175182c90004459731f37915a2a13,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 4593660047854779634, guid: 965175182c90004459731f37915a2a13,
         type: 3}
       propertyPath: m_LocalPosition.x

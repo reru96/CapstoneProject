@@ -25,7 +25,7 @@ public class PlayerMoveState : PlayerBaseState
             player.SwitchState(new PlayerIdleState(player));
 
         if (Input.GetKeyDown(InputManager.Instance.config.attack))
-            player.SwitchState(new PlayerAttack1State(player));
+            player.SwitchState(new PlayerAttackState(player, 0));
         if (Input.GetKeyDown(InputManager.Instance.config.dodge))
             player.SwitchState(new PlayerDodgeState(player));   
     }

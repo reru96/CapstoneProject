@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName =("RPG/Weapon"))]
+[CreateAssetMenu(menuName = ("RPG/Weapon"))]
 public class SOWeapon : ScriptableObject
 {
     public string nameWeapon;
     public Sprite icon;
     public GameObject prefab;
+    public GameObject[] attackType;
     public AudioClip swingSound;
     public float attackDuration;
     public float hitDelay = 0.3f;
