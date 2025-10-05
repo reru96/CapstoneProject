@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameWeapon: Sword
   icon: {fileID: 0}
-  prefab: {fileID: 7892640026181457855, guid: 3866ae408f15737408f41340a6f78477, type: 3}
+  prefab: {fileID: 3147715071939596310, guid: f97d146cb97de2b45aba15a2983fb85a, type: 3}
   swingSound: {fileID: 0}
   attackDuration: 0
   hitDelay: 0.3

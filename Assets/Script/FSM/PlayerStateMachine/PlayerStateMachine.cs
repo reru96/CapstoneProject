@@ -34,12 +34,15 @@ public class PlayerStateMachine : StateMachine
 
     public void EquipWeapon(SOWeapon weaponData)
     {
-        hand = p_data.prefab.transform.Find("mixamorig:RightHandMiddle4");
-        var weaponObj = Instantiate(weaponData.prefab,hand.position,hand.localRotation);
-        weaponObj.transform.SetParent(hand.transform,false);
-   
-        weaponInstance = weaponObj.GetComponent<WeaponCombat>();
+        var weaponObj = Instantiate(weaponData.prefab, hand);
+
+       
+        weaponObj.transform.localPosition = Vector3.zero;
+        weaponObj.transform.localRotation = Quaternion.identity;
+        weaponObj.transform.localScale = Vector3.one;
+        
         weaponInstance.Initialize(this);
+
     }
 
     public WeaponCombat GetWeapon() => weaponInstance;
