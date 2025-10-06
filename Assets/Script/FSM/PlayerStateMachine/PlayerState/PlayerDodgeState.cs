@@ -7,6 +7,7 @@ public class PlayerDodgeState : PlayerBaseState
 {
     public PlayerDodgeState(PlayerStateMachine player) : base(player)
     {
+
     }
     public override void Enter()
     {
@@ -40,12 +41,10 @@ public class PlayerDodgeState : PlayerBaseState
 
             if (input.sqrMagnitude > 0.01f)
             {
-                
                 player.SwitchState(new PlayerMoveState(player));
             }
             else
             {
-               
                 player.SwitchState(new PlayerIdleState(player));
             }
         }

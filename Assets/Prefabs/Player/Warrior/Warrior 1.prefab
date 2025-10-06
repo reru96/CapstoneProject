@@ -74,6 +74,89 @@ CapsuleCollider:
   m_Height: 1.7055002
   m_Direction: 1
   m_Center: {x: 0.001681298, y: -0.14724988, z: 0}
+--- !u!1 &1964026903286179683
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5780376280232314780}
+  - component: {fileID: 8430803126829272826}
+  - component: {fileID: 1868297389582801301}
+  m_Layer: 0
+  m_Name: BloodSword_Mesh
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5780376280232314780
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1964026903286179683}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.51701933, y: -0.49836537, z: -0.482977, w: 0.50105506}
+  m_LocalPosition: {x: 0.865, y: 1.434, z: 0.728}
+  m_LocalScale: {x: 0.36813655, y: 0.36813653, z: 0.36813655}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7154842723106799748}
+  m_LocalEulerAnglesHint: {x: 2.104, y: -91.798, z: -90.066}
+--- !u!33 &8430803126829272826
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1964026903286179683}
+  m_Mesh: {fileID: -2722042537685554176, guid: 3c53152bbb8c4514b946cbd4fdcb4efc, type: 3}
+--- !u!23 &1868297389582801301
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1964026903286179683}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 6281960a63c1eee4c8e547cc1a89b9d8, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &5156660526780872327
 GameObject:
   m_ObjectHideFlags: 0
@@ -423,6 +506,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Paladin WProp J Nordstrom
       objectReference: {fileID: 0}
+    - target: {fileID: 2042953256698253358, guid: e53e134b722213149821322a1e70c6b0,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.06
+      objectReference: {fileID: 0}
     - target: {fileID: 3099756089343826349, guid: e53e134b722213149821322a1e70c6b0,
         type: 3}
       propertyPath: m_Mesh
@@ -434,19 +522,44 @@ PrefabInstance:
       propertyPath: m_RootBone
       value: 
       objectReference: {fileID: 2941470271133741102}
+    - target: {fileID: 3099756089343826349, guid: e53e134b722213149821322a1e70c6b0,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3099756089343826349, guid: e53e134b722213149821322a1e70c6b0,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 092d1401f18e7834c9fa3373f8e15f11, type: 2}
     - target: {fileID: 5866666021909216657, guid: e53e134b722213149821322a1e70c6b0,
         type: 3}
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 71dae9dae1f898943aa533be20d7404e, type: 2}
+    - target: {fileID: 8670697777106522171, guid: e53e134b722213149821322a1e70c6b0,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 2042953256698253358, guid: e53e134b722213149821322a1e70c6b0,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5780376280232314780}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e53e134b722213149821322a1e70c6b0, type: 3}
 --- !u!4 &2941470271133741102 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -2899422035419094908, guid: e53e134b722213149821322a1e70c6b0,
+    type: 3}
+  m_PrefabInstance: {fileID: 9156131015648596138}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &7154842723106799748 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2042953256698253358, guid: e53e134b722213149821322a1e70c6b0,
     type: 3}
   m_PrefabInstance: {fileID: 9156131015648596138}
   m_PrefabAsset: {fileID: 0}
