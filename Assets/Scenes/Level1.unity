@@ -2544,6 +2544,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Zombie Guarding (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5928609197843745869, guid: b4172e8c4efe31243898d8efa323cfec,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6972849899262829077, guid: b4172e8c4efe31243898d8efa323cfec,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3838,6 +3843,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Zombie Guarding (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5928609197843745869, guid: b4172e8c4efe31243898d8efa323cfec,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6972849899262829077, guid: b4172e8c4efe31243898d8efa323cfec,
         type: 3}
@@ -75318,6 +75328,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Zombie Guarding
+      objectReference: {fileID: 0}
+    - target: {fileID: 5928609197843745869, guid: b4172e8c4efe31243898d8efa323cfec,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6972849899262829077, guid: b4172e8c4efe31243898d8efa323cfec,
         type: 3}
