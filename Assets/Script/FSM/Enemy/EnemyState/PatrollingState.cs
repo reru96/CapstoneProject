@@ -10,7 +10,7 @@ public class PatrollingState : EnemyBaseState
     {
         enemy.anim.Play("Walk");
         enemy.agent.speed = enemy.patrollingSpeed;
-        enemy.GoToNextWaypoint();
+        enemy.GoToNewDynamicGoal();
     }
 
     public override void Tick()
@@ -21,9 +21,9 @@ public class PatrollingState : EnemyBaseState
             return;
         }
 
-        if (!enemy.agent.pathPending && enemy.agent.remainingDistance <= enemy.agent.stoppingDistance)
+        if (!enemy.agent.pathPending && enemy.agent.remainingDistance <= enemy.agent.stoppingDistance + 0.2f)
         {
-            enemy.SwitchState(new WaitingState(enemy, enemy.waitTimeAtWaypoint));
+            enemy.SwitchState(new WaitingState(enemy, enemy.waitTimeAtGoal));
         }
     }
 

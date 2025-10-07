@@ -1643,6 +1643,7 @@ GameObject:
   - component: {fileID: 8301904204908734295}
   - component: {fileID: 3384972753145021838}
   - component: {fileID: 4135535478696431797}
+  - component: {fileID: 5837224802786794311}
   m_Layer: 7
   m_Name: Zombie
   m_TagString: Enemy
@@ -1850,9 +1851,9 @@ MonoBehaviour:
   agent: {fileID: 8301904204908734295}
   eyes: {fileID: 4326369957768009737}
   anim: {fileID: 4135535478696431797}
-  waypoints: []
-  waitTimeAtWaypoint: 1
-  currentWaypoint: 0
+  hitEffectPrefab: {fileID: 0}
+  patrolRadius: 10
+  waitTimeAtGoal: 2
   patrollingSpeed: 1.5
   chasingSpeed: 3.5
   alertSpeed: 1.5
@@ -1892,6 +1893,22 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &5837224802786794311
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1830648231862840522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62db3828c36e7cd419c281eaff80dd86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHp: 10
+  currentHp: 0
+  fullHpOnAwake: 1
+  death: 2
 --- !u!1 &2158975759703390516
 GameObject:
   m_ObjectHideFlags: 0

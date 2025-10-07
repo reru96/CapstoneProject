@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,6 +11,8 @@ public class AlertState : EnemyBaseState
         enemy.anim.Play("Walk");
         enemy.agent.speed = enemy.alertSpeed;
         enemy.agent.stoppingDistance = 0f;
+        if (enemy.lastSeenPosition != Vector3.zero)
+            enemy.agent.SetDestination(enemy.lastSeenPosition);
     }
 
     public override void Tick()
@@ -22,19 +24,22 @@ public class AlertState : EnemyBaseState
             return;
         }
 
-        if (!enemy.agent.hasPath)
-            enemy.agent.SetDestination(enemy.lastSeenPosition);
+        if (enemy.agent.pathPending) return;
 
         if (!enemy.agent.pathPending && enemy.agent.remainingDistance <= enemy.agent.stoppingDistance + 0.2f)
         {
             enemy.alertTimer -= Time.deltaTime;
+
             if (enemy.alertTimer <= 0f)
             {
                 enemy.SwitchState(new PatrollingState(enemy));
-                enemy.GoToNextWaypoint();
+                enemy.GoToNewDynamicGoal();
             }
         }
     }
 
-    public override void Exit() { }
+    public override void Exit()
+    {
+
+    }
 }

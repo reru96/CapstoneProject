@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameWeapon: TwoHand BloodSword
   icon: {fileID: 0}
-  prefab: {fileID: 5156660526780872327, guid: b6f8a5d3f854fc943ba986603ce0ef36, type: 3}
+  prefab: {fileID: 7024603005149325442, guid: 7d5f6d80a8da7484ebcbc0b453b38510, type: 3}
+  attackType:
+  - {fileID: 6458175825485281708, guid: d71c4d271a1ec6d4b960f31c129e8292, type: 3}
   swingSound: {fileID: 0}
   attackDuration: 0
   hitDelay: 0.3

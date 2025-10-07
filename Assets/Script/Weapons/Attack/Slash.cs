@@ -37,11 +37,13 @@ public class Slash : MonoBehaviour
   
     private void OnTriggerEnter(Collider other)
     {
-       
+        EnemyStateMachine enemy = other.GetComponent<EnemyStateMachine>();
         if (other.CompareTag("Enemy"))
         {
+            enemy.OnHit(transform.position);    
             var life = other.GetComponent<LifeController>();
             life.AddHp(-1);
+            Debug.Log("è stato Colpito");
         }
     }
 }

@@ -6,6 +6,8 @@ public class StateMachine: MonoBehaviour
 {
     private State currentState;
 
+    public State CurrentState => currentState;
+
     public void SwitchState(State state)
     {
         currentState?.Exit();

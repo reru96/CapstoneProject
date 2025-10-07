@@ -20,10 +20,8 @@ public class WaitingState : EnemyBaseState
 
     public override void Tick()
     {
-       
         if (enemy.canSeePlayerNow)
         {
-            
             enemy.StopCoroutine(enemy.waitCoroutine);
             enemy.agent.isStopped = false;
             enemy.SwitchState(new ChasingState(enemy));
@@ -43,7 +41,7 @@ public class WaitingState : EnemyBaseState
     private IEnumerator WaitCoroutine()
     {
         yield return new WaitForSeconds(waitTime);
-        enemy.GoToNextWaypoint();
+        enemy.GoToNewDynamicGoal();
         enemy.SwitchState(new PatrollingState(enemy));
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.ProBuilder.Shapes;
@@ -11,11 +12,11 @@ public class EnemyStateMachine : StateMachine
     public NavMeshAgent agent;
     public Transform eyes;
     public Animator anim;
+    public ParticleSystem hitEffectPrefab;
 
     [Header("Patrolling")]
-    public Transform[] waypoints;
-    public float waitTimeAtWaypoint = 1f;
-    public int currentWaypoint = 0;
+    public float patrolRadius = 10f;
+    public float waitTimeAtGoal = 2f;
     public Coroutine waitCoroutine;
 
     [Header("Velocità")]
@@ -49,11 +50,11 @@ public class EnemyStateMachine : StateMachine
     {
         SwitchState(new PatrollingState(this));
     }
+
     protected override void Update()
     {
         base.Update();
 
-        
         if (Time.time >= nextCheckTime)
         {
             nextCheckTime = Time.time + checkInterval;
@@ -87,20 +88,43 @@ public class EnemyStateMachine : StateMachine
         return true;
     }
 
-    public void GoToNextWaypoint()
+   
+    public Vector3 GetRandomPatrolPoint()
     {
-        if (waypoints.Length == 0) return;
+        Vector3 randomDirection = Random.insideUnitSphere * patrolRadius;
+        randomDirection += transform.position;
 
+        if (NavMesh.SamplePosition(randomDirection, out NavMeshHit hit, patrolRadius, NavMesh.AllAreas))
+            return hit.position;
+
+        return transform.position;
+    }
+
+    public void GoToNewDynamicGoal()
+    {
+        Vector3 newGoal = GetRandomPatrolPoint();
         agent.speed = patrollingSpeed;
         agent.stoppingDistance = 0f;
-        agent.SetDestination(waypoints[currentWaypoint].position);
-        currentWaypoint = (currentWaypoint + 1) % waypoints.Length;
+        agent.isStopped = false;
+        agent.SetDestination(newGoal);
     }
 
-    public IEnumerator WaitAndGoToNext()
+    public IEnumerator WaitAndPatrolAgain()
     {
-        yield return new WaitForSeconds(waitTimeAtWaypoint);
-        GoToNextWaypoint();
+        yield return new WaitForSeconds(waitTimeAtGoal);
+        GoToNewDynamicGoal();
         waitCoroutine = null;
     }
+
+    public void OnHit(Vector3 hitPosition)
+    {
+       
+        if (!(CurrentState is HitState))
+        {
+        
+            lastSeenPosition = hitPosition;
+            SwitchState(new HitState(this));
+        }
+    }
+
 }
