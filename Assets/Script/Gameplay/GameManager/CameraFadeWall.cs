@@ -16,15 +16,14 @@ public class CameraFadeWall : MonoBehaviour
     private Dictionary<Renderer, Color> originalColors = new Dictionary<Renderer, Color>();
     private Transform playerTransform;
 
-    private RespawnManager respawnManager;
+    
 
-    private void Awake()
+    private void Start()
     {
         if (virtualCamera == null)
             virtualCamera = GetComponent<CinemachineVirtualCamera>();
 
-       
-        respawnManager = Container.Resolver?.Resolve<RespawnManager>();
+       var respawnManager = Container.Resolver.Resolve<RespawnManager>();
         if (respawnManager != null)
             respawnManager.OnPlayerSpawned += TrySetPlayer;
         else
@@ -33,6 +32,7 @@ public class CameraFadeWall : MonoBehaviour
 
     private void OnDestroy()
     {
+        var respawnManager = Container.Resolver.Resolve<RespawnManager>();
         if (respawnManager != null)
             respawnManager.OnPlayerSpawned -= TrySetPlayer;
     }

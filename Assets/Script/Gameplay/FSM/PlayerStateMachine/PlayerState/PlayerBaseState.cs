@@ -6,7 +6,6 @@ public class PlayerBaseState : State
 {
     protected PlayerStateMachine player;
 
-    public InputManager inputManager = Container.Resolver.Resolve<InputManager>();
     public PlayerBaseState(PlayerStateMachine player)
     {
         this.player = player;

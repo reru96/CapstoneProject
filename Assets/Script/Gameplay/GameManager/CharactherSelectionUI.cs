@@ -15,7 +15,6 @@ public class CharactherSelectionUI : MonoBehaviour
     [Header("Scena di gioco")]
     [SerializeField] private string gameSceneName = "Level1";
 
-    public RespawnManager RespawnManager = Container.Resolver.Resolve<RespawnManager>();
 
     private void Start()
     {
@@ -40,6 +39,7 @@ public class CharactherSelectionUI : MonoBehaviour
 
     private void SelectCharacter(int index)
     {
+        var respawnManager = Container.Resolver.Resolve<RespawnManager>();
         Debug.Log("Bottone premuto: " + index);
 
         if (index < 0 || index >= playerPrefabs.Length)
@@ -55,9 +55,9 @@ public class CharactherSelectionUI : MonoBehaviour
         }
 
        
-        if (RespawnManager != null)
+        if (respawnManager != null)
         {
-            RespawnManager.SetPlayerPrefab(playerPrefabs[index]);
+            respawnManager.SetPlayerPrefab(playerPrefabs[index]);
             Debug.Log("Prefab impostato correttamente nel RespawnManager.");
         }
         else

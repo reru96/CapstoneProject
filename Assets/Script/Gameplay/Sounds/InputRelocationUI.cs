@@ -9,7 +9,6 @@ public class InputRelocationUI : MonoBehaviour
 {
     public GameObject buttonPrefab;
     public Transform container;
-    public InputManager inputManager = Container.Resolver.Resolve<InputManager>();
   
 
     void Start()
@@ -20,6 +19,7 @@ public class InputRelocationUI : MonoBehaviour
 
     private void BuildUI()
     {
+        var inputManager = Container.Resolver.Resolve<InputManager>();
         foreach (Transform child in container) Destroy(child.gameObject);
 
       
@@ -45,6 +45,7 @@ public class InputRelocationUI : MonoBehaviour
 
     private IEnumerator WaitForKey(string actionName, TMP_Text label)
     {
+        var inputManager = Container.Resolver.Resolve<InputManager>();
         label.text = $"{actionName}: Premi un tasto...";
 
         bool keySet = false;

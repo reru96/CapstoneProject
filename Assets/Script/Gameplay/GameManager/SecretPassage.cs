@@ -22,11 +22,10 @@ public class SecretPassage : MonoBehaviour
 
     private Transform player;
     private bool inRange;
-    private RespawnManager respawnManager;
 
-    private void Awake()
+    private void Start()
     {
-        respawnManager = Container.Resolver?.Resolve<RespawnManager>();
+        var respawnManager = Container.Resolver.Resolve<RespawnManager>();
         if (respawnManager != null)
         {
             respawnManager.OnPlayerSpawned += SetPlayer;
@@ -38,6 +37,7 @@ public class SecretPassage : MonoBehaviour
 
     private void OnDestroy()
     {
+        var respawnManager = Container.Resolver.Resolve<RespawnManager>();
         if (respawnManager != null)
             respawnManager.OnPlayerSpawned -= SetPlayer;
     }

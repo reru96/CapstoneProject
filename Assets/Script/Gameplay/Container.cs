@@ -6,6 +6,10 @@ using UnityEngine;
 public class Container : MonoBehaviour
 {
     public static ObjectResolver Resolver { get; private set; }
+    [SerializeField] private GameManager gameManager;
+    [SerializeField] private RespawnManager respawnManager;
+    [SerializeField] private InputManager inputManager;
+    [SerializeField] private AudioManager audioManager;
 
     [Header("Debug")]
     [SerializeField] private bool logInitialization = false;
@@ -29,6 +33,10 @@ public class Container : MonoBehaviour
         {
             Resolver.RegisterInstance(CoreSystem.Resolver);
         }
+        if (gameManager != null) Resolver.RegisterInstance(gameManager);
+        if (respawnManager != null) Resolver.RegisterInstance(respawnManager);
+        if (inputManager != null) Resolver.RegisterInstance(inputManager);
+        if (audioManager != null) Resolver.RegisterInstance(audioManager);
 
         if (logInitialization)
             Debug.Log("Container di Gameplay inizializzato.");
