@@ -34,7 +34,7 @@ public class PlayerStats : MonoBehaviour
 
     public void RecalculateStats()
     {
-        Strenght = baseData.strength;
+        Strenght = baseData.strenght;
         Intelligence = baseData.intelligence;
         Dexterity = baseData.dexterity;
         Defense = baseData.defense;

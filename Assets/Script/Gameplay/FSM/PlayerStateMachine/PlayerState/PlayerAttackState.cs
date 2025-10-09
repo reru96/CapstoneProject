@@ -72,7 +72,7 @@ public class PlayerAttackState : PlayerBaseState
 
     private void HandleInput()
     {
-        var inputManager = Container.Resolver.Resolve<InputManager>();
+        var inputManager = CoreSystem.Instance.Container.Resolve<InputManager>();
         if (Input.GetKeyDown(inputManager.Config.attack))
             bufferNextAttack = true;
 

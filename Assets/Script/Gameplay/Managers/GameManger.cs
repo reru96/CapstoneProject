@@ -1,45 +1,27 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-[DefaultExecutionOrder(-50)] 
 public class GameManager : MonoBehaviour
 {
     public static GameState CurrentState { get; private set; } = GameState.None;
 
-   
     public static event Action<GameState> OnGameStateChanged;
     public static event Action OnGameStarted;
     public static event Action OnGamePaused;
     public static event Action OnGameResumed;
     public static event Action OnGameOver;
 
-    private InputManager inputManager;
-
     private void Awake()
     {
-        
-        if (Container.Resolver != null)
-            Container.Resolver.RegisterInstance(this);
-        else
-            Debug.LogWarning("[GameManager] Container.Resolver non trovato. Assicurati che il Container sia inizializzato prima.");
+        CoreSystem.Instance.Container.Register<GameManager>(this);
+        CoreSystem.Instance.Resolver.Resolve(this);
+        OnInjected(CoreSystem.Instance.Resolver);
+    }
 
-        inputManager = Container.Resolver?.Resolve<InputManager>();
-
+    protected void OnInjected(ObjectResolver resolver)
+    {
         ChangeState(GameState.Loading);
-    }
-
-    private void Start()
-    {
-        
         Invoke(nameof(StartGame), 0.5f);
-    }
-
-    private void OnDestroy()
-    {
-        if (Container.Resolver != null)
-            Container.Resolver.UnregisterInstance<GameManager>();
     }
 
     private void StartGame()
@@ -50,8 +32,7 @@ public class GameManager : MonoBehaviour
 
     public void ChangeState(GameState newState)
     {
-        if (newState == CurrentState)
-            return;
+        if (newState == CurrentState) return;
 
         GameState oldState = CurrentState;
         CurrentState = newState;
@@ -96,6 +77,4 @@ public class GameManager : MonoBehaviour
         Application.Quit();
 #endif
     }
-
 }
-

@@ -1,32 +1,15 @@
-using System.ComponentModel;
 using UnityEngine;
 
 public class InputManager : MonoBehaviour
 {
     [Header("Configurazione input")]
     [SerializeField] private MyInput config;
-
     public MyInput Config => config;
 
     private void Awake()
     {
-    
-        if (Container.Resolver == null)
-        {
-            Debug.LogWarning("[InputManager] Container.Resolver non trovato");
-            return;
-        }
-
-        Container.Resolver.RegisterInstance(this);
-        LoadConfig();
+        CoreSystem.Instance.Container.Register<InputManager>(this);
     }
-
-    private void OnDestroy()
-    {
-        if (Container.Resolver != null)
-            Container.Resolver.UnregisterInstance<InputManager>();
-    }
-
     public void SetKey(string action, KeyCode newKey)
     {
         switch (action)
@@ -42,14 +25,13 @@ public class InputManager : MonoBehaviour
                 Debug.LogWarning($"[InputManager] Azione '{action}' non riconosciuta.");
                 break;
         }
-
         SaveConfig();
     }
 
     private void SaveConfig()
     {
         PlayerPrefs.SetString("MyInput", JsonUtility.ToJson(config));
-        PlayerPrefs.Save(); 
+        PlayerPrefs.Save();
     }
 
     private void LoadConfig()

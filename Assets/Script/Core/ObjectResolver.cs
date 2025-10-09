@@ -1,40 +1,40 @@
 using System;
-using System.Collections.Generic;
-using UnityEngine;
-
+using System.Reflection;
 
 public class ObjectResolver
 {
+    private readonly DIContainer _container;
+
+    public ObjectResolver(DIContainer container)
+    {
+        _container = container;
+    }
+
+    public void Resolve(object target)
+    {
   
-    private readonly Dictionary<Type, object> _instancePerTypeMap = new Dictionary<Type, object>();
+        var type = target.GetType();
+        var members = type.GetMembers(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
 
-    public void RegisterInstance<T>(T instance)
-    {
-        var type = typeof(T);
-        _instancePerTypeMap[type] = instance ?? throw new ArgumentNullException(nameof(instance));
-    }
-
-    public void UnregisterInstance<T>()
-    {
-        var type = typeof(T);
-        _instancePerTypeMap.Remove(type);
-    }
-
-
-    public T Resolve<T>()
-    {
-        var type = typeof(T);
-        if (_instancePerTypeMap.TryGetValue(type, out var instance))
+        foreach (var member in members)
         {
-            return (T)instance;
+            var injectAttr = member.GetCustomAttribute<InjectAttribute>();
+            if (injectAttr == null) continue;
+
+            var memberType = member is FieldInfo f ? f.FieldType :
+                             member is PropertyInfo p ? p.PropertyType : null;
+
+            if (memberType == null) continue;
+
+            var dependency = _container.Resolve(memberType);
+            if (member is FieldInfo field)
+                field.SetValue(target, dependency);
+            else if (member is PropertyInfo prop)
+                prop.SetValue(target, dependency);
         }
 
-        Debug.LogError($"Non ho potuto risolvere il tipo {type}");
-        return default;
-    }
-
-    public bool IsRegistered<T>()
-    {
-        return _instancePerTypeMap.ContainsKey(typeof(T));
+     
+        if (target is IInject injectable)
+            injectable.InjectDependencies();
     }
 }

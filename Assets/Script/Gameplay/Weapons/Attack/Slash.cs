@@ -7,6 +7,7 @@ public class Slash : MonoBehaviour
     public float distance = 1f;     
     public float duration = 0.2f;   
     public float destroyDelay = 0.1f;
+    public float repulseForce = 0.2f;
 
     private Vector3 startPos;
     private Vector3 endPos;
@@ -40,7 +41,8 @@ public class Slash : MonoBehaviour
         EnemyStateMachine enemy = other.GetComponent<EnemyStateMachine>();
         if (other.CompareTag("Enemy"))
         {
-            enemy.OnHit(transform.position);    
+            enemy.OnHit(transform.position);
+            enemy.transform.position += transform.forward * repulseForce;
             var life = other.GetComponent<LifeController>();
             life.AddHp(-1);
             Debug.Log("è stato Colpito");

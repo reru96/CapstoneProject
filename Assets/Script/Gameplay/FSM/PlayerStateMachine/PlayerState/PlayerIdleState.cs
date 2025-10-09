@@ -19,7 +19,7 @@ public class PlayerIdleState : PlayerBaseState
 
     public override void Tick()
     {
-        var inputManager = Container.Resolver.Resolve<InputManager>();
+        var inputManager = CoreSystem.Instance.Container.Resolve<InputManager>();
 
         Vector3 input = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
 

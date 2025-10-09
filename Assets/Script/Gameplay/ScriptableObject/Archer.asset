@@ -12,13 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3e95707374c40547b01a5ed3757ef64, type: 3}
   m_Name: Archer
   m_EditorClassIdentifier: 
-  nameClass: 
-  maxHP: 0
-  maxMana: 0
-  maxStamina: 0
-  strength: 0
-  intelligence: 0
-  dexterity: 0
-  defense: 0
-  speed: 0
-  prefab: {fileID: 0}
+  className: Archer
+  description: 
+  previewImage: {fileID: 0}
+  classColor: {r: 1, g: 1, b: 1, a: 1}
+  prefab: {fileID: 4283383439619140376, guid: 84bce7eeff0fa6c469378259af883f7c, type: 3}
+  requiredLevel: 1
+  health: 100
+  mana: 100
+  stamina: 100
+  speed: 100
+  damage: 10
+  defense: 100
+  strenght: 10
+  intelligence: 100
+  dexterity: 100
+  abilityNames: []
+  abilityIcons: []

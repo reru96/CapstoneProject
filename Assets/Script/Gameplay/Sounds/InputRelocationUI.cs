@@ -9,20 +9,27 @@ public class InputRelocationUI : MonoBehaviour
 {
     public GameObject buttonPrefab;
     public Transform container;
-  
 
-    void Start()
+    private InputManager inputManager;
+
+    private IEnumerator Start()
     {
+        inputManager = CoreSystem.Instance.Container.Resolve<InputManager>();
+
+        if (inputManager == null)
+        {
+            Debug.LogError("[InputRelocationUI] Impossibile trovare InputManager!");
+            yield break;
+        }
+
         BuildUI();
-        
     }
 
     private void BuildUI()
     {
-        var inputManager = Container.Resolver.Resolve<InputManager>();
-        foreach (Transform child in container) Destroy(child.gameObject);
+        foreach (Transform child in container)
+            Destroy(child.gameObject);
 
-      
         var fields = typeof(MyInput).GetFields();
 
         foreach (var field in fields)
@@ -45,7 +52,6 @@ public class InputRelocationUI : MonoBehaviour
 
     private IEnumerator WaitForKey(string actionName, TMP_Text label)
     {
-        var inputManager = Container.Resolver.Resolve<InputManager>();
         label.text = $"{actionName}: Premi un tasto...";
 
         bool keySet = false;

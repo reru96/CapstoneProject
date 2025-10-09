@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16c40c636d807904cb0a4826fc7d6e00, type: 3}
   m_Name: Arrow
   m_EditorClassIdentifier: 
-  nameWeapon: 
+  nameWeapon: Wood Bow
   icon: {fileID: 0}
-  prefab: {fileID: 0}
+  prefab: {fileID: 4283383439619140376, guid: 84bce7eeff0fa6c469378259af883f7c, type: 3}
   attackType:
   - {fileID: 0}
   - {fileID: 0}

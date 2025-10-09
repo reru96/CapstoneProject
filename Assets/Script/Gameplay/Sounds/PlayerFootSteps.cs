@@ -43,7 +43,7 @@ public class PlayerFootSteps : MonoBehaviour
         if (footstepKeys.Length == 0) return;
 
         string key = footstepKeys[Random.Range(0, footstepKeys.Length)];
-        var audioManager = Container.Resolver.Resolve<AudioManager>();  
+        var audioManager = CoreSystem.Instance.Container.Resolve<AudioManager>();  
         audioManager.PlaySfx(key, volume);
     }
 }

@@ -16,14 +16,12 @@ public class CameraFadeWall : MonoBehaviour
     private Dictionary<Renderer, Color> originalColors = new Dictionary<Renderer, Color>();
     private Transform playerTransform;
 
-    
-
     private void Start()
     {
         if (virtualCamera == null)
             virtualCamera = GetComponent<CinemachineVirtualCamera>();
 
-       var respawnManager = Container.Resolver.Resolve<RespawnManager>();
+       var respawnManager = CoreSystem.Instance.Container?.Resolve<PlayerSpawnManager>();
         if (respawnManager != null)
             respawnManager.OnPlayerSpawned += TrySetPlayer;
         else
@@ -32,48 +30,48 @@ public class CameraFadeWall : MonoBehaviour
 
     private void OnDestroy()
     {
-        var respawnManager = Container.Resolver.Resolve<RespawnManager>();
+        var respawnManager = CoreSystem.Instance.Container.Resolve<PlayerSpawnManager>();
         if (respawnManager != null)
             respawnManager.OnPlayerSpawned -= TrySetPlayer;
     }
 
-    private void Update()
-    {
-        if (playerTransform == null) return;
+    //private void Update()
+    //{
+    //    if (playerTransform == null) return;
 
       
-        foreach (var rend in fadedWalls)
-        {
-            if (rend != null && originalColors.ContainsKey(rend))
-            {
-                Color c = rend.material.color;
-                c.a = Mathf.Lerp(c.a, originalColors[rend].a, Time.deltaTime * fadeSpeed);
-                rend.material.color = c;
-            }
-        }
-        fadedWalls.Clear();
+    //    foreach (var rend in fadedWalls)
+    //    {
+    //        if (rend != null && originalColors.ContainsKey(rend))
+    //        {
+    //            Color c = rend.material.color;
+    //            c.a = Mathf.Lerp(c.a, originalColors[rend].a, Time.deltaTime * fadeSpeed);
+    //            rend.material.color = c;
+    //        }
+    //    }
+    //    fadedWalls.Clear();
 
       
-        Vector3 dir = playerTransform.position - transform.position;
-        Ray ray = new Ray(transform.position, dir);
-        RaycastHit[] hits = Physics.RaycastAll(ray, dir.magnitude, wallMask);
+    //    Vector3 dir = playerTransform.position - transform.position;
+    //    Ray ray = new Ray(transform.position, dir);
+    //    RaycastHit[] hits = Physics.RaycastAll(ray, dir.magnitude, wallMask);
 
-        foreach (var hit in hits)
-        {
-            Renderer rend = hit.collider.GetComponent<Renderer>();
-            if (rend != null)
-            {
-                if (!originalColors.ContainsKey(rend))
-                    originalColors[rend] = rend.material.color;
+    //    foreach (var hit in hits)
+    //    {
+    //        Renderer rend = hit.collider.GetComponent<Renderer>();
+    //        if (rend != null)
+    //        {
+    //            if (!originalColors.ContainsKey(rend))
+    //                originalColors[rend] = rend.material.color;
 
-                Color c = rend.material.color;
-                c.a = Mathf.Lerp(c.a, transparentAlpha, Time.deltaTime * fadeSpeed);
-                rend.material.color = c;
+    //            Color c = rend.material.color;
+    //            c.a = Mathf.Lerp(c.a, transparentAlpha, Time.deltaTime * fadeSpeed);
+    //            rend.material.color = c;
 
-                fadedWalls.Add(rend);
-            }
-        }
-    }
+    //            fadedWalls.Add(rend);
+    //        }
+    //    }
+    //}
 
     public void TrySetPlayer(GameObject player)
     {

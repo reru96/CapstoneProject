@@ -17,7 +17,7 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 90c2c78951ad8cf45b591422ed0bfa70, type: 3}
   - key: Level1Music
     clip: {fileID: 8300000, guid: ce9706b89a6ab2f498423fd2fa61059c, type: 3}
-  - key: torch_fire
+  - key: Torch
     clip: {fileID: 8300000, guid: 083212aceb2207446963464b42003339, type: 3}
   - key: foot_1
     clip: {fileID: 8300000, guid: a51119b5901b09a4c870fd9d89ada179, type: 3}

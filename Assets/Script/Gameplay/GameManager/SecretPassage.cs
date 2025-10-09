@@ -7,44 +7,50 @@ using Unity.AI.Navigation;
 
 public class SecretPassage : MonoBehaviour
 {
-    [Header("Interaction")]
+    [Header("Interaction Settings")]
     [SerializeField] private float radius = 1.2f;
     [SerializeField] private KeyCode key = KeyCode.E;
     [SerializeField] private TextMeshProUGUI promptText;
     [SerializeField] private string promptMessage = "Press E";
 
-    [Header("What to toggle")]
+    [Header("Objects to Toggle")]
     [SerializeField] private GameObject[] enableOnPress;
     [SerializeField] private GameObject[] disableOnPress;
 
-    [Header("NavMesh runtime")]
+    [Header("NavMesh Surfaces to Rebuild")]
     [SerializeField] private NavMeshSurface[] surfacesToRebake;
 
     private Transform player;
     private bool inRange;
 
-    private void Start()
+    private void OnEnable()
     {
-        var respawnManager = Container.Resolver.Resolve<RespawnManager>();
+      
+        var respawnManager = CoreSystem.Instance.Container.Resolve<PlayerSpawnManager>();
         if (respawnManager != null)
         {
+         
             respawnManager.OnPlayerSpawned += SetPlayer;
-            player = respawnManager.Player?.transform;
+
+       
+            if (respawnManager.Player != null)
+                player = respawnManager.Player.transform;
         }
 
-        if (promptText) promptText.enabled = false;
+        if (promptText)
+            promptText.enabled = false;
     }
 
     private void OnDestroy()
     {
-        var respawnManager = Container.Resolver.Resolve<RespawnManager>();
+        var respawnManager = CoreSystem.Instance.Container.Resolve<PlayerSpawnManager>();
         if (respawnManager != null)
             respawnManager.OnPlayerSpawned -= SetPlayer;
     }
 
     private void Update()
     {
-        if (!player) return;
+        if (player == null) return; 
 
         inRange = Vector3.SqrMagnitude(player.position - transform.position) <= radius * radius;
 
@@ -66,24 +72,25 @@ public class SecretPassage : MonoBehaviour
 
     private void Activate()
     {
+     
         foreach (var go in enableOnPress)
         {
             if (!go) continue;
-            var obst = go.GetComponent<NavMeshObstacle>();
-            if (obst) obst.enabled = false;
+            var obstacle = go.GetComponent<NavMeshObstacle>();
+            if (obstacle) obstacle.enabled = false;
             go.SetActive(true);
         }
 
         foreach (var go in disableOnPress)
         {
             if (!go) continue;
-            var obst = go.GetComponent<NavMeshObstacle>();
-            if (obst) obst.enabled = false;
+            var obstacle = go.GetComponent<NavMeshObstacle>();
+            if (obstacle) obstacle.enabled = false;
             go.SetActive(false);
         }
 
-        foreach (var s in surfacesToRebake)
-            if (s) s.BuildNavMesh();
+        foreach (var surface in surfacesToRebake)
+            surface?.BuildNavMesh();
 
         if (promptText) promptText.enabled = false;
     }

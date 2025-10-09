@@ -179,9 +179,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Timmy
-
-'
+  m_text: Archer
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -817,7 +815,7 @@ GameObject:
   - component: {fileID: 890444194}
   - component: {fileID: 890444193}
   m_Layer: 5
-  m_Name: Button
+  m_Name: WarriorButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1054,8 +1052,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerPrefabs:
-  - {fileID: 5156660526780872327, guid: 965175182c90004459731f37915a2a13, type: 3}
-  - {fileID: 5156660526780872327, guid: be482a227ac6e8648906acdf713cfcc9, type: 3}
+  - {fileID: 11400000, guid: 45d9f2668e8ffdc4b8e7bf506e0f9879, type: 2}
+  - {fileID: 11400000, guid: e1c6311a5c7ec6f4fbe68d6766b8e65e, type: 2}
   selectionButtons:
   - {fileID: 890444193}
   - {fileID: 1175640632}
@@ -1210,7 +1208,7 @@ GameObject:
   - component: {fileID: 1175640633}
   - component: {fileID: 1175640632}
   m_Layer: 5
-  m_Name: Button (1)
+  m_Name: ArcherButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1413,6 +1411,36 @@ PrefabInstance:
       propertyPath: respawnManager
       value: 
       objectReference: {fileID: 2134634515}
+    - target: {fileID: 7239934702883123006, guid: 2ba34c17a5daa394ab82b42d2275382f,
+        type: 3}
+      propertyPath: logInitialization
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7239934702883123006, guid: 2ba34c17a5daa394ab82b42d2275382f,
+        type: 3}
+      propertyPath: managersInOrder.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7239934702883123006, guid: 2ba34c17a5daa394ab82b42d2275382f,
+        type: 3}
+      propertyPath: managersInOrder.Array.data[0]
+      value: 
+      objectReference: {fileID: 2120703850}
+    - target: {fileID: 7239934702883123006, guid: 2ba34c17a5daa394ab82b42d2275382f,
+        type: 3}
+      propertyPath: managersInOrder.Array.data[1]
+      value: 
+      objectReference: {fileID: 853724737}
+    - target: {fileID: 7239934702883123006, guid: 2ba34c17a5daa394ab82b42d2275382f,
+        type: 3}
+      propertyPath: managersInOrder.Array.data[2]
+      value: 
+      objectReference: {fileID: 329858130}
+    - target: {fileID: 7239934702883123006, guid: 2ba34c17a5daa394ab82b42d2275382f,
+        type: 3}
+      propertyPath: managersInOrder.Array.data[3]
+      value: 
+      objectReference: {fileID: 2134634515}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1545,6 +1573,29 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8241940802072235356, guid: 58f4b91273fe78c40a57a9f6a322b1cc,
+        type: 3}
+      propertyPath: availableClasses.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8241940802072235356, guid: 58f4b91273fe78c40a57a9f6a322b1cc,
+        type: 3}
+      propertyPath: availableClasses.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 45d9f2668e8ffdc4b8e7bf506e0f9879,
+        type: 2}
+    - target: {fileID: 8241940802072235356, guid: 58f4b91273fe78c40a57a9f6a322b1cc,
+        type: 3}
+      propertyPath: availableClasses.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: e1c6311a5c7ec6f4fbe68d6766b8e65e,
+        type: 2}
+    - target: {fileID: 8241940802072235356, guid: 58f4b91273fe78c40a57a9f6a322b1cc,
+        type: 3}
+      propertyPath: availableClasses.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 45d9f2668e8ffdc4b8e7bf506e0f9879,
+        type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1554,12 +1605,12 @@ PrefabInstance:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 1748690838}
+  - {fileID: 2120703851}
+  - {fileID: 853724736}
+  - {fileID: 1683099999236162520}
   - {fileID: 1141223700}
   - {fileID: 237957660}
   - {fileID: 943234785}
   - {fileID: 603876459}
-  - {fileID: 2120703851}
-  - {fileID: 1683099999236162520}
   - {fileID: 329858131}
-  - {fileID: 853724736}
-  - {fileID: 1748690838}

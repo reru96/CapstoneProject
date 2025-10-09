@@ -22,7 +22,7 @@ public class LifeController : MonoBehaviour
 
     public void HandleDeath()
     {
-         var respawnManager = Container.Resolver.Resolve<RespawnManager>();
+         var respawnManager = CoreSystem.Instance.Container.Resolve<RespawnManager>();
         switch(death)
         {
             case DeathAction.None:
