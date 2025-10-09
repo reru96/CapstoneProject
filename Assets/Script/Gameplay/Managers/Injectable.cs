@@ -6,6 +6,7 @@ public abstract class Injectable<T> : MonoBehaviour, IInject where T : MonoBehav
 {
     protected virtual void Awake()
     {
+        DontDestroyOnLoad(this.gameObject);
         CoreSystem.Instance.Container.Register<T>(this as T);
         CoreSystem.Instance.Resolver.Resolve(this);
         OnInjected(CoreSystem.Instance.Resolver);

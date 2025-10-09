@@ -13,19 +13,7 @@ public class ClassSelectionManager : Injectable<ClassSelectionManager>
     protected override void OnInjected(ObjectResolver resolver)
     {
         base.OnInjected(resolver);
-        LoadClassFromSettings();
-    }
-
-    private void LoadClassFromSettings()
-    {
-        if (GameSettings.SelectedClass != null)
-        {
-            SelectClass(GameSettings.SelectedClass);
-        }
-        else if (availableClasses.Length > 0)
-        {
-            SelectClass(availableClasses[0]);
-        }
+  
     }
 
     public void SelectClass(SOPlayerClass playerClass)
@@ -34,7 +22,6 @@ public class ClassSelectionManager : Injectable<ClassSelectionManager>
         if (!System.Array.Exists(availableClasses, c => c == playerClass)) return;
 
         SelectedClass = playerClass;
-        GameSettings.SelectedClass = playerClass;
         OnClassChanged?.Invoke(playerClass);
     }
 

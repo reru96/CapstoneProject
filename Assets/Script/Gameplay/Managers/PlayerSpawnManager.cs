@@ -14,15 +14,13 @@ public class PlayerSpawnManager : Injectable<PlayerSpawnManager>
     private GameObject _player;
 
     public GameObject Player => _player;
-    public Transform RespawnPoint => _respawnPoint;
-
     public event System.Action<GameObject> OnPlayerSpawned;
 
     protected override void OnInjected(ObjectResolver resolver)
     {
         base.OnInjected(resolver);
         SceneManager.sceneLoaded += OnSceneLoaded;
-        FindRespawnPoint();
+        DontDestroyOnLoad(this.gameObject); 
     }
 
     protected override void OnDestroy()
@@ -36,10 +34,27 @@ public class PlayerSpawnManager : Injectable<PlayerSpawnManager>
         FindRespawnPoint();
 
         var classMgr = Resolve<ClassSelectionManager>();
-        if (classMgr.SelectedClass?.prefab != null)
+        if (classMgr == null)
         {
-            StartCoroutine(SpawnWhenReady(classMgr.SelectedClass.prefab));
+            Debug.LogError("[PlayerSpawnManager] ClassSelectionManager non trovato!");
+            return;
         }
+
+        if (classMgr.SelectedClass != null)
+        {
+            StartCoroutine(SpawnWhenReady(classMgr.SelectedClass));
+        }
+        else
+        {
+            classMgr.OnClassChanged += HandleClassSelected;
+        }
+    }
+
+    private void HandleClassSelected(SOPlayerClass selectedClass)
+    {
+        var classMgr = Resolve<ClassSelectionManager>();
+        classMgr.OnClassChanged -= HandleClassSelected; 
+        StartCoroutine(SpawnWhenReady(selectedClass));
     }
 
     private void FindRespawnPoint()
@@ -53,15 +68,39 @@ public class PlayerSpawnManager : Injectable<PlayerSpawnManager>
         _respawnPoint = respawnObj.transform;
     }
 
-    public IEnumerator SpawnWhenReady(GameObject prefab)
+    public IEnumerator SpawnWhenReady(SOPlayerClass playerClass)
     {
-        yield return WaitForValidSpawnPosition();
-        SpawnPlayer(prefab);
+        if (playerClass?.prefab == null)
+        {
+            Debug.LogError("[PlayerSpawnManager] Prefab della classe selezionata mancante!");
+            yield break;
+        }
+
+        yield return new WaitForEndOfFrame();       
+        yield return WaitForNavMeshReady();         
+        yield return WaitForValidSpawnPosition();   
+
+        SpawnPlayer(playerClass);
+    }
+
+    private IEnumerator WaitForNavMeshReady()
+    {
+        float start = Time.time;
+        while (!NavMesh.SamplePosition(Vector3.zero, out _, 10f, NavMesh.AllAreas))
+        {
+            if (Time.time - start > navMeshCheckTimeout)
+            {
+                Debug.LogWarning("[PlayerSpawnManager] Timeout attesa NavMesh, procedo comunque.");
+                yield break;
+            }
+            yield return null;
+        }
     }
 
     private IEnumerator WaitForValidSpawnPosition()
     {
         if (_respawnPoint == null) yield break;
+
         float startTime = Time.time;
         bool positionValid = false;
         Vector3 validPosition = _respawnPoint.position;
@@ -69,14 +108,19 @@ public class PlayerSpawnManager : Injectable<PlayerSpawnManager>
         while (Time.time - startTime < navMeshCheckTimeout && !positionValid)
         {
             positionValid = NavMesh.SamplePosition(_respawnPoint.position, out var hit, navMeshCheckRadius, NavMesh.AllAreas);
-            if (positionValid) validPosition = hit.position;
-            else yield return new WaitForSeconds(0.1f);
+            if (positionValid)
+                validPosition = hit.position;
+            else
+                yield return new WaitForSeconds(0.1f);
         }
+
+        if (!positionValid)
+            Debug.LogWarning("[PlayerSpawnManager] Nessuna posizione valida sul NavMesh, uso posizione originale.");
 
         _respawnPoint.position = validPosition;
     }
 
-    private void SpawnPlayer(GameObject prefab)
+    private void SpawnPlayer(SOPlayerClass playerClass)
     {
         if (_player != null) Destroy(_player);
 
@@ -84,8 +128,18 @@ public class PlayerSpawnManager : Injectable<PlayerSpawnManager>
         if (NavMesh.SamplePosition(spawnPos, out var hit, navMeshCheckRadius, NavMesh.AllAreas))
             spawnPos = hit.position;
 
-        _player = Instantiate(prefab, spawnPos, Quaternion.identity);
+        _player = Instantiate(playerClass.prefab, spawnPos, Quaternion.identity);
         _player.name = "Player";
+
+        var agent = _player.GetComponent<NavMeshAgent>();
+        if (agent != null && !agent.isOnNavMesh)
+        {
+            Debug.LogWarning("[PlayerSpawnManager] Player non su NavMesh, disabilito temporaneamente NavMeshAgent.");
+            agent.enabled = false;
+        }
+
         OnPlayerSpawned?.Invoke(_player);
+        Debug.Log($"[PlayerSpawnManager] Player spawnato in {spawnPos}");
     }
 }
+

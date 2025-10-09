@@ -29,7 +29,6 @@ public class AudioManager : Injectable<AudioManager>
 
         CoreSystem.Instance.Container.Register<AudioManager>(this);
 
-
         CoreSystem.Instance.Resolver.Resolve(this);
 
         OnInjected(CoreSystem.Instance.Resolver);

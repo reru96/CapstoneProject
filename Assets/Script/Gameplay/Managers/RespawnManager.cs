@@ -52,7 +52,7 @@ public class RespawnManager : Injectable<RespawnManager>
         var classMgr = Resolve<ClassSelectionManager>();
         var spawnMgr = Resolve<PlayerSpawnManager>();
         if (classMgr.SelectedClass?.prefab != null)
-            yield return spawnMgr.SpawnWhenReady(classMgr.SelectedClass.prefab);
+            yield return spawnMgr.SpawnWhenReady(classMgr.SelectedClass);
 
         _isRespawning = false;
         OnRespawnCompleted?.Invoke();

@@ -1,9 +1,12 @@
-using UnityEngine;
-using Cinemachine;
+using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
+using UnityEngine;
 
 public class CameraFadeWall : MonoBehaviour
 {
+
+
     [Header("Cinemachine")]
     public CinemachineVirtualCamera virtualCamera;
 
@@ -21,25 +24,51 @@ public class CameraFadeWall : MonoBehaviour
         if (virtualCamera == null)
             virtualCamera = GetComponent<CinemachineVirtualCamera>();
 
-       var respawnManager = CoreSystem.Instance.Container?.Resolve<PlayerSpawnManager>();
-        if (respawnManager != null)
-            respawnManager.OnPlayerSpawned += TrySetPlayer;
-        else
-            Debug.LogWarning("[CameraFadeWall] RespawnManager non trovato nel Container.");
+        StartCoroutine(FindPlayerRoutine());
     }
 
-    private void OnDestroy()
+    private IEnumerator FindPlayerRoutine()
     {
-        var respawnManager = CoreSystem.Instance.Container.Resolve<PlayerSpawnManager>();
-        if (respawnManager != null)
-            respawnManager.OnPlayerSpawned -= TrySetPlayer;
+        GameObject player = null;
+
+        while (player == null)
+        {
+            player = GameObject.FindGameObjectWithTag("Player");
+            if (player != null)
+            {
+                TrySetPlayer(player);
+                yield break;
+            }
+
+            yield return new WaitForSeconds(0.5f);
+        }
+    }
+
+    private void TrySetPlayer(GameObject player)
+    {
+        if (player == null) return;
+
+        playerTransform = player.transform;
+
+        if (virtualCamera != null)
+        {
+            virtualCamera.Follow = playerTransform;
+            virtualCamera.LookAt = playerTransform;
+            virtualCamera.gameObject.SetActive(true);
+
+            Debug.Log("[CameraFadeWall] Player assegnato alla VirtualCamera.");
+        }
+        else
+        {
+            Debug.LogWarning("[CameraFadeWall] Nessuna VirtualCamera trovata!");
+        }
     }
 
     //private void Update()
     //{
     //    if (playerTransform == null) return;
 
-      
+
     //    foreach (var rend in fadedWalls)
     //    {
     //        if (rend != null && originalColors.ContainsKey(rend))
@@ -51,7 +80,7 @@ public class CameraFadeWall : MonoBehaviour
     //    }
     //    fadedWalls.Clear();
 
-      
+
     //    Vector3 dir = playerTransform.position - transform.position;
     //    Ray ray = new Ray(transform.position, dir);
     //    RaycastHit[] hits = Physics.RaycastAll(ray, dir.magnitude, wallMask);
@@ -73,16 +102,4 @@ public class CameraFadeWall : MonoBehaviour
     //    }
     //}
 
-    public void TrySetPlayer(GameObject player)
-    {
-        if (player == null) return;
-
-        playerTransform = player.transform;
-
-        if (virtualCamera != null)
-        {
-            virtualCamera.Follow = playerTransform;
-            virtualCamera.LookAt = playerTransform;
-        }
-    }
 }

@@ -8,7 +8,6 @@ public class CharactherSelectionUI : MonoBehaviour
 {
     [SerializeField] private SOPlayerClass playerClass;
     [SerializeField] private string nextSceneName = "Level1";
-  
 
     public void OnClickSelect()
     {
@@ -18,12 +17,11 @@ public class CharactherSelectionUI : MonoBehaviour
             return;
         }
 
-        GameSettings.SelectedClass = playerClass;
-
+        var classMgr = CoreSystem.Instance.Container.Resolve<ClassSelectionManager>();
+        classMgr.SelectClass(playerClass);
         Debug.Log($"[CharacterSelectionButton] Classe selezionata: {playerClass.className}");
 
         SceneManager.LoadScene(nextSceneName);
-
     }
 }
 
