@@ -12,6 +12,7 @@ public class EnemyStateMachine : StateMachine
     public Transform eyes;
     public Animator anim;
     public ParticleSystem hitEffectPrefab;
+    public RoomController currentRoom;
 
     [Header("Patrolling")]
     public float patrolRadius = 10f;
@@ -124,6 +125,12 @@ public class EnemyStateMachine : StateMachine
             lastSeenPosition = hitPosition;
             SwitchState(new HitState(this));
         }
+    }
+
+    void Die()
+    {
+        currentRoom.OnEnemyDefeated();
+        Destroy(gameObject);
     }
 
 }
