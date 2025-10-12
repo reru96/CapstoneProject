@@ -122,59 +122,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &198021923
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 198021924}
-  - component: {fileID: 198021925}
-  m_Layer: 0
-  m_Name: RoomController
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &198021924
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 198021923}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &198021925
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 198021923}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dbb7bdeeae9803f409de20be49ec6904, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  northDoor: {fileID: 8376659278845249976, guid: 8a355b456dd1ffb4eba4f20cbd7a0d77,
-    type: 3}
-  southDoor: {fileID: 8376659278845249976, guid: 8a355b456dd1ffb4eba4f20cbd7a0d77,
-    type: 3}
-  eastDoor: {fileID: 8376659278845249976, guid: 8a355b456dd1ffb4eba4f20cbd7a0d77,
-    type: 3}
-  westDoor: {fileID: 8376659278845249976, guid: 8a355b456dd1ffb4eba4f20cbd7a0d77,
-    type: 3}
-  enemySpawner: {fileID: 1539036508}
 --- !u!1 &233572738
 GameObject:
   m_ObjectHideFlags: 0
@@ -545,7 +492,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7878821f1afe9a147ba40bdd8b5af646, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkLength: 20
+  walkLength: 10
   startPos: {x: 0, y: 0, z: 0}
   gridLimit: 1000
 --- !u!4 &495670280
@@ -609,13 +556,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dungeonGenerator: {fileID: 495670279}
-  defaultRoomPrefab: {fileID: 7104584268017849879, guid: 8907496c674ab8d47a72c43a2fe065a2,
+  roomControllerPrefab: {fileID: 4097041304027176958, guid: 59de765b5a23ca749b80b94837f825ef,
     type: 3}
-  bossRoomPrefab: {fileID: 7104584268017849879, guid: 8907496c674ab8d47a72c43a2fe065a2,
-    type: 3}
-  restRoomPrefab: {fileID: 7104584268017849879, guid: 8907496c674ab8d47a72c43a2fe065a2,
-    type: 3}
-  roomSpacing: 10
+  defaultRoomData: {fileID: 11400000, guid: 8c4019b21f002f6418e9fc018acecb04, type: 2}
+  bossRoomData: {fileID: 11400000, guid: 0b03f87fd4c803d48ac6bd151f9fa207, type: 2}
+  restRoomData: {fileID: 11400000, guid: 10851097071d2ad48a7610af23446ef2, type: 2}
   navMeshSurface: {fileID: 665262724}
 --- !u!114 &665262724
 MonoBehaviour:
@@ -761,55 +706,6 @@ LightingSettings:
   m_PVRTiledBaking: 0
   m_NumRaysToShootPerTexel: -1
   m_RespectSceneVisibilityWhenBakingGI: 0
---- !u!1 &1539036506
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1539036507}
-  - component: {fileID: 1539036508}
-  m_Layer: 0
-  m_Name: EnemySpawner
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1539036507
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1539036506}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1539036508
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1539036506}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65e0f8429b6c8bf4192ddc1f3ecf3d89, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyPrefabs:
-  - {fileID: 1830648231862840522, guid: 4c67e4e852930584a8f19e404cb079f4, type: 3}
-  minEnemies: 2
-  maxEnemies: 5
-  areaSize: {x: 51.72, y: 1, z: -35.36}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -818,5 +714,3 @@ SceneRoots:
   - {fileID: 410087041}
   - {fileID: 832575519}
   - {fileID: 233572739}
-  - {fileID: 198021924}
-  - {fileID: 1539036507}

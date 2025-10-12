@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using Unity.AI.Navigation;
 using UnityEngine;
@@ -6,52 +6,39 @@ using UnityEngine;
 public class RoomGenerator : MonoBehaviour
 {
     public DungeonGenerator dungeonGenerator;
-    public GameObject defaultRoomPrefab;
-    public GameObject bossRoomPrefab;
-    public GameObject restRoomPrefab;
-    public float roomSpacing = 25f;
+    public GameObject roomControllerPrefab;
+    public SORoom defaultRoomData, bossRoomData, restRoomData;
     public NavMeshSurface navMeshSurface;
+    public float roomSpacing = 25f;
 
-    [HideInInspector]
-    public Dictionary<Vector3Int, GameObject> spawnedRooms = new Dictionary<Vector3Int, GameObject>();
+    [HideInInspector] public Dictionary<Vector3Int, GameObject> spawnedRooms = new Dictionary<Vector3Int, GameObject>();
 
     public void SpawnRooms()
     {
-        ClearOldRooms();
-
         foreach (var room in dungeonGenerator.dungeonRooms.Values)
         {
-            Vector3 pos = new Vector3(
-                room.gridPos.x * roomSpacing,
-                0,
-                room.gridPos.z * roomSpacing
-            );
-
-            GameObject prefab = GetRoomPrefab(room);
-            GameObject newRoom = Instantiate(prefab, pos, Quaternion.identity, transform);
+            Vector3 pos = new Vector3(room.gridPos.x * roomSpacing, 0, room.gridPos.z * roomSpacing);
+            GameObject newRoom = Instantiate(roomControllerPrefab, pos, Quaternion.identity, transform);
 
             RoomController rc = newRoom.GetComponent<RoomController>();
             if (rc != null)
+            {
+                rc.roomData = GetRoomData(room);
                 rc.Initialize(room.gridPos, dungeonGenerator.dungeonRooms);
+                room.controller = rc;
+            }
 
-            spawnedRooms.Add(room.gridPos, newRoom);
+            spawnedRooms[room.gridPos] = newRoom;
         }
 
         if (navMeshSurface != null)
             navMeshSurface.BuildNavMesh();
     }
 
-    void ClearOldRooms()
+    SORoom GetRoomData(RoomNode room)
     {
-        foreach (Transform child in transform)
-            DestroyImmediate(child.gameObject);
-        spawnedRooms.Clear();
-    }
-
-    GameObject GetRoomPrefab(RoomNode room)
-    {
-        if (room.isBoss) return bossRoomPrefab;
-        if (room.isRest) return restRoomPrefab;
-        return defaultRoomPrefab;
+        if (room.isBoss) return bossRoomData;
+        if (room.isRest) return restRoomData;
+        return defaultRoomData;
     }
 }
