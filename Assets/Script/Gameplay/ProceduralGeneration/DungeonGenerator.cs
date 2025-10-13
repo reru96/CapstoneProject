@@ -7,7 +7,6 @@ using UnityEngine;
 public class DungeonGenerator : MonoBehaviour
 {
     public int roomCount = 8;
-    public int maxBranching = 3;
     public Vector3Int startPos = Vector3Int.zero;
 
     [HideInInspector]

@@ -541,7 +541,7 @@ PrefabInstance:
     - target: {fileID: 1387756849036398502, guid: 5cfc500513cdc5e45bf949bc9c200ccc,
         type: 3}
       propertyPath: roomCount
-      value: 8
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 1387756849036398502, guid: 5cfc500513cdc5e45bf949bc9c200ccc,
         type: 3}
@@ -556,7 +556,7 @@ PrefabInstance:
     - target: {fileID: 3979954237915476169, guid: 5cfc500513cdc5e45bf949bc9c200ccc,
         type: 3}
       propertyPath: roomSpacing
-      value: 10
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 6207378347697958532, guid: 5cfc500513cdc5e45bf949bc9c200ccc,
         type: 3}
