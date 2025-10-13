@@ -25,8 +25,11 @@ MonoBehaviour:
   roomWidth: 3
   roomLength: 3
   tileSize: 4
+  offset: 0
   floorHeight: 0
   floorSpacing: 0
+  wallOffsetX: 2
+  wallOffsetZ: 2
   wallSpacing: 0
   wallOffset: 0
   hasCorners: 1

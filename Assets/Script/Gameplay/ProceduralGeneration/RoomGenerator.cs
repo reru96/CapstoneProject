@@ -15,6 +15,8 @@ public class RoomGenerator : MonoBehaviour
 
     public void SpawnRooms()
     {
+        ClearOldRooms();
+
         foreach (var room in dungeonGenerator.dungeonRooms.Values)
         {
             Vector3 pos = new Vector3(room.gridPos.x * roomSpacing, 0, room.gridPos.z * roomSpacing);
@@ -33,6 +35,15 @@ public class RoomGenerator : MonoBehaviour
 
         if (navMeshSurface != null)
             navMeshSurface.BuildNavMesh();
+    }
+
+    void ClearOldRooms()
+    {
+       
+        foreach (Transform child in transform)
+            DestroyImmediate(child.gameObject);
+
+        spawnedRooms.Clear();
     }
 
     SORoom GetRoomData(RoomNode room)

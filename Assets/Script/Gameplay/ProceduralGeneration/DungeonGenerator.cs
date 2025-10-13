@@ -6,141 +6,97 @@ using UnityEngine;
 
 public class DungeonGenerator : MonoBehaviour
 {
-    public GameObject roomControllerPrefab;
-    public SORoom defaultRoomData;
-    public SORoom bossRoomData;
-    public SORoom restRoomData;
-    public int walkLength = 20;
+    public int roomCount = 8;
+    public int maxBranching = 3;
     public Vector3Int startPos = Vector3Int.zero;
-    public int gridLimit = 1000;
 
+    [HideInInspector]
     public Dictionary<Vector3Int, RoomNode> dungeonRooms = new Dictionary<Vector3Int, RoomNode>();
-
-    void Start()
-    {
-        GenerateDungeon();
-    }
 
     public void GenerateDungeon()
     {
         dungeonRooms.Clear();
 
-        AddRoomAt(startPos, defaultRoomData, true);
+        Vector3Int currentPos = Vector3Int.zero;
+        dungeonRooms[currentPos] = new RoomNode(currentPos);
 
-        Vector3Int currentPos = startPos;
-
-        for (int i = 0; i < walkLength; i++)
+        for (int i = 1; i < roomCount; i++)
         {
-            Vector3Int nextPos = currentPos + GetRandomDirection();
-
-            if (Mathf.Abs(nextPos.x) > gridLimit || Mathf.Abs(nextPos.z) > gridLimit)
+            Vector3Int newPos = GetNextRoomPos(currentPos);
+            if (dungeonRooms.ContainsKey(newPos))
+            {
+                currentPos = GetRandomExistingRoomPos();
+                i--;
                 continue;
+            }
 
-            SORoom data = defaultRoomData;
-            RoomBounds tempBounds = new RoomBounds(
-                nextPos - new Vector3Int(data.roomWidth / 2, 0, data.roomLength / 2),
-                nextPos + new Vector3Int((data.roomWidth - 1) / 2, 0, (data.roomLength - 1) / 2)
-            );
-
-            if (IsOverlapping(tempBounds))
-                continue;
-
-            AddRoomAt(nextPos, data);
-            currentPos = nextPos;
+            dungeonRooms[newPos] = new RoomNode(newPos);
+            currentPos = newPos;
         }
 
-        AssignSpecialRooms();
+        if (dungeonRooms.Count > 0)
+        {
+            var lastRoom = new List<Vector3Int>(dungeonRooms.Keys)[dungeonRooms.Count - 1];
+            dungeonRooms[lastRoom].isBoss = true;
+        }
+
+        LinkNeighbors();
     }
 
-    private void AddRoomAt(Vector3Int pos, SORoom data, bool isStart = false)
-    {
-        GameObject newRoom = Instantiate(roomControllerPrefab, new Vector3(pos.x, 0, pos.z), Quaternion.identity, transform);
-        RoomController rc = newRoom.GetComponent<RoomController>();
-        if (rc != null)
-        {
-            rc.roomData = data;
-            rc.Initialize(pos, dungeonRooms);
-        }
 
-        RoomNode node = new RoomNode
+    Vector3Int GetNextRoomPos(Vector3Int current)
+    {
+        Vector3Int[] dirs =
         {
-            gridPos = pos,
-            isStart = isStart,
-            controller = rc,
-            roomBounds = new RoomBounds
-            (
-                pos - new Vector3Int(data.roomWidth / 2, 0, data.roomLength / 2),
-                pos + new Vector3Int((data.roomWidth - 1) / 2, 0, (data.roomLength - 1) / 2)
-            )
+            Vector3Int.forward,
+            Vector3Int.back,
+            Vector3Int.left,
+            Vector3Int.right
         };
 
-        dungeonRooms[pos] = node;
+        Vector3Int dir = dirs[Random.Range(0, dirs.Length)];
+        return current + dir;
     }
 
-    private bool IsOverlapping(RoomBounds bounds)
+
+    Vector3Int GetRandomExistingRoomPos()
     {
-        foreach (var node in dungeonRooms.Values)
-        {
-            if (node.roomBounds.Intersects(bounds))
-                return true;
-        }
-        return false;
+        var keys = new List<Vector3Int>(dungeonRooms.Keys);
+        return keys[Random.Range(0, keys.Count)];
     }
 
-    private void AssignSpecialRooms()
+
+    void LinkNeighbors()
     {
-        if (dungeonRooms.Count <= 1) return;
-
-        Vector3Int bossPos = GetFarthestRoom(startPos);
-        if (dungeonRooms.ContainsKey(bossPos))
+        foreach (var kvp in dungeonRooms)
         {
-            dungeonRooms[bossPos].isBoss = true;
-            dungeonRooms[bossPos].controller.roomData = bossRoomData;
-            dungeonRooms[bossPos].controller.Initialize(bossPos, dungeonRooms);
-        }
+            Vector3Int pos = kvp.Key;
+            RoomNode room = kvp.Value;
 
-        Vector3Int restPos = GetRoomByPathIndex(startPos, dungeonRooms.Count / 2);
-        if (dungeonRooms.ContainsKey(restPos))
-        {
-            dungeonRooms[restPos].isRest = true;
-            dungeonRooms[restPos].controller.roomData = restRoomData;
-            dungeonRooms[restPos].controller.Initialize(restPos, dungeonRooms);
-        }
-    }
-
-    private Vector3Int GetRandomDirection()
-    {
-        switch (Random.Range(0, 4))
-        {
-            case 0: return Vector3Int.right;
-            case 1: return Vector3Int.left;
-            case 2: return Vector3Int.forward;
-            case 3: return Vector3Int.back;
-        }
-        return Vector3Int.zero;
-    }
-
-    private Vector3Int GetFarthestRoom(Vector3Int from)
-    {
-        Vector3Int farthest = from;
-        float maxDist = 0f;
-        foreach (var kv in dungeonRooms)
-        {
-            float dist = Vector3Int.Distance(from, kv.Key);
-            if (dist > maxDist)
+            if (dungeonRooms.TryGetValue(pos + Vector3Int.forward, out RoomNode north))
             {
-                maxDist = dist;
-                farthest = kv.Key;
+                room.AddNeighbor(Direction.North, north);
+                north.AddNeighbor(Direction.South, room);
+            }
+
+            if (dungeonRooms.TryGetValue(pos + Vector3Int.back, out RoomNode south))
+            {
+                room.AddNeighbor(Direction.South, south);
+                south.AddNeighbor(Direction.North, room);
+            }
+
+            if (dungeonRooms.TryGetValue(pos + Vector3Int.right, out RoomNode east))
+            {
+                room.AddNeighbor(Direction.East, east);
+                east.AddNeighbor(Direction.West, room);
+            }
+
+            if (dungeonRooms.TryGetValue(pos + Vector3Int.left, out RoomNode west))
+            {
+                room.AddNeighbor(Direction.West, west);
+                west.AddNeighbor(Direction.East, room);
             }
         }
-        return farthest;
     }
 
-    private Vector3Int GetRoomByPathIndex(Vector3Int start, int index)
-    {
-        List<Vector3Int> sortedRooms = new List<Vector3Int>(dungeonRooms.Keys);
-        sortedRooms.Sort((a, b) => Vector3Int.Distance(start, a).CompareTo(Vector3Int.Distance(start, b)));
-        index = Mathf.Clamp(index, 0, sortedRooms.Count - 1);
-        return sortedRooms[index];
-    }
 }

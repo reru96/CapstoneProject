@@ -13,6 +13,36 @@ public class RoomNode
     public bool isRest;
     public RoomBounds roomBounds;
     public RoomController controller;
+    public Dictionary<Direction, RoomNode> neighbors;
+
+    public RoomNode(Vector3Int pos)
+    {
+        gridPos = pos;
+        isBoss = false;
+        isRest = false;
+        roomBounds = new RoomBounds(pos, pos);
+        neighbors = new Dictionary<Direction, RoomNode>();
+    }
+    public void AddNeighbor(Direction dir, RoomNode neighbor)
+    {
+        if (!neighbors.ContainsKey(dir))
+            neighbors.Add(dir, neighbor);
+    }
+
+    public RoomNode GetNeighbor(Direction dir)
+    {
+        neighbors.TryGetValue(dir, out RoomNode neighbor);
+        return neighbor;
+    }
+
+}
+
+public enum Direction
+{
+    North,
+    South,
+    East,
+    West
 }
 public struct RoomBounds
 {

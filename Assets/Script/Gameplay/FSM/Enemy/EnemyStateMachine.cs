@@ -126,11 +126,4 @@ public class EnemyStateMachine : StateMachine
             SwitchState(new HitState(this));
         }
     }
-
-    void Die()
-    {
-        currentRoom.OnEnemyDefeated();
-        Destroy(gameObject);
-    }
-
 }

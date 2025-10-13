@@ -1,115 +1,148 @@
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
+
 
 public class RoomController : MonoBehaviour
 {
+
     public SORoom roomData;
-    public EnemySpawner enemySpawner;
 
-    [HideInInspector] public bool isPlayerInside;
-    [HideInInspector] public bool roomCleared;
+    public Vector3Int gridPos;
+    public RoomNode node;
 
-    private Vector3Int gridPos;
-    private Dictionary<Vector3Int, RoomNode> allRooms;
-    private List<GameObject> doors = new List<GameObject>();
-    private List<GameObject> spawned = new List<GameObject>();
+    private float tileSize = 4f;
+    private float offset = 0f;
 
-    private Dictionary<string, RoomController> connectedRooms = new Dictionary<string, RoomController>();
+    private Dictionary<Direction, Vector3> dirToVector;
 
-    public void Initialize(Vector3Int pos, Dictionary<Vector3Int, RoomNode> rooms)
+    void Awake()
     {
-        gridPos = pos;
-        allRooms = rooms;
+        dirToVector = new Dictionary<Direction, Vector3>
+        {
+            { Direction.North, Vector3.forward },
+            { Direction.South, Vector3.back },
+            { Direction.East,  Vector3.right },
+            { Direction.West,  Vector3.left }
+        };
+    }
+
+    public void Initialize(Vector3Int position, Dictionary<Vector3Int, RoomNode> allRooms)
+    {
+        gridPos = position;
+        node = allRooms[position];
+
+        tileSize = roomData.tileSize;
+        offset = roomData.offset;
 
         GenerateFloor();
-        ConnectAdjacentRooms();
         GenerateWallsAndDoors();
     }
 
-    private void GenerateFloor()
+    void GenerateFloor()
     {
-        if (roomData.floorPrefabs == null || roomData.floorPrefabs.Count == 0) return;
+        int width = roomData.roomWidth;
+        int length = roomData.roomLength;
+        float offset = roomData.floorSpacing; 
 
-        float startX = -((roomData.roomWidth - 1) / 2f) * (roomData.tileSize + roomData.floorSpacing);
-        float startZ = -((roomData.roomLength - 1) / 2f) * (roomData.tileSize + roomData.floorSpacing);
+        float startX = -((width - 1) * (tileSize + offset) / 2f);
+        float startZ = -((length - 1) * (tileSize + offset) / 2f);
 
-        for (int x = 0; x < roomData.roomWidth; x++)
+        for (int x = 0; x < width; x++)
         {
-            for (int z = 0; z < roomData.roomLength; z++)
+            for (int z = 0; z < length; z++)
             {
+                Vector3 pos = new Vector3(
+                    startX + x * (tileSize + offset),
+                    0,
+                    startZ + z * (tileSize + offset)
+                );
+
                 GameObject prefab = roomData.floorPrefabs[Random.Range(0, roomData.floorPrefabs.Count)];
-                if (!prefab) continue;
-                Vector3 spawnPos = transform.position + new Vector3(startX + x * (roomData.tileSize + roomData.floorSpacing), roomData.floorHeight, startZ + z * (roomData.tileSize + roomData.floorSpacing));
-                spawned.Add(Instantiate(prefab, spawnPos, Quaternion.identity, transform));
+                Instantiate(prefab, transform.position + pos, Quaternion.identity, transform);
             }
         }
     }
 
-    private void ConnectAdjacentRooms()
+    void GenerateWallsAndDoors()
     {
-        Vector3Int northPos = gridPos + Vector3Int.forward;
-        Vector3Int southPos = gridPos + Vector3Int.back;
-        Vector3Int eastPos = gridPos + Vector3Int.right;
-        Vector3Int westPos = gridPos + Vector3Int.left;
+        int width = roomData.roomWidth;
+        int length = roomData.roomLength;
+        float tileSize = roomData.tileSize;
 
-        if (allRooms.ContainsKey(northPos)) connectedRooms["North"] = allRooms[northPos].controller;
-        if (allRooms.ContainsKey(southPos)) connectedRooms["South"] = allRooms[southPos].controller;
-        if (allRooms.ContainsKey(eastPos)) connectedRooms["East"] = allRooms[eastPos].controller;
-        if (allRooms.ContainsKey(westPos)) connectedRooms["West"] = allRooms[westPos].controller;
-    }
+        float startX = -((width - 1) * tileSize / 2f);
+        float startZ = -((length - 1) * tileSize / 2f);
 
-    private void GenerateWallsAndDoors()
-    {
-        GenerateWall(Vector3.forward, roomData.roomWidth, roomData.roomLength, "North");
-        GenerateWall(Vector3.back, roomData.roomWidth, roomData.roomLength, "South");
-        GenerateWall(Vector3.right, roomData.roomLength, roomData.roomWidth, "East");
-        GenerateWall(Vector3.left, roomData.roomLength, roomData.roomWidth, "West");
-    }
-
-    private void GenerateWall(Vector3 dir, int segmentCount, int perpendicularCount, string direction)
-    {
-        float start = -((segmentCount - 1) / 2f) * (roomData.tileSize + roomData.wallSpacing);
-        float offset = perpendicularCount * roomData.tileSize * 0.5f + roomData.wallOffset;
-
-        for (int i = 0; i < segmentCount; i++)
+        foreach (Direction dir in System.Enum.GetValues(typeof(Direction)))
         {
-            bool isCenter = (i == segmentCount / 2);
-            bool hasNeighbor = connectedRooms.ContainsKey(direction);
+            RoomNode neighbor = node.GetNeighbor(dir);
+            bool hasNeighbor = (neighbor != null);
 
-            GameObject prefab = (!isCenter || !hasNeighbor) ? roomData.wallPrefab : roomData.doorPrefab;
-            if (!prefab) continue;
+            int segmentCount = (dir == Direction.North || dir == Direction.South) ? width : length;
 
-            float pos = start + i * (roomData.tileSize + roomData.wallSpacing);
-            Vector3 posOffset = (dir == Vector3.forward || dir == Vector3.back) ? Vector3.right * pos : Vector3.forward * -pos;
-
-            Vector3 spawnPos = transform.position + dir * offset + posOffset + Vector3.up * roomData.floorHeight;
-            Quaternion rot = Quaternion.Euler(0, dir == Vector3.right ? 90f : dir == Vector3.left ? -90f : dir == Vector3.back ? 180f : 0f, 0);
-
-            GameObject obj = Instantiate(prefab, spawnPos, rot, transform);
-            if (isCenter && hasNeighbor)
+            for (int i = 0; i < segmentCount; i++)
             {
-                doors.Add(obj);
-                DoorTrigger dt = obj.AddComponent<DoorTrigger>();
-                dt.Initialize(this, direction);
+                bool isCenter = (i == segmentCount / 2);
+                GameObject prefabToSpawn = (hasNeighbor && isCenter) ? roomData.doorPrefab : roomData.wallPrefab;
+                if (prefabToSpawn == null) continue;
+
+                Vector3 localPos = Vector3.zero;
+                Quaternion rot = Quaternion.identity;
+
+                switch (dir)
+                {
+                    case Direction.North:
+                        localPos = new Vector3( startX + i * tileSize, 0, startZ + (length - 1) * tileSize + roomData.wallOffsetZ);
+                        rot = Quaternion.identity;
+                        break;
+
+                    case Direction.South:
+                        localPos = new Vector3( startX + i * tileSize, 0, startZ - roomData.wallOffsetZ);
+                        rot = Quaternion.Euler(0, 180, 0);
+                        break;
+
+                    case Direction.East:
+                        localPos = new Vector3(
+                            startX + (width - 1) * tileSize + roomData.wallOffsetX, 0, startZ + i * tileSize);
+                        rot = Quaternion.Euler(0, 90, 0);
+                        break;
+
+                    case Direction.West:
+                        localPos = new Vector3(startX - roomData.wallOffsetX, 0, startZ + i * tileSize);
+                        rot = Quaternion.Euler(0, -90, 0);
+                        break;
+                }
+
+                GameObject wallOrDoor = Instantiate(prefabToSpawn, transform.position + localPos, rot, transform);
+
+                if (prefabToSpawn == roomData.doorPrefab && hasNeighbor && neighbor.controller != null)
+                    LinkDoors(wallOrDoor, neighbor.controller, Opposite(dir));
             }
         }
     }
 
-    public void EnterDoor(string direction, GameObject player)
+    void LinkDoors(GameObject door, RoomController neighborController, Direction oppositeDir)
     {
-        if (connectedRooms.TryGetValue(direction, out RoomController nextRoom))
+
+        DoorLinker linker = door.GetComponent<DoorLinker>();
+        if (linker != null)
         {
-            Vector3 targetPos = nextRoom.transform.position;
-            switch (direction)
-            {
-                case "North": targetPos += Vector3.back * 1.5f; break;
-                case "South": targetPos += Vector3.forward * 1.5f; break;
-                case "East": targetPos += Vector3.left * 1.5f; break;
-                case "West": targetPos += Vector3.right * 1.5f; break;
-            }
-            player.transform.position = targetPos;
-            player.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            linker.targetRoom = neighborController;
+            linker.targetDirection = oppositeDir;
         }
+    }
+
+    Direction Opposite(Direction dir)
+    {
+        switch (dir)
+        {
+            case Direction.North: return Direction.South;
+            case Direction.South: return Direction.North;
+            case Direction.East: return Direction.West;
+            case Direction.West: return Direction.East;
+        }
+        return Direction.North;
     }
 }
