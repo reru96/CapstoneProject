@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class WeaponCombat : MonoBehaviour
 {
-    [Header("Weapon Data")]
     public SOWeapon data;
     private PlayerStateMachine player;
     private bool isAttacking;
@@ -30,15 +29,9 @@ public class WeaponCombat : MonoBehaviour
     private IEnumerator AttackRoutine(int number)
     {
         isAttacking = true;
-
-       
         yield return new WaitForSeconds(data.hitDelay);
 
-        GameObject attackObj = Instantiate(
-          data.attackType[number],
-          player.transform.position,
-          player.transform.rotation
-      );
+        GameObject attackObj = Instantiate(data.attackType[number], player.transform.position, player.transform.rotation);
 
         if (data.swingSound)
             AudioSource.PlayClipAtPoint(data.swingSound, player.transform.position);

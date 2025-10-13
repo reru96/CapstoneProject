@@ -22,8 +22,8 @@ MonoBehaviour:
     type: 3}
   doorPrefab: {fileID: 8451609858199556794, guid: be0af75c5ba7f2048bce9e1cc7cc05c4,
     type: 3}
-  roomWidth: 3
-  roomLength: 3
+  roomWidth: 6
+  roomLength: 6
   tileSize: 4
   offset: 0
   floorHeight: 0

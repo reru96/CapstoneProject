@@ -4,49 +4,101 @@ using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
 {
+   
+    public SOPlayerClass playerClass;
+    public SOWeapon currentWeapon;
+    public SOArmor currentArmor;
 
-    public SOPlayerClass baseData;
-    public SOWeapon equippedWeapon;
+    public float buffStrength;
+    public float buffDexterity;
+    public float buffIntelligence;
+    public float buffFaith;
+    public float buffArcane;
 
-    public float Strenght { get; private set; }
-    public float Intelligence { get; private set; }
-
+    public float Strength { get; private set; }
     public float Dexterity { get; private set; }
-    public float Defense { get; private set; }
-    public float Speed { get; private set; }
+    public float Intelligence { get; private set; }
+    public float Faith { get; private set; }
+    public float Arcane { get; private set; }
+
+    public delegate void OnStatsRecalculated();
+    public event OnStatsRecalculated StatsUpdated;
 
     private void Start()
     {
         RecalculateStats();
     }
 
-    public void EquipWeapon(SOWeapon newWeapon)
-    {
-        equippedWeapon = newWeapon;
-        RecalculateStats();
-    }
-
-    public void UnequipWeapon()
-    {
-        equippedWeapon = null;
-        RecalculateStats();
-    }
-
     public void RecalculateStats()
     {
-        Strenght = baseData.strenght;
-        Intelligence = baseData.intelligence;
-        Dexterity = baseData.dexterity;
-        Defense = baseData.defense;
-        Speed = baseData.speed;
+        Strength = playerClass.baseStrength;
+        Dexterity = playerClass.baseDexterity;
+        Intelligence = playerClass.baseIntelligence;
+        Faith = playerClass.baseFaith;
+        Arcane = playerClass.baseArcane;
 
-        if (equippedWeapon != null)
-        { 
-            Strenght += equippedWeapon.strengthBonus;
-            Intelligence += equippedWeapon.intelligenceBonus;
-            Dexterity += equippedWeapon.dexterityBonus;
-            Defense += equippedWeapon.defenseBonus;
-            Speed += equippedWeapon.speedBonus;
+        if (currentWeapon != null)
+        {
+            Strength += currentWeapon.strengthScaling != ScalingGrade.None ? currentWeapon.strengthBonus : 0;
+            Dexterity += currentWeapon.dexterityScaling != ScalingGrade.None ? currentWeapon.dexterityBonus : 0;
+            Intelligence += currentWeapon.intelligenceBonus;
+            Faith += currentWeapon.faithScaling != ScalingGrade.None ? 0.5f : 0;
+            Arcane += currentWeapon.arcaneScaling != ScalingGrade.None ? 0.3f : 0;
         }
+
+
+        if (currentArmor != null)
+        {
+            Strength += currentArmor.strengthBonus;
+            Dexterity += currentArmor.dexterityBonus;
+            Intelligence += currentArmor.intelligenceBonus;
+            Faith += currentArmor.faithBonus;
+            Arcane += currentArmor.arcaneBonus;
+        }
+
+        Strength += buffStrength;
+        Dexterity += buffDexterity;
+        Intelligence += buffIntelligence;
+        Faith += buffFaith;
+        Arcane += buffArcane;
+
+        StatsUpdated?.Invoke();
+    }
+
+    public void EquipWeapon(SOWeapon newWeapon)
+    {
+        currentWeapon = newWeapon;
+        RecalculateStats();
+    }
+
+    public void ApplyBuff(string stat, float value, float duration)
+    {
+        StartCoroutine(ApplyBuffCoroutine(stat, value, duration));
+    }
+
+    private IEnumerator ApplyBuffCoroutine(string stat, float value, float duration)
+    {
+        switch (stat)
+        {
+            case "Strength": buffStrength += value; break;
+            case "Dexterity": buffDexterity += value; break;
+            case "Intelligence": buffIntelligence += value; break;
+            case "Faith": buffFaith += value; break;
+            case "Arcane": buffArcane += value; break;
+        }
+
+        RecalculateStats();
+        yield return new WaitForSeconds(duration);
+
+        switch (stat)
+        {
+            case "Strength": buffStrength -= value; break;
+            case "Dexterity": buffDexterity -= value; break;
+            case "Intelligence": buffIntelligence -= value; break;
+            case "Faith": buffFaith -= value; break;
+            case "Arcane": buffArcane -= value; break;
+        }
+
+        RecalculateStats();
     }
 }

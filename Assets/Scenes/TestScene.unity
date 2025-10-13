@@ -412,6 +412,42 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 1
+--- !u!114 &495670279 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1387756849036398502, guid: 5cfc500513cdc5e45bf949bc9c200ccc,
+    type: 3}
+  m_PrefabInstance: {fileID: 1226407146644793986}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7878821f1afe9a147ba40bdd8b5af646, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &665262723 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3979954237915476169, guid: 5cfc500513cdc5e45bf949bc9c200ccc,
+    type: 3}
+  m_PrefabInstance: {fileID: 1226407146644793986}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7770a56c7111c8e4abc8d1253c32998c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &665262724 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5606949614968892316, guid: 5cfc500513cdc5e45bf949bc9c200ccc,
+    type: 3}
+  m_PrefabInstance: {fileID: 1226407146644793986}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -541,13 +577,28 @@ PrefabInstance:
     - target: {fileID: 1387756849036398502, guid: 5cfc500513cdc5e45bf949bc9c200ccc,
         type: 3}
       propertyPath: roomCount
-      value: 15
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1387756849036398502, guid: 5cfc500513cdc5e45bf949bc9c200ccc,
         type: 3}
       propertyPath: walkLength
       value: 20
       objectReference: {fileID: 0}
+    - target: {fileID: 2493089417223819949, guid: 5cfc500513cdc5e45bf949bc9c200ccc,
+        type: 3}
+      propertyPath: spawner
+      value: 
+      objectReference: {fileID: 665262723}
+    - target: {fileID: 2493089417223819949, guid: 5cfc500513cdc5e45bf949bc9c200ccc,
+        type: 3}
+      propertyPath: generator
+      value: 
+      objectReference: {fileID: 495670279}
+    - target: {fileID: 2493089417223819949, guid: 5cfc500513cdc5e45bf949bc9c200ccc,
+        type: 3}
+      propertyPath: navMeshSurface
+      value: 
+      objectReference: {fileID: 665262724}
     - target: {fileID: 2725787799982702062, guid: 5cfc500513cdc5e45bf949bc9c200ccc,
         type: 3}
       propertyPath: m_Name

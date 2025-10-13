@@ -20,7 +20,7 @@ public class PlayerSpawnManager : Injectable<PlayerSpawnManager>
     {
         base.OnInjected(resolver);
         SceneManager.sceneLoaded += OnSceneLoaded;
-        DontDestroyOnLoad(this.gameObject); 
+        DontDestroyOnLoad(this.gameObject);
     }
 
     protected override void OnDestroy()
@@ -53,7 +53,7 @@ public class PlayerSpawnManager : Injectable<PlayerSpawnManager>
     private void HandleClassSelected(SOPlayerClass selectedClass)
     {
         var classMgr = Resolve<ClassSelectionManager>();
-        classMgr.OnClassChanged -= HandleClassSelected; 
+        classMgr.OnClassChanged -= HandleClassSelected;
         StartCoroutine(SpawnWhenReady(selectedClass));
     }
 
@@ -76,9 +76,9 @@ public class PlayerSpawnManager : Injectable<PlayerSpawnManager>
             yield break;
         }
 
-        yield return new WaitForEndOfFrame();       
-        yield return WaitForNavMeshReady();         
-        yield return WaitForValidSpawnPosition();   
+        yield return new WaitForEndOfFrame();
+        yield return WaitForNavMeshReady();
+        yield return WaitForValidSpawnPosition();
 
         SpawnPlayer(playerClass);
     }
@@ -133,10 +133,7 @@ public class PlayerSpawnManager : Injectable<PlayerSpawnManager>
 
         var agent = _player.GetComponent<NavMeshAgent>();
         if (agent != null && !agent.isOnNavMesh)
-        {
-            Debug.LogWarning("[PlayerSpawnManager] Player non su NavMesh, disabilito temporaneamente NavMeshAgent.");
             agent.enabled = false;
-        }
 
         OnPlayerSpawned?.Invoke(_player);
         Debug.Log($"[PlayerSpawnManager] Player spawnato in {spawnPos}");

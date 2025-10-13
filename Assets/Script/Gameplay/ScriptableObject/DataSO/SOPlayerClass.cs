@@ -22,13 +22,14 @@ public class SOPlayerClass: ScriptableObject
     public float health = 100f;
     public float mana = 100f;
     public float stamina = 100f;
-    public float speed = 5f;
-    public float damage = 10f;
-    public float defense = 10f;
-    public float strenght = 10f;
-    public float intelligence = 10f;
-    public float dexterity = 10f;
 
+    public float baseStrength;
+    public float baseDexterity;
+    public float baseIntelligence;
+    public float baseFaith;
+    public float baseArcane;
+    public float baseVitality;
+    public float baseEndurance;
 
     [Header("Abilities")]
     public string[] abilityNames;
