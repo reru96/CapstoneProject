@@ -20,10 +20,23 @@ MonoBehaviour:
   - {fileID: 3973986449994342444, guid: 2072158f65fa7344dac1fa8d2823a8c5, type: 3}
   - {fileID: 6458175825485281708, guid: d71c4d271a1ec6d4b960f31c129e8292, type: 3}
   swingSound: {fileID: 0}
-  attackDuration: 0.1
-  hitDelay: 0.3
+  attackDuration: 0.2
+  hitDelay: 0
+  physicalBaseDamage: 50
+  fireBaseDamage: 0
+  magicBaseDamage: 0
+  lightningBaseDamage: 0
+  holyBaseDamage: 0
+  strengthScaling: 4
+  dexterityScaling: 4
+  intelligenceScaling: 5
+  faithScaling: 5
+  arcaneScaling: 5
+  scalesWithIntelligence: 0
+  scalesWithFaith: 0
+  scalesWithArcane: 0
   strengthBonus: 0
-  intelligenceBonus: 0
   dexterityBonus: 0
+  intelligenceBonus: 0
   defenseBonus: 0
   speedBonus: 0

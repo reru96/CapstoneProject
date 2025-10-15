@@ -23,7 +23,7 @@ public class CoreSystem : MonoBehaviour
 
         Container = new DIContainer();
         Resolver = new ObjectResolver(Container);
-
+   
         RegisterDefaultDependencies();
     }
 

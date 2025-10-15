@@ -981,6 +981,50 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &297604780
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 297604781}
+  - component: {fileID: 297604782}
+  m_Layer: 0
+  m_Name: InventoryManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &297604781
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 297604780}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4.39583, y: 6.5271473, z: 9.156284}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &297604782
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 297604780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31d81b3881487ab4d87ec4534f5d76c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &302389315
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2121,6 +2165,11 @@ PrefabInstance:
       propertyPath: respawnManager
       value: 
       objectReference: {fileID: 1227741924}
+    - target: {fileID: 6783932295917327023, guid: df4bce70de4966a4a8f98996cefa1fb2,
+        type: 3}
+      propertyPath: inventoryManager
+      value: 
+      objectReference: {fileID: 297604782}
     - target: {fileID: 6783932295917327023, guid: df4bce70de4966a4a8f98996cefa1fb2,
         type: 3}
       propertyPath: checkPointManager
@@ -3439,6 +3488,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: DungeonManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 3979954237915476169, guid: 5cfc500513cdc5e45bf949bc9c200ccc,
+        type: 3}
+      propertyPath: roomSpacing
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 6207378347697958532, guid: 5cfc500513cdc5e45bf949bc9c200ccc,
         type: 3}
@@ -5092,6 +5146,7 @@ SceneRoots:
   - {fileID: 538389370}
   - {fileID: 302389315}
   - {fileID: 970954927}
+  - {fileID: 297604781}
   - {fileID: 1337366279}
   - {fileID: 1327362565}
   - {fileID: 1021392668}

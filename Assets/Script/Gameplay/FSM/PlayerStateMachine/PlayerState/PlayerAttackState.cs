@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,6 +12,8 @@ public class PlayerAttackState : PlayerBaseState
     private readonly float[] bufferTimes = { 0.9f, 0.7f, 1f };
     private readonly float[] endTimes = { 0.9f, 1f, 1f };
 
+    private const int AttackLayerIndex = 1;
+
     public PlayerAttackState(PlayerStateMachine player, int attackNumber) : base(player)
     {
         this.attackNumber = attackNumber;
@@ -22,13 +24,10 @@ public class PlayerAttackState : PlayerBaseState
     {
         bufferNextAttack = false;
 
-     
+        player.animator.SetLayerWeight(AttackLayerIndex, 1f);
         attackNumber = Mathf.Clamp(attackNumber, 0, attackAnimations.Length - 1);
-
-     
         weapon.HandleAttackStart(attackNumber);
-
-        player.animator.Play(attackAnimations[attackNumber]);
+        player.animator.CrossFadeInFixedTime(attackAnimations[attackNumber], 0.05f, AttackLayerIndex, 0f);
     }
 
     public override void Tick()
@@ -36,16 +35,16 @@ public class PlayerAttackState : PlayerBaseState
         HandleMovement();
         HandleInput();
 
-        AnimatorStateInfo stateInfo = player.animator.GetCurrentAnimatorStateInfo(0);
+        AnimatorStateInfo stateInfo = player.animator.GetCurrentAnimatorStateInfo(AttackLayerIndex);
 
-      
+     
         if (attackNumber < 2 && stateInfo.normalizedTime >= bufferTimes[attackNumber] && bufferNextAttack)
         {
             player.SwitchState(new PlayerAttackState(player, attackNumber + 1));
             return;
         }
 
-    
+     
         if (stateInfo.normalizedTime >= endTimes[attackNumber] && !(attackNumber < 2 && bufferNextAttack))
         {
             weapon.HandleAttackEnd();
@@ -59,10 +58,11 @@ public class PlayerAttackState : PlayerBaseState
 
         if (input.sqrMagnitude > 0.01f)
         {
-            player.rb.velocity = input.normalized * (player.agent.speed * 0.01f);
+            float moveSpeedMultiplier = 0.8f; 
+            player.rb.velocity = input.normalized * (player.agent.speed * moveSpeedMultiplier);
+
             Quaternion targetRotation = Quaternion.LookRotation(input.normalized, Vector3.up);
-            Vector3 euler = Quaternion.Slerp(player.rb.rotation, targetRotation, Time.deltaTime * player.rotationSpeed).eulerAngles;
-            player.rb.MoveRotation(Quaternion.Euler(0, euler.y, 0));
+            player.rb.MoveRotation(Quaternion.Slerp(player.rb.rotation, targetRotation, Time.deltaTime * player.rotationSpeed));
         }
         else
         {
@@ -73,6 +73,7 @@ public class PlayerAttackState : PlayerBaseState
     private void HandleInput()
     {
         var inputManager = CoreSystem.Instance.Container.Resolve<InputManager>();
+
         if (Input.GetKeyDown(inputManager.Config.attack))
             bufferNextAttack = true;
 
@@ -86,5 +87,6 @@ public class PlayerAttackState : PlayerBaseState
     public override void Exit()
     {
         weapon.HandleAttackEnd();
+        player.animator.SetLayerWeight(AttackLayerIndex, 0f);
     }
 }

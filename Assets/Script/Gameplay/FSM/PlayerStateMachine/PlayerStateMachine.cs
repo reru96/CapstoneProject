@@ -18,10 +18,12 @@ public class PlayerStateMachine : StateMachine
     public float rotationSpeed = 25f;
     public bool isInvincible = false;
 
+    private InventoryManager _inventory;
     [HideInInspector] public WeaponCombat weaponInstance;
 
     void Awake()
     {
+        _inventory = CoreSystem.Instance.Container.Resolve<InventoryManager>();
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
         agent = GetComponent<NavMeshAgent>();
@@ -34,6 +36,7 @@ public class PlayerStateMachine : StateMachine
 
     private void Start()
     {
+        _inventory.runInventory.AddItem(weapon);
         p_stats.EquipWeapon(weapon);
         SwitchState(new PlayerIdleState(this));
     }

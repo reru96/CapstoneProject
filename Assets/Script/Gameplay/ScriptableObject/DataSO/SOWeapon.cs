@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = ("RPG/Weapon"))]
-public class SOWeapon : ScriptableObject
+public class SOWeapon : SORunItem
 {
-    public string nameWeapon;
-    public Sprite icon;
     public GameObject prefab;
     public GameObject[] attackType;
     public AudioClip swingSound;
@@ -37,4 +35,5 @@ public class SOWeapon : ScriptableObject
     public float intelligenceBonus;
     public float defenseBonus;
     public float speedBonus;
+
 }

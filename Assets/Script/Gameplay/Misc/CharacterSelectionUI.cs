@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class CharactherSelectionUI : MonoBehaviour
+public class CharacterSelectionUI : MonoBehaviour
 {
     [SerializeField] private SOPlayerClass playerClass;
     [SerializeField] private string nextSceneName = "Level1";

@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 6387087499736436826}
   - component: {fileID: 169920466076034926}
   - component: {fileID: 2230184323156047605}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -168,10 +168,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AgentTypeID: 0
-  m_StartPoint: {x: -2.3, y: -1.25, z: 1.29}
-  m_EndPoint: {x: -2.14, y: -1.41, z: -1.18}
-  m_Width: 0
+  m_StartPoint: {x: -2.0009456, y: -1.25, z: 1.8990222}
+  m_EndPoint: {x: -2.2326086, y: -1.41, z: -1.9657195}
+  m_Width: 2
   m_CostModifier: -1
   m_Bidirectional: 1
-  m_AutoUpdatePosition: 0
+  m_AutoUpdatePosition: 1
   m_Area: 0

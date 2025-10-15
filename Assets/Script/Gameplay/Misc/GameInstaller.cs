@@ -11,6 +11,7 @@ public class GameInstaller : MonoBehaviour
     [SerializeField] private PlayerSpawnManager spawnManager;
     [SerializeField] private RespawnManager respawnManager;
     [SerializeField] private CheckpointManager checkPointManager;
+    [SerializeField] private InventoryManager inventoryManager;
 
     private DIContainer _container;
     private ObjectResolver _resolver;
@@ -23,17 +24,30 @@ public class GameInstaller : MonoBehaviour
         _container.Register(inputManager);
         _container.Register(gameManager);
         _container.Register(audioManager);
+        _container.Register(inventoryManager);  
         _container.Register(classManager);
         _container.Register(spawnManager);
         _container.Register(respawnManager);
         _container.Register(checkPointManager);
-
+      
         _resolver.Resolve(inputManager);
         _resolver.Resolve(gameManager);
-        _resolver.Resolve(audioManager); 
+        _resolver.Resolve(audioManager);  
+        _resolver.Resolve(inventoryManager); 
         _resolver.Resolve(classManager);
         _resolver.Resolve(spawnManager);
         _resolver.Resolve(respawnManager);
         _resolver.Resolve(checkPointManager);
+      
+    }
+
+    private void Start()
+    {
+        inventoryManager.LoadPassiveInventory();
+    }
+
+    private void OnApplicationQuit()
+    {
+        inventoryManager.SavePassiveInventory();
     }
 }
