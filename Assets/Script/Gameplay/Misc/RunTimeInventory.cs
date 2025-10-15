@@ -39,4 +39,36 @@ public class RunTimeInventory
         equippedItem = null;
     }
 
+    public List<SOWeapon> GetWeapons()
+    {
+        List<SOWeapon> weapons = new List<SOWeapon>();
+        foreach (var item in items)
+        {
+            if (item is SOWeapon weapon)
+                weapons.Add(weapon);
+        }
+        return weapons;
+    }
+
+    public int GetCurrentWeaponIndex()
+    {
+        var weapons = GetWeapons();
+        if (equippedItem == null || !(equippedItem is SOWeapon eq))
+            return -1;
+        return weapons.IndexOf(eq);
+    }
+
+    public SOWeapon CycleWeapon(int direction)
+    {
+        var weapons = GetWeapons();
+        if (weapons.Count == 0) return null;
+
+        int currentIndex = GetCurrentWeaponIndex();
+        if (currentIndex < 0) currentIndex = 0;
+
+        int newIndex = (currentIndex + direction + weapons.Count) % weapons.Count;
+        var newWeapon = weapons[newIndex];
+        EquipItem(newWeapon);
+        return newWeapon;
+    }
 }

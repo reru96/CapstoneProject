@@ -9,14 +9,14 @@ public class PlayerAttackState : PlayerBaseState
     private bool bufferNextAttack;
 
     private readonly string[] attackAnimations = { "Attack1", "Attack2", "Attack3" };
-    private readonly float[] bufferTimes = { 0.9f, 0.7f, 1f };
-    private readonly float[] endTimes = { 0.9f, 1f, 1f };
+    private readonly float[] bufferTimes = { 0.3f, 0.3f, 0.3f }; 
+    private readonly float[] endTimes = { 0.9f, 1f, 1f };       
 
-    private const int AttackLayerIndex = 1;
+    private const int UpperBodyLayerIndex = 1;
 
     public PlayerAttackState(PlayerStateMachine player, int attackNumber) : base(player)
     {
-        this.attackNumber = attackNumber;
+        this.attackNumber = Mathf.Clamp(attackNumber, 0, attackAnimations.Length - 1);
         weapon = player.weaponInstance;
     }
 
@@ -24,10 +24,11 @@ public class PlayerAttackState : PlayerBaseState
     {
         bufferNextAttack = false;
 
-        player.animator.SetLayerWeight(AttackLayerIndex, 1f);
-        attackNumber = Mathf.Clamp(attackNumber, 0, attackAnimations.Length - 1);
+        player.SetUpperBodyActive(true);
+        player.animator.Play(attackAnimations[attackNumber], UpperBodyLayerIndex, 0f);
+        player.animator.SetLayerWeight(UpperBodyLayerIndex, 1f);
+
         weapon.HandleAttackStart(attackNumber);
-        player.animator.CrossFadeInFixedTime(attackAnimations[attackNumber], 0.05f, AttackLayerIndex, 0f);
     }
 
     public override void Tick()
@@ -35,20 +36,25 @@ public class PlayerAttackState : PlayerBaseState
         HandleMovement();
         HandleInput();
 
-        AnimatorStateInfo stateInfo = player.animator.GetCurrentAnimatorStateInfo(AttackLayerIndex);
+        AnimatorStateInfo stateInfo = player.animator.GetCurrentAnimatorStateInfo(UpperBodyLayerIndex);
 
-     
-        if (attackNumber < 2 && stateInfo.normalizedTime >= bufferTimes[attackNumber] && bufferNextAttack)
+        if (attackNumber < attackAnimations.Length - 1 && stateInfo.normalizedTime >= bufferTimes[attackNumber] && bufferNextAttack)
         {
+            bufferNextAttack = false;
             player.SwitchState(new PlayerAttackState(player, attackNumber + 1));
             return;
         }
 
-     
-        if (stateInfo.normalizedTime >= endTimes[attackNumber] && !(attackNumber < 2 && bufferNextAttack))
+
+        if (stateInfo.normalizedTime >= endTimes[attackNumber] && !(attackNumber < attackAnimations.Length - 1 && bufferNextAttack))
         {
             weapon.HandleAttackEnd();
-            player.SwitchState(new PlayerIdleState(player));
+
+            Vector3 input = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+            if (input.magnitude > 0.1f)
+                player.SwitchState(new PlayerMoveState(player));
+            else
+                player.SwitchState(new PlayerIdleState(player));
         }
     }
 
@@ -58,7 +64,7 @@ public class PlayerAttackState : PlayerBaseState
 
         if (input.sqrMagnitude > 0.01f)
         {
-            float moveSpeedMultiplier = 0.8f; 
+            float moveSpeedMultiplier = 0.8f;
             player.rb.velocity = input.normalized * (player.agent.speed * moveSpeedMultiplier);
 
             Quaternion targetRotation = Quaternion.LookRotation(input.normalized, Vector3.up);
@@ -87,6 +93,8 @@ public class PlayerAttackState : PlayerBaseState
     public override void Exit()
     {
         weapon.HandleAttackEnd();
-        player.animator.SetLayerWeight(AttackLayerIndex, 0f);
+
+        player.animator.SetLayerWeight(UpperBodyLayerIndex, 0f);
+        player.SetUpperBodyActive(false);
     }
 }

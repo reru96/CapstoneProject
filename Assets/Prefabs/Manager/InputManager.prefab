@@ -45,10 +45,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   config:
-    dodge: 8
+    dodge: 113
     attack: 101
     move: 304
-    pause: 27
+    pause: 114
+    switchWeapon: 102
     ability_1: 49
     ability_2: 50
     ability_3: 51

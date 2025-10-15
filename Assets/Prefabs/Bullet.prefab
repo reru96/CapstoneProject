@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 818071616927802977}
   - component: {fileID: 3487109456066575270}
   - component: {fileID: 5795110696843816032}
-  - component: {fileID: 2522335774287014612}
+  - component: {fileID: 1743354308507267889}
   m_Layer: 0
   m_Name: Bullet
   m_TagString: Untagged
@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 6458175825485281708}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 1.477, z: 0}
   m_LocalScale: {x: 1, y: 0.22195, z: 0.57413}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -134,7 +134,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &2522335774287014612
+--- !u!114 &1743354308507267889
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -143,9 +143,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 6458175825485281708}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21ca6315fd4edd942be1a1128f8a1297, type: 3}
+  m_Script: {fileID: 11500000, guid: f3e001b748ea5f44cbf6b5cf26c0eaca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distance: 1
-  duration: 0.2
-  destroyDelay: 0.1
+  speed: 20
+  destroyDelay: 3
+  repulseForce: 3
+  damage: 1

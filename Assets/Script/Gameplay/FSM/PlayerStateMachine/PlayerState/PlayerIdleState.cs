@@ -8,6 +8,7 @@ public class PlayerIdleState : PlayerBaseState
     public PlayerIdleState(PlayerStateMachine player) : base(player) { }
     public override void Enter()
     {
+        player.SetUpperBodyActive(false);
         player.animator.Play("Idle");
         
     }
@@ -30,6 +31,8 @@ public class PlayerIdleState : PlayerBaseState
             player.SwitchState(new PlayerAttackState(player,0));
         if(Input.GetKeyDown(inputManager.Config.dodge))    
             player.SwitchState(new PlayerDodgeState(player));
+        if (Input.GetKeyDown(inputManager.Config.switchWeapon))
+            player.SwitchState(new PlayerSwitchWeaponState(player, 1));
     }
 
    
