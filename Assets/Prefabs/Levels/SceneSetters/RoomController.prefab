@@ -45,7 +45,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomData: {fileID: 11400000, guid: 8c4019b21f002f6418e9fc018acecb04, type: 2}
-  enemySpawner: {fileID: 7945876564780746083, guid: 8b816e5a8ae6d8b47acf2bd46efd88ca,
-    type: 3}
-  isPlayerInside: 0
-  roomCleared: 0
+  gridPos: {x: 0, y: 0, z: 0}
+  node:
+    gridPos: {x: 0, y: 0, z: 0}
+    isStart: 0
+    isEnd: 0
+    isBoss: 0
+    isRest: 0
+    controller: {fileID: 3545380423253658114}

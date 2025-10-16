@@ -1,55 +1,38 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Unity.AI.Navigation;
 using UnityEngine;
 
-public class RoomGenerator : MonoBehaviour
+public class RoomGenerator 
 {
-    public DungeonGenerator dungeonGenerator;
-    public GameObject roomControllerPrefab;
-    public SORoom defaultRoomData, bossRoomData, restRoomData;
-    public NavMeshSurface navMeshSurface;
-    public float roomSpacing = 25f;
+    private int maxIterations;
+    private int roomWidthMin;
+    private int roomLengthMin;
 
-    [HideInInspector] public Dictionary<Vector3Int, GameObject> spawnedRooms = new Dictionary<Vector3Int, GameObject>();
-
-    public void SpawnRooms()
+    public RoomGenerator(int maxIterations, int roomLengthMin, int roomWidthMin)
     {
-        ClearOldRooms();
+        this.maxIterations = maxIterations;
+        this.roomLengthMin = roomLengthMin;
+        this.roomWidthMin = roomWidthMin;
+    }
 
-        foreach (var room in dungeonGenerator.dungeonRooms.Values)
+    public List<RoomNode> GenerateRoomsInGivenSpaces(List<Node> roomSpaces)
+    {
+        List<RoomNode> listToReturn = new List<RoomNode>();
+        foreach (var space in roomSpaces)
         {
-            Vector3 pos = new Vector3(room.gridPos.x * roomSpacing, 0, room.gridPos.z * roomSpacing);
-            GameObject newRoom = Instantiate(roomControllerPrefab, pos, Quaternion.identity, transform);
+            Vector2Int newBottomLeftPoint = StructureHelper.GenerateBottomLeftCornerBetween(
+                space.BottomLeftAreaCorner, space.TopRightAreaCorner, 0.1f, 1);
 
-            RoomController rc = newRoom.GetComponent<RoomController>();
-            if (rc != null)
-            {
-                rc.roomData = GetRoomData(room);
-                rc.Initialize(room.gridPos, dungeonGenerator.dungeonRooms);
-                room.controller = rc;
-            }
-
-            spawnedRooms[room.gridPos] = newRoom;
+            Vector2Int newTopRightPoint = StructureHelper.GenerateTopRightCornerBetween(
+                space.BottomLeftAreaCorner, space.TopRightAreaCorner, 0.9f, 1);
+            space.BottomLeftAreaCorner = newBottomLeftPoint;
+            space.TopRightAreaCorner = newTopRightPoint;
+            space.TopLeftAreaCorner = new Vector2Int(newBottomLeftPoint.x, newTopRightPoint.y);
+            space.BottomRightAreaCorner = new Vector2Int( newTopRightPoint.x,newBottomLeftPoint.y);
+            listToReturn.Add((RoomNode)space);
         }
-
-        if (navMeshSurface != null)
-            navMeshSurface.BuildNavMesh();
-    }
-
-    void ClearOldRooms()
-    {
-       
-        foreach (Transform child in transform)
-            DestroyImmediate(child.gameObject);
-
-        spawnedRooms.Clear();
-    }
-
-    SORoom GetRoomData(RoomNode room)
-    {
-        if (room.isBoss) return bossRoomData;
-        if (room.isRest) return restRoomData;
-        return defaultRoomData;
+        return listToReturn;
     }
 }

@@ -1,20 +1,20 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Codice.Client.Common;
+using Unity.AI.Navigation;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 
 public class RoomController : MonoBehaviour
 {
-
     public SORoom roomData;
-
     public Vector3Int gridPos;
     public RoomNode node;
 
-    private float tileSize = 4f;
-    private float offset = 0f;
+    private float tileSize;
+    private float offset;
 
     private Dictionary<Direction, Vector3> dirToVector;
 
@@ -38,26 +38,26 @@ public class RoomController : MonoBehaviour
         offset = roomData.offset;
 
         GenerateFloor();
-        GenerateWallsAndDoors();
+        GenerateWallsAndDoors(allRooms);
     }
 
-    void GenerateFloor()
+    public void GenerateFloor()
     {
         int width = roomData.roomWidth;
         int length = roomData.roomLength;
-        float offset = roomData.floorSpacing; 
+        float spacing = roomData.floorSpacing;
 
-        float startX = -((width - 1) * (tileSize + offset) / 2f);
-        float startZ = -((length - 1) * (tileSize + offset) / 2f);
+        float startX = -((width - 1) * (tileSize + spacing) / 2f);
+        float startZ = -((length - 1) * (tileSize + spacing) / 2f);
 
         for (int x = 0; x < width; x++)
         {
             for (int z = 0; z < length; z++)
             {
                 Vector3 pos = new Vector3(
-                    startX + x * (tileSize + offset),
+                    startX + x * (tileSize + spacing),
                     0,
-                    startZ + z * (tileSize + offset)
+                    startZ + z * (tileSize + spacing)
                 );
 
                 GameObject prefab = roomData.floorPrefabs[Random.Range(0, roomData.floorPrefabs.Count)];
@@ -66,26 +66,28 @@ public class RoomController : MonoBehaviour
         }
     }
 
-    void GenerateWallsAndDoors()
+    public void GenerateWallsAndDoors(Dictionary<Vector3Int, RoomNode> allRooms)
     {
         int width = roomData.roomWidth;
         int length = roomData.roomLength;
-        float tileSize = roomData.tileSize;
 
         float startX = -((width - 1) * tileSize / 2f);
         float startZ = -((length - 1) * tileSize / 2f);
 
-        foreach (Direction dir in System.Enum.GetValues(typeof(Direction)))
+        foreach (Direction dir in Enum.GetValues(typeof(Direction)))
         {
-            RoomNode neighbor = node.GetNeighbor(dir);
-            bool hasNeighbor = (neighbor != null);
+            Vector3Int neighborPos = gridPos + DirectionToVectorInt(dir);
+            bool hasNeighbor = allRooms.ContainsKey(neighborPos);
+
+            RoomNode neighbor = hasNeighbor ? allRooms[neighborPos] : null;
+            bool isConnected = (neighbor != null);
 
             int segmentCount = (dir == Direction.North || dir == Direction.South) ? width : length;
 
             for (int i = 0; i < segmentCount; i++)
             {
                 bool isCenter = (i == segmentCount / 2);
-                GameObject prefabToSpawn = (hasNeighbor && isCenter) ? roomData.doorPrefab : roomData.wallPrefab;
+                GameObject prefabToSpawn = (isConnected && isCenter) ? roomData.doorPrefab : roomData.wallPrefab;
                 if (prefabToSpawn == null) continue;
 
                 Vector3 localPos = Vector3.zero;
@@ -94,21 +96,17 @@ public class RoomController : MonoBehaviour
                 switch (dir)
                 {
                     case Direction.North:
-                        localPos = new Vector3( startX + i * tileSize, 0, startZ + (length - 1) * tileSize + roomData.wallOffsetZ);
+                        localPos = new Vector3(startX + i * tileSize, 0, startZ + (length - 1) * tileSize + roomData.wallOffsetZ);
                         rot = Quaternion.identity;
                         break;
-
                     case Direction.South:
-                        localPos = new Vector3( startX + i * tileSize, 0, startZ - roomData.wallOffsetZ);
+                        localPos = new Vector3(startX + i * tileSize, 0, startZ - roomData.wallOffsetZ);
                         rot = Quaternion.Euler(0, 180, 0);
                         break;
-
                     case Direction.East:
-                        localPos = new Vector3(
-                            startX + (width - 1) * tileSize + roomData.wallOffsetX, 0, startZ + i * tileSize);
+                        localPos = new Vector3(startX + (width - 1) * tileSize + roomData.wallOffsetX, 0, startZ + i * tileSize);
                         rot = Quaternion.Euler(0, 90, 0);
                         break;
-
                     case Direction.West:
                         localPos = new Vector3(startX - roomData.wallOffsetX, 0, startZ + i * tileSize);
                         rot = Quaternion.Euler(0, -90, 0);
@@ -117,32 +115,75 @@ public class RoomController : MonoBehaviour
 
                 GameObject wallOrDoor = Instantiate(prefabToSpawn, transform.position + localPos, rot, transform);
 
-                if (prefabToSpawn == roomData.doorPrefab && hasNeighbor && neighbor.controller != null)
-                    LinkDoors(wallOrDoor, neighbor.controller, Opposite(dir));
+                if (prefabToSpawn == roomData.doorPrefab && neighbor != null && neighbor.controller != null)
+                {
+                    LinkDoor(wallOrDoor, neighbor.controller, Opposite(dir));
+                }
             }
         }
     }
 
-    void LinkDoors(GameObject door, RoomController neighborController, Direction oppositeDir)
+    void LinkDoor(GameObject door, RoomController neighborController, Direction oppositeDir)
     {
-
         DoorLinker linker = door.GetComponent<DoorLinker>();
         if (linker != null)
         {
             linker.targetRoom = neighborController;
             linker.targetDirection = oppositeDir;
         }
+
+        CreateNavMeshLink(door.transform, neighborController, oppositeDir);
+    }
+
+    void CreateNavMeshLink(Transform doorTransform, RoomController neighborController, Direction oppositeDir)
+    {
+        if (neighborController == null) return;
+
+        Vector3 startPos = doorTransform.position;
+        Vector3 endPos = neighborController.transform.position;
+
+        Vector3 dirOffset = Vector3.zero;
+        switch (oppositeDir)
+        {
+            case Direction.North: dirOffset = Vector3.forward * 2f; break;
+            case Direction.South: dirOffset = Vector3.back * 2f; break;
+            case Direction.East: dirOffset = Vector3.right * 2f; break;
+            case Direction.West: dirOffset = Vector3.left * 2f; break;
+        }
+        endPos += dirOffset;
+
+        NavMeshLink link = doorTransform.GetComponent<NavMeshLink>();
+        if (link == null) link = doorTransform.gameObject.AddComponent<NavMeshLink>();
+
+        link.startPoint = doorTransform.InverseTransformPoint(startPos);
+        link.endPoint = doorTransform.InverseTransformPoint(endPos);
+        link.width = 2f;
+        link.costModifier = -1;
+        link.bidirectional = true;
+        link.area = 0;
     }
 
     Direction Opposite(Direction dir)
     {
-        switch (dir)
+        return dir switch
         {
-            case Direction.North: return Direction.South;
-            case Direction.South: return Direction.North;
-            case Direction.East: return Direction.West;
-            case Direction.West: return Direction.East;
-        }
-        return Direction.North;
+            Direction.North => Direction.South,
+            Direction.South => Direction.North,
+            Direction.East => Direction.West,
+            Direction.West => Direction.East,
+            _ => Direction.North
+        };
+    }
+
+    Vector3Int DirectionToVectorInt(Direction dir)
+    {
+        return dir switch
+        {
+            Direction.North => new Vector3Int(0, 0, 1),
+            Direction.South => new Vector3Int(0, 0, -1),
+            Direction.East => new Vector3Int(1, 0, 0),
+            Direction.West => new Vector3Int(-1, 0, 0),
+            _ => Vector3Int.zero
+        };
     }
 }
