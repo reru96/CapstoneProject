@@ -1,29 +1,51 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Core;
 
-public class InventoryManager: Injectable<InventoryManager>
+namespace Gameplay
 {
-    public RunTimeInventory runInventory { get; private set; }
-    public PermanentInventory permanentInventory { get; private set; }
-
-    protected override void Awake()
+    public class InventoryManager : Injectable<InventoryManager>
     {
-        base.Awake();
+        public RunTimeInventory runInventory { get; private set; }
+        public PermanentInventory permanentInventory { get; private set; }
 
-        if (runInventory == null)
-            runInventory = new RunTimeInventory();
+        protected override void Awake()
+        {
+            base.Awake();
 
-        if (permanentInventory == null)
-            permanentInventory = new PermanentInventory();
+            if (ServiceLocator.Has<InventoryManager>())
+            {
+                Destroy(gameObject);
+                return;
+            }
 
+            ServiceLocator.Register(this);
+            DontDestroyOnLoad(gameObject);
+
+            if (runInventory == null)
+                runInventory = new RunTimeInventory();
+
+            if (permanentInventory == null)
+                permanentInventory = new PermanentInventory();
+
+            LoadPermanentInventory();
+        }
+
+      
+        public void ResetRunInventory() => runInventory.ResetInventory();
+
+   
+        public void SavePermanentInventory() =>
+            SaveSystem.SavePermanentInventory(permanentInventory);
+
+
+        public void LoadPermanentInventory() =>
+            SaveSystem.LoadPermanentInventory(permanentInventory);
+
+        private void OnApplicationQuit()
+        {
+            SavePermanentInventory();
+        }
     }
-
-    public void ResetRunInventory() => runInventory.ResetInventory();
-
-    public void SavePassiveInventory() =>
-        SaveSystem.SavePermanentInventory(permanentInventory);
-
-    public void LoadPassiveInventory() =>
-        SaveSystem.LoadPermanentInventory(permanentInventory);
 }

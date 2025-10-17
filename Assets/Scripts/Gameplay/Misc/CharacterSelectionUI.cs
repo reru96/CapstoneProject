@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Core;
+using Gameplay;
 
 public class CharacterSelectionUI : MonoBehaviour
 {
@@ -17,8 +19,8 @@ public class CharacterSelectionUI : MonoBehaviour
             return;
         }
 
-        var classMgr = CoreSystem.Instance.Container.Resolve<ClassSelectionManager>();
-        classMgr.SelectClass(playerClass);
+        var classMgr = ServiceLocator.Get<ClassSelectionManager>();
+        classMgr.SetClass(playerClass);
         Debug.Log($"[CharacterSelectionButton] Classe selezionata: {playerClass.className}");
 
         SceneManager.LoadScene(nextSceneName);

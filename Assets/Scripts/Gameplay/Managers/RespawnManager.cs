@@ -1,66 +1,58 @@
-using System.Collections;
 using UnityEngine;
+using Core;
 
-[System.Serializable]
-public class RespawnConfig
+namespace Gameplay
 {
-    public int maxTry = 3;
-    public float respawnDelay = 2f;
-}
-
-public class RespawnManager : Injectable<RespawnManager>
-{
-    [SerializeField] private RespawnConfig config = new RespawnConfig();
-
-    private int _remainingTries;
-    private bool _isRespawning;
-
-    public int RemainingTries => _remainingTries;
-    public bool IsRespawning => _isRespawning;
-
-    public event System.Action<int> OnTryCountChanged;
-    public event System.Action OnRespawnStarted;
-    public event System.Action OnRespawnCompleted;
-    public event System.Action OnGameOver;
-
-    protected override void OnInjected(ObjectResolver resolver)
+    public class RespawnManager : MonoBehaviour
     {
-        base.OnInjected(resolver);
-        _remainingTries = config.maxTry;
-    }
+        private PlayerSpawnManager _playerSpawnManager;
 
-    public void PlayerDied()
-    {
-        if (_isRespawning) return;
+        private void Awake()
+        {
+            _playerSpawnManager = ServiceLocator.Get<PlayerSpawnManager>();
 
-        _remainingTries--;
-        OnTryCountChanged?.Invoke(_remainingTries);
+            ServiceLocator.Register(this);
+        }
 
-        if (_remainingTries > 0)
-            StartCoroutine(RespawnRoutine());
-        else
-            OnGameOver?.Invoke();
-    }
+        public void UpdateCurrentSpawnPoint(Transform checkpoint)
+        {
+            if (checkpoint == null)
+            {
+                Debug.LogWarning("[RespawnManager] Checkpoint nullo!");
+                return;
+            }
 
-    private IEnumerator RespawnRoutine()
-    {
-        _isRespawning = true;
-        OnRespawnStarted?.Invoke();
+            _playerSpawnManager.SetRespawnPoint(checkpoint);
+        }
 
-        yield return new WaitForSeconds(config.respawnDelay);
+        public void RespawnPlayerAtCurrent()
+        {
+            if (_playerSpawnManager.CurrentRespawnPoint == null)
+            {
+                Debug.LogWarning("[RespawnManager] Nessun checkpoint assegnato!");
+                return;
+            }
 
-        var classMgr = Resolve<ClassSelectionManager>();
-        var spawnMgr = Resolve<PlayerSpawnManager>();
-        if (classMgr.SelectedClass?.prefab != null)
-            yield return spawnMgr.SpawnWhenReady(classMgr.SelectedClass);
+            RespawnPlayerAt(_playerSpawnManager.CurrentRespawnPoint);
+        }
 
-        _isRespawning = false;
-        OnRespawnCompleted?.Invoke();
-    }
+        public void RespawnPlayerAt(Transform checkpoint)
+        {
+            if (checkpoint == null)
+            {
+                Debug.LogWarning("[RespawnManager] Checkpoint nullo!");
+                return;
+            }
 
-    public void ResetTries()
-    {
-        _remainingTries = config.maxTry;
-        OnTryCountChanged?.Invoke(_remainingTries);
+            var classMgr = ServiceLocator.Get<ClassSelectionManager>();
+            if (classMgr.SelectedClass == null)
+            {
+                Debug.LogWarning("[RespawnManager] Nessuna classe selezionata, impossibile spawnare il player.");
+                return;
+            }
+
+            _playerSpawnManager.SetRespawnPoint(checkpoint);
+            _playerSpawnManager.SpawnPlayer(classMgr.SelectedClass);
+        }
     }
 }

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
+using Core;
 
 [RequireComponent(typeof(AudioSource))]
 public class AudioManager : Injectable<AudioManager>
@@ -25,34 +26,11 @@ public class AudioManager : Injectable<AudioManager>
     protected override void Awake()
     {
         base.Awake();
-
-
-        CoreSystem.Instance.Container.Register<AudioManager>(this);
-
-        CoreSystem.Instance.Resolver.Resolve(this);
-
-        OnInjected(CoreSystem.Instance.Resolver);
-    }
-
-    protected override void OnInjected(ObjectResolver resolver)
-    {
-        base.OnInjected(resolver);
-
+        DontDestroyOnLoad(gameObject);
         SetupAudioSources();
         LoadAudioLibraries();
-
         SceneManager.sceneLoaded += OnSceneLoaded;
-
-
-        OnSceneLoaded(SceneManager.GetActiveScene(), LoadSceneMode.Single);
     }
-
-    protected override void OnDestroy()
-    {
-        base.OnDestroy();
-        SceneManager.sceneLoaded -= OnSceneLoaded;
-    }
-
     private void SetupAudioSources()
     {
         if (musicSource == null)
@@ -143,6 +121,12 @@ public class AudioManager : Injectable<AudioManager>
     {
         if (audioMixer != null)
             audioMixer.SetFloat(sfxVolumeParam, Mathf.Log10(Mathf.Clamp(volume, 0.0001f, 1f)) * 20f);
+    }
+
+    protected override void OnDestroy()
+    {
+        base.OnDestroy();
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
 }

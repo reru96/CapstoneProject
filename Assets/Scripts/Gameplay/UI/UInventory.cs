@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using Core;
+using Gameplay;
 using UnityEngine;
 
 public class UInventory : MonoBehaviour
@@ -8,13 +10,13 @@ public class UInventory : MonoBehaviour
     public CanvasGroup inventoryCanvasGroup; 
     private bool isActive;
 
-    private InventoryManager inventoryManager;
-    private InputManager inputManager;
+    private InventoryManager _inventoryManager;
+    private InputManager _inputManager;
 
     private void Awake()
     {
-        inventoryManager = CoreSystem.Instance.Container.Resolve<InventoryManager>();
-        inputManager = CoreSystem.Instance.Container.Resolve<InputManager>();
+        _inventoryManager = ServiceLocator.Get<InventoryManager>();
+        _inputManager = ServiceLocator.Get<InputManager>();
 
         RefreshAllPanels();
     }
@@ -25,7 +27,7 @@ public class UInventory : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetKeyDown(inputManager.Config.pause))
+        if (Input.GetKeyDown(_inputManager.config.pause))
         {
             isActive = !isActive;
             SetInventoryVisibility(isActive);
@@ -47,15 +49,15 @@ public class UInventory : MonoBehaviour
             switch (panel.type)
             {
                 case PanelType.Weapons:
-                    RefreshRunItemsPanel(panel, inventoryManager.runInventory.items);
+                    RefreshRunItemsPanel(panel, _inventoryManager.runInventory.items);
                     break;
 
                 case PanelType.Consumables:
-                    RefreshRunItemsPanel(panel, inventoryManager.runInventory.consumables);
+                    RefreshRunItemsPanel(panel, _inventoryManager.runInventory.consumables);
                     break;
 
                 case PanelType.Upgrades:
-                    RefreshPassivePanel(panel, inventoryManager.permanentInventory.equippedUpgrades);
+                    RefreshPassivePanel(panel, _inventoryManager.permanentInventory.equippedUpgrades);
                     break;
             }
         }

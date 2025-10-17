@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Core;
+using Gameplay;
 using UnityEngine;
 
 public class PlayerAttackState : PlayerBaseState
@@ -78,12 +80,12 @@ public class PlayerAttackState : PlayerBaseState
 
     private void HandleInput()
     {
-        var inputManager = CoreSystem.Instance.Container.Resolve<InputManager>();
+        var inputManager = ServiceLocator.Get<InputManager>();
 
-        if (Input.GetKeyDown(inputManager.Config.attack))
+        if (Input.GetKeyDown(inputManager.config.attack))
             bufferNextAttack = true;
 
-        if (Input.GetKeyDown(inputManager.Config.dodge))
+        if (Input.GetKeyDown(inputManager.config.dodge))
         {
             weapon.HandleAttackEnd();
             player.SwitchState(new PlayerDodgeState(player));

@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using Core;
+using Gameplay;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -43,7 +45,7 @@ public class PlayerFootSteps : MonoBehaviour
         if (footstepKeys.Length == 0) return;
 
         string key = footstepKeys[Random.Range(0, footstepKeys.Length)];
-        var audioManager = CoreSystem.Instance.Container.Resolve<AudioManager>();  
+        var audioManager = ServiceLocator.Get<AudioManager>();  
         audioManager.PlaySfx(key, volume);
     }
 }

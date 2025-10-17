@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Core;
+using Gameplay;
 using UnityEngine.AI;
 
 public class PlayerStateMachine : StateMachine
@@ -26,7 +28,7 @@ public class PlayerStateMachine : StateMachine
 
     void Awake()
     {
-        _inventory = CoreSystem.Instance.Container.Resolve<InventoryManager>();
+        _inventory = ServiceLocator.Get<InventoryManager>();
 
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();

@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using Core;
+using Gameplay;
 using UnityEngine;
 
 public class PlayerSwitchWeaponState : PlayerBaseState
@@ -23,7 +25,7 @@ public class PlayerSwitchWeaponState : PlayerBaseState
     public override void Enter()
     {
         player.SetUpperBodyActive(true);
-        _inventory = CoreSystem.Instance.Container.Resolve<InventoryManager>();
+        _inventory = ServiceLocator.Get<InventoryManager>();
 
         _timer = 0f;
         _weaponSwitched = false;

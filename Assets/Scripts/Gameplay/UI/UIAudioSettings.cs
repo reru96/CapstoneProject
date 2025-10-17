@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Core;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,7 +15,7 @@ public class UIAudioSettings : MonoBehaviour
     private IEnumerator Start()
     {
 
-        audioManager = CoreSystem.Instance.Container.Resolve<AudioManager>();
+        audioManager = ServiceLocator.Get<AudioManager>();
 
         if (audioManager == null)
         {
