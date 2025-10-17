@@ -412,96 +412,6 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 1
---- !u!1 &608968893
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 608968895}
-  - component: {fileID: 608968894}
-  - component: {fileID: 608968896}
-  m_Layer: 10
-  m_Name: DungeonCreator
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &608968894
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 608968893}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8bf38d9a7159d743b46acc0491de249, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dungeonWidth: 50
-  dungeonLength: 50
-  roomWidthMin: 5
-  roomLengthMin: 5
-  maxIterations: 20
-  corridorWidth: 5
-  material: {fileID: 3876542345217667742, guid: ad7d9e2bfd1753b458b0e6463424e24e,
-    type: 3}
-  roomBottomCornerModifier: 0.1
-  roomTopCornerModifier: 0.9
-  roomOffset: 1
-  wallVertical: []
-  wallHorizontal: []
-  navMeshsurface: {fileID: 608968896}
---- !u!4 &608968895
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 608968893}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -47.93818, y: 7.3375835, z: -7.4309325}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &608968896
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 608968893}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_AgentTypeID: 0
-  m_CollectObjects: 0
-  m_Size: {x: 10, y: 10, z: 10}
-  m_Center: {x: 0, y: 2, z: 0}
-  m_LayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_UseGeometry: 0
-  m_DefaultArea: 0
-  m_GenerateLinks: 0
-  m_IgnoreNavMeshAgent: 1
-  m_IgnoreNavMeshObstacle: 1
-  m_OverrideTileSize: 0
-  m_TileSize: 256
-  m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.16666667
-  m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: 6f08e7036a7b4e248956b112b97f7378, type: 2}
-  m_BuildHeightMesh: 0
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -733,6 +643,74 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1235996263840787776
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 977675386955972810, guid: 3fec80e7bdd12e04894d7ca3e720fed9,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -47.93818
+      objectReference: {fileID: 0}
+    - target: {fileID: 977675386955972810, guid: 3fec80e7bdd12e04894d7ca3e720fed9,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 7.3375835
+      objectReference: {fileID: 0}
+    - target: {fileID: 977675386955972810, guid: 3fec80e7bdd12e04894d7ca3e720fed9,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -7.4309325
+      objectReference: {fileID: 0}
+    - target: {fileID: 977675386955972810, guid: 3fec80e7bdd12e04894d7ca3e720fed9,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 977675386955972810, guid: 3fec80e7bdd12e04894d7ca3e720fed9,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 977675386955972810, guid: 3fec80e7bdd12e04894d7ca3e720fed9,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 977675386955972810, guid: 3fec80e7bdd12e04894d7ca3e720fed9,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 977675386955972810, guid: 3fec80e7bdd12e04894d7ca3e720fed9,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 977675386955972810, guid: 3fec80e7bdd12e04894d7ca3e720fed9,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 977675386955972810, guid: 3fec80e7bdd12e04894d7ca3e720fed9,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6082292873581967715, guid: 3fec80e7bdd12e04894d7ca3e720fed9,
+        type: 3}
+      propertyPath: m_Name
+      value: DungeonCreator
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 3fec80e7bdd12e04894d7ca3e720fed9, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -742,4 +720,4 @@ SceneRoots:
   - {fileID: 832575519}
   - {fileID: 1184480226}
   - {fileID: 1509333214}
-  - {fileID: 608968895}
+  - {fileID: 1235996263840787776}

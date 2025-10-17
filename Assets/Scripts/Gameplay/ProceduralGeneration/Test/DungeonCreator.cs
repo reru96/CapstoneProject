@@ -2,77 +2,110 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.AI.Navigation;
 using UnityEngine;
+using System.Threading.Tasks;
 using UnityEngine.AI;
 
 public class DungeonCreator : MonoBehaviour
 {
-    public int dungeonWidth, dungeonLength;
-    public int roomWidthMin, roomLengthMin;
-    public int maxIterations;
-    public int corridorWidth;
+    public int dungeonWidth = 100;
+    public int dungeonLength = 100;
+    public int roomWidthMin = 6;
+    public int roomLengthMin = 6;
+    public int maxIterations = 20;
+    public int corridorWidth = 2;
+
+    [Range(0f, 0.3f)] public float roomBottomCornerModifier = 0.2f;
+    [Range(0.7f, 1.0f)] public float roomTopCornerModifier = 0.9f;
+    [Range(0, 2f)] public int roomOffset = 1;
+
     public Material material;
-    [Range(0f, 0.3f)]public float roomBottomCornerModifier;
-    [Range(0.7f, 1.0f)]public float roomTopCornerModifier;
-    [Range(0, 2f)]public int roomOffset;
-    public List<GameObject> wallVertical, wallHorizontal;
+    public List<GameObject> wallVertical;
+    public List<GameObject> wallHorizontal;
+
+    public NavMeshSurface navMeshSurface;
+
+    public int roomsPerFrame = 3;
+
     List<Vector3Int> possibleDoorVerticalPosition;
     List<Vector3Int> possibleDoorHorizontalPosition;
     List<Vector3Int> possibleWallHorizontalPosition;
     List<Vector3Int> possibleWallVerticalPosition;
-    public NavMeshSurface navMeshsurface;
 
+    public static event System.Action OnDungeonReady;
 
     void Start()
     {
-        CreateDungeon();
+        _ = CreateDungeonAsync(); 
     }
 
-    public void CreateDungeon()
+    public async Task CreateDungeonAsync()
     {
         DestroyAllChildren();
+
         DungeonGenerator generator = new DungeonGenerator(dungeonWidth, dungeonLength);
-        var listOfRooms = generator.CalculateDungeon(maxIterations,
+        var listOfRooms = generator.CalculateDungeon(
+            maxIterations,
             roomWidthMin,
             roomLengthMin,
             roomBottomCornerModifier,
             roomTopCornerModifier,
             roomOffset,
-            corridorWidth);
+            corridorWidth
+        );
+
         GameObject wallParent = new GameObject("WallParent");
         wallParent.transform.parent = transform;
+
         possibleDoorVerticalPosition = new List<Vector3Int>();
         possibleDoorHorizontalPosition = new List<Vector3Int>();
         possibleWallHorizontalPosition = new List<Vector3Int>();
         possibleWallVerticalPosition = new List<Vector3Int>();
+
+
         for (int i = 0; i < listOfRooms.Count; i++)
         {
             CreateMesh(listOfRooms[i].BottomLeftAreaCorner, listOfRooms[i].TopRightAreaCorner);
-        }
-        CreateWalls(wallParent);
 
-        if (navMeshsurface == null)
-        {
-            navMeshsurface = gameObject.GetComponent<NavMeshSurface>();
-            if (navMeshsurface == null)
-            {
-                navMeshsurface = gameObject.AddComponent<NavMeshSurface>();
-            }
-            navMeshsurface.layerMask = LayerMask.GetMask("Floor");
+            if (i % roomsPerFrame == 0)
+                await Task.Yield();
         }
-        navMeshsurface.BuildNavMesh();
+
+        await CreateWallsAsync(wallParent);
+
+        if (navMeshSurface == null)
+        {
+            navMeshSurface = gameObject.GetComponent<NavMeshSurface>();
+            if (navMeshSurface == null)
+                navMeshSurface = gameObject.AddComponent<NavMeshSurface>();
+
+            navMeshSurface.layerMask = LayerMask.GetMask("Floor");
+        }
+
+        navMeshSurface.BuildNavMesh();
+
+        OnDungeonReady?.Invoke();
     }
 
-    private void CreateWalls(GameObject wallParent)
+    private async Task CreateWallsAsync(GameObject wallParent)
     {
+        int counter = 0;
+
         foreach (var wallPosition in possibleWallHorizontalPosition)
         {
             var prefab = GetRandomWallPrefab(wallHorizontal);
             CreateWall(wallParent, wallPosition, prefab);
+
+            if (++counter % 20 == 0)
+                await Task.Yield();
         }
+
         foreach (var wallPosition in possibleWallVerticalPosition)
         {
             var prefab = GetRandomWallPrefab(wallVertical);
             CreateWall(wallParent, wallPosition, prefab);
+
+            if (++counter % 20 == 0)
+                await Task.Yield();
         }
     }
 
@@ -110,26 +143,18 @@ public class DungeonCreator : MonoBehaviour
 
         Vector2[] uvs = new Vector2[vertices.Length];
         for (int i = 0; i < uvs.Length; i++)
-        {
             uvs[i] = new Vector2(vertices[i].x, vertices[i].z);
-        }
 
-        int[] triangles = new int[]
+        int[] triangles = new int[] { 0, 1, 2, 2, 1, 3 };
+
+        Mesh mesh = new Mesh
         {
-            0,
-            1,
-            2,
-            2,
-            1,
-            3
+            vertices = vertices,
+            uv = uvs,
+            triangles = triangles
         };
-        Mesh mesh = new Mesh();
-        mesh.vertices = vertices;
-        mesh.uv = uvs;
-        mesh.triangles = triangles;
 
         GameObject dungeonFloor = new GameObject("Mesh" + bottomLeftCorner, typeof(MeshFilter), typeof(MeshRenderer));
-
         dungeonFloor.transform.position = Vector3.zero;
         dungeonFloor.transform.localScale = Vector3.one;
         dungeonFloor.GetComponent<MeshFilter>().mesh = mesh;
@@ -174,7 +199,7 @@ public class DungeonCreator : MonoBehaviour
 
     private void DestroyAllChildren()
     {
-        while (transform.childCount != 0)
+        while (transform.childCount > 0)
         {
             foreach (Transform item in transform)
             {

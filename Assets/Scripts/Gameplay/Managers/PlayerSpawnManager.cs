@@ -33,6 +33,13 @@ public class PlayerSpawnManager : Injectable<PlayerSpawnManager>
     {
         FindRespawnPoint();
 
+        DungeonCreator.OnDungeonReady += HandleDungeonReady;
+    }
+
+    private void HandleDungeonReady()
+    {
+        DungeonCreator.OnDungeonReady -= HandleDungeonReady;
+
         var classMgr = Resolve<ClassSelectionManager>();
         if (classMgr == null)
         {

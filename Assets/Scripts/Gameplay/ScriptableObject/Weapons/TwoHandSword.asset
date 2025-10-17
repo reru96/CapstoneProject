@@ -12,16 +12,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16c40c636d807904cb0a4826fc7d6e00, type: 3}
   m_Name: TwoHandSword
   m_EditorClassIdentifier: 
-  nameWeapon: TwoHand BloodSword
-  icon: {fileID: 0}
+  itemName: spada a due mani
+  description: qerqeq
+  itemType: 2
+  icon: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
   prefab: {fileID: 7024603005149325442, guid: 7d5f6d80a8da7484ebcbc0b453b38510, type: 3}
   attackType:
   - {fileID: 6458175825485281708, guid: d71c4d271a1ec6d4b960f31c129e8292, type: 3}
   swingSound: {fileID: 0}
   attackDuration: 0
   hitDelay: 0.3
+  physicalBaseDamage: 50
+  fireBaseDamage: 0
+  magicBaseDamage: 0
+  lightningBaseDamage: 0
+  holyBaseDamage: 0
+  strengthScaling: 4
+  dexterityScaling: 4
+  intelligenceScaling: 5
+  faithScaling: 5
+  arcaneScaling: 5
+  scalesWithIntelligence: 0
+  scalesWithFaith: 0
+  scalesWithArcane: 0
   strengthBonus: 0
-  intelligenceBonus: 0
   dexterityBonus: 0
+  intelligenceBonus: 0
   defenseBonus: 0
   speedBonus: 0

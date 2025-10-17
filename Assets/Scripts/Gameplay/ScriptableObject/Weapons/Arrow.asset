@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16c40c636d807904cb0a4826fc7d6e00, type: 3}
   m_Name: Arrow
   m_EditorClassIdentifier: 
-  itemName: 
-  description: 
-  itemType: 0
-  icon: {fileID: 0}
+  itemName: Arrow
+  description: arco e frecce
+  itemType: 2
+  icon: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
   prefab: {fileID: 4283383439619140376, guid: 84bce7eeff0fa6c469378259af883f7c, type: 3}
   attackType:
   - {fileID: 6458175825485281708, guid: d71c4d271a1ec6d4b960f31c129e8292, type: 3}
