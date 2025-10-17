@@ -422,7 +422,8 @@ GameObject:
   m_Component:
   - component: {fileID: 608968895}
   - component: {fileID: 608968894}
-  m_Layer: 0
+  - component: {fileID: 608968896}
+  m_Layer: 10
   m_Name: DungeonCreator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -441,13 +442,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8bf38d9a7159d743b46acc0491de249, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dungeonWidth: 100
-  dungeonLength: 100
-  roomWidthMin: 25
-  roomLengthMin: 25
-  maxIterations: 10
+  dungeonWidth: 50
+  dungeonLength: 50
+  roomWidthMin: 5
+  roomLengthMin: 5
+  maxIterations: 20
   corridorWidth: 5
-  material: {fileID: 2100000, guid: 2bbbb3d84dce75d4581b151f12702225, type: 2}
+  material: {fileID: 3876542345217667742, guid: ad7d9e2bfd1753b458b0e6463424e24e,
+    type: 3}
+  roomBottomCornerModifier: 0.1
+  roomTopCornerModifier: 0.9
+  roomOffset: 1
+  wallVertical: []
+  wallHorizontal: []
+  navMeshsurface: {fileID: 608968896}
 --- !u!4 &608968895
 Transform:
   m_ObjectHideFlags: 0
@@ -463,6 +471,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &608968896
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 608968893}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AgentTypeID: 0
+  m_CollectObjects: 0
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_UseGeometry: 0
+  m_DefaultArea: 0
+  m_GenerateLinks: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.16666667
+  m_MinRegionArea: 2
+  m_NavMeshData: {fileID: 23800000, guid: 6f08e7036a7b4e248956b112b97f7378, type: 2}
+  m_BuildHeightMesh: 0
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -592,7 +631,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1184480225
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -646,7 +685,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1509333212
 MonoBehaviour:
   m_ObjectHideFlags: 0
