@@ -12,13 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3e95707374c40547b01a5ed3757ef64, type: 3}
   m_Name: Warrior
   m_EditorClassIdentifier: 
-  nameClass: Warrior
-  maxHP: 10
-  maxMana: 10
-  maxStamina: 0
-  strength: 10
-  intelligence: 0
-  dexterity: 0
-  defense: 0
-  speed: 10
+  className: Warrior
+  description: 
+  previewImage: {fileID: 0}
+  classColor: {r: 1, g: 1, b: 1, a: 1}
   prefab: {fileID: 5156660526780872327, guid: 965175182c90004459731f37915a2a13, type: 3}
+  requiredLevel: 0
+  health: 100
+  mana: 100
+  stamina: 100
+  baseStrength: 0
+  baseDexterity: 0
+  baseIntelligence: 0
+  baseFaith: 0
+  baseArcane: 0
+  baseVitality: 0
+  baseEndurance: 0
+  abilityNames: []
+  abilityIcons: []

@@ -59,6 +59,39 @@ namespace Gameplay
                 case "Ability3": config.ability_3 = newKey; break;
                 default: Debug.LogWarning($"[InputManager] Azione '{actionName}' non trovata!"); break;
             }
+
+            SaveBindings();
+        }
+
+        public void SaveBindings()
+        {
+            PlayerPrefs.SetInt("Dodge", (int)config.dodge);
+            PlayerPrefs.SetInt("Attack", (int)config.attack);
+            PlayerPrefs.SetInt("Move", (int)config.move);
+            PlayerPrefs.SetInt("Pause", (int)config.pause);
+            PlayerPrefs.SetInt("SwitchWeapon", (int)config.switchWeapon);
+            PlayerPrefs.SetInt("Ability1", (int)config.ability_1);
+            PlayerPrefs.SetInt("Ability2", (int)config.ability_2);
+            PlayerPrefs.SetInt("Ability3", (int)config.ability_3);
+            PlayerPrefs.Save();
+        }
+
+        public void LoadBindings()
+        {
+            LoadKey("Dodge", ref config.dodge);
+            LoadKey("Attack", ref config.attack);
+            LoadKey("Move", ref config.move);
+            LoadKey("Pause", ref config.pause);
+            LoadKey("SwitchWeapon", ref config.switchWeapon);
+            LoadKey("Ability1", ref config.ability_1);
+            LoadKey("Ability2", ref config.ability_2);
+            LoadKey("Ability3", ref config.ability_3);
+        }
+
+        private void LoadKey(string name, ref KeyCode key)
+        {
+            if (PlayerPrefs.HasKey(name))
+                key = (KeyCode)PlayerPrefs.GetInt(name);
         }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using Core;
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
@@ -14,101 +13,41 @@ namespace Gameplay
         [SerializeField] private float fadeDuration = 1f;
 
         public int Coins { get; private set; } = 0;
+
         public static event Action<int> OnCoinsChanged;
-
-        [Header("Audio")]
-        [SerializeField] private AudioSource audioSource;
-        [SerializeField] private AudioClip defaultClip;
-        [SerializeField, Range(0f, 1f)] private float targetVolume = 1f;
-
-        [SerializeField] private SceneAudioPair[] sceneAudioPairs;
-        private Dictionary<string, AudioClip> _sceneAudioDict;
-
-        [Serializable]
-        private struct SceneAudioPair
-        {
-            public string sceneName;
-            public AudioClip clip;
-        }
+        public static event Action<string> OnSceneLoaded;
 
         protected override void Awake()
         {
             base.Awake();
             DontDestroyOnLoad(gameObject);
 
-            _sceneAudioDict = new Dictionary<string, AudioClip>();
-            foreach (var pair in sceneAudioPairs)
+            if (screenFader == null)
             {
-                if (!_sceneAudioDict.ContainsKey(pair.sceneName))
-                    _sceneAudioDict.Add(pair.sceneName, pair.clip);
+                GameObject faderObj = new GameObject("ScreenFader");
+                faderObj.transform.SetParent(transform);
+                screenFader = faderObj.AddComponent<CanvasGroup>();
+                var canvas = faderObj.AddComponent<Canvas>();
+                canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+                faderObj.AddComponent<UnityEngine.UI.Image>().color = Color.black;
+                screenFader.alpha = 0f;
             }
 
-            SceneManager.sceneLoaded += OnSceneLoaded;
+            SceneManager.sceneLoaded += HandleSceneLoaded;
         }
 
-        private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        protected override void OnDestroy()
         {
-            PlaySceneAudio(scene.name);
+            base.OnDestroy();
+            SceneManager.sceneLoaded -= HandleSceneLoaded;
+        }
+
+        private void HandleSceneLoaded(Scene scene, LoadSceneMode mode)
+        {
             FadeIn();
+            OnSceneLoaded?.Invoke(scene.name);
         }
 
-        public void FadeIn()
-        {
-            if (screenFader == null) return;
-            screenFader.alpha = 1f;
-            screenFader.gameObject.SetActive(true);
-
-            screenFader.DOFade(0f, fadeDuration).OnComplete(() =>
-            {
-                screenFader.gameObject.SetActive(false);
-            });
-        }
-
-        public void FadeOut(Action onComplete = null)
-        {
-            if (screenFader == null) return;
-            screenFader.alpha = 0f;
-            screenFader.gameObject.SetActive(true);
-
-            screenFader.DOFade(1f, fadeDuration).OnComplete(() =>
-            {
-                onComplete?.Invoke();
-            });
-        }
-
-        public void LoadScene(string sceneName)
-        {
-            FadeOut(() => SceneManager.LoadScene(sceneName));
-        }
-      
-        private void PlaySceneAudio(string sceneName)
-        {
-            if (audioSource == null) return;
-
-            AudioClip clipToPlay = defaultClip;
-            if (_sceneAudioDict.TryGetValue(sceneName, out var clip) && clip != null)
-                clipToPlay = clip;
-
-            audioSource.clip = clipToPlay;
-            audioSource.volume = 0f;
-            audioSource.Play();
-
-            audioSource.DOFade(targetVolume, fadeDuration);
-        }
-
-        public void PlayAudio(string clipName)
-        {
-            if (audioSource == null) return;
-            audioSource.DOFade(0f, 0f); 
-            audioSource.Play();
-        }
-
-        public void StopAudio()
-        {
-            if (audioSource == null) return;
-            audioSource.DOFade(0f, fadeDuration).OnComplete(() => audioSource.Stop());
-        }
-      
         public void AddCoins(int amount)
         {
             Coins += amount;
@@ -123,6 +62,7 @@ namespace Gameplay
                 Debug.LogWarning("[GameManager] Non abbastanza coins!");
                 return false;
             }
+
             Coins -= amount;
             OnCoinsChanged?.Invoke(Coins);
             return true;
@@ -134,6 +74,43 @@ namespace Gameplay
             OnCoinsChanged?.Invoke(Coins);
             Debug.Log("[GameManager] Coins resettati");
         }
-       
+
+        public void LoadScene(string sceneName)
+        {
+            StartCoroutine(LoadSceneRoutine(sceneName));
+        }
+
+        private System.Collections.IEnumerator LoadSceneRoutine(string sceneName)
+        {
+            yield return FadeOut();
+
+            AsyncOperation op = SceneManager.LoadSceneAsync(sceneName);
+            while (!op.isDone)
+                yield return null;
+
+            FadeIn();
+        }
+        public void FadeIn()
+        {
+            if (screenFader == null) return;
+
+            screenFader.gameObject.SetActive(true);
+            screenFader.alpha = 1f;
+            screenFader.DOFade(0f, fadeDuration).OnComplete(() =>
+            {
+                screenFader.gameObject.SetActive(false);
+            });
+        }
+
+        public System.Collections.IEnumerator FadeOut()
+        {
+            if (screenFader == null)
+                yield break;
+
+            screenFader.gameObject.SetActive(true);
+            screenFader.alpha = 0f;
+
+            yield return screenFader.DOFade(1f, fadeDuration).WaitForCompletion();
+        }
     }
 }

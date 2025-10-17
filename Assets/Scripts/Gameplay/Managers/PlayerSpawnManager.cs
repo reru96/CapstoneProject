@@ -19,6 +19,12 @@ namespace Gameplay
         public GameObject Player => player;
         public Transform CurrentRespawnPoint => currentRespawnPoint;
 
+        protected override void Awake()
+        {
+            base.Awake();
+            SpawnPlayerFromClassSelection();
+        }
+
         public void SetRespawnPoint(Transform point)
         {
             currentRespawnPoint = point;

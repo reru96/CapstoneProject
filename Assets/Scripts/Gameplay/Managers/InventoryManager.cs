@@ -14,13 +14,6 @@ namespace Gameplay
         {
             base.Awake();
 
-            if (ServiceLocator.Has<InventoryManager>())
-            {
-                Destroy(gameObject);
-                return;
-            }
-
-            ServiceLocator.Register(this);
             DontDestroyOnLoad(gameObject);
 
             if (runInventory == null)

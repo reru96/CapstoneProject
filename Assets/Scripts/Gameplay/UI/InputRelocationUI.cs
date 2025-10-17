@@ -8,33 +8,31 @@ using UnityEngine.UI;
 
 public class InputRebindUI : MonoBehaviour
 {
-    [Header("UI References")]
-    public Button dodgeButton;
-    public Button attackButton;
-    public Button moveButton;
-    public Button pauseButton;
-    public Button switchWeaponButton;
-    public Button ability1Button;
-    public Button ability2Button;
-    public Button ability3Button;
+    [Header("UI Parent Panel")]
+    [SerializeField] private Transform buttonParent;
+    [SerializeField] private GameObject buttonPrefab;
 
+    private readonly Dictionary<string, Button> buttons = new();
     private InputManager inputManager;
-    private Button waitingForButton = null;
+    private Button waitingForButton;
 
     private void Awake()
     {
         inputManager = ServiceLocator.Get<InputManager>();
 
-        dodgeButton.onClick.AddListener(() => StartRebind("Dodge", dodgeButton));
-        attackButton.onClick.AddListener(() => StartRebind("Attack", attackButton));
-        moveButton.onClick.AddListener(() => StartRebind("Move", moveButton));
-        pauseButton.onClick.AddListener(() => StartRebind("Pause", pauseButton));
-        switchWeaponButton.onClick.AddListener(() => StartRebind("SwitchWeapon", switchWeaponButton));
-        ability1Button.onClick.AddListener(() => StartRebind("Ability1", ability1Button));
-        ability2Button.onClick.AddListener(() => StartRebind("Ability2", ability2Button));
-        ability3Button.onClick.AddListener(() => StartRebind("Ability3", ability3Button));
+        if (buttonParent == null)
+        {
+            Debug.LogError("[InputRebindUI] Nessun parent assegnato per i pulsanti!");
+            return;
+        }
 
-        LoadKeybinds();
+        if (buttonPrefab == null)
+        {
+            Debug.LogError("[InputRebindUI] Nessun prefab assegnato per i pulsanti!");
+            return;
+        }
+
+        CreateButtons();
         UpdateButtonLabels();
     }
 
@@ -42,8 +40,7 @@ public class InputRebindUI : MonoBehaviour
     {
         if (waitingForButton != null)
         {
-
-            foreach (KeyCode key in System.Enum.GetValues(typeof(KeyCode)))
+            foreach (KeyCode key in Enum.GetValues(typeof(KeyCode)))
             {
                 if (Input.GetKeyDown(key))
                 {
@@ -51,6 +48,7 @@ public class InputRebindUI : MonoBehaviour
                     inputManager.RebindKey(actionName, key);
                     PlayerPrefs.SetInt(actionName, (int)key);
                     PlayerPrefs.Save();
+
                     waitingForButton = null;
                     UpdateButtonLabels();
                     break;
@@ -59,42 +57,59 @@ public class InputRebindUI : MonoBehaviour
         }
     }
 
+    private void CreateButtons()
+    {
+        string[] actions =
+        {
+                "Dodge", "Attack", "Move", "Pause",
+                "SwitchWeapon", "Ability1", "Ability2", "Ability3"
+            };
+
+        foreach (string action in actions)
+        {
+            var buttonGO = Instantiate(buttonPrefab, buttonParent);
+            buttonGO.name = action;
+
+            var text = buttonGO.GetComponentInChildren<Text>();
+            if (text != null) text.text = $"{action}: ...";
+
+            var button = buttonGO.GetComponent<Button>();
+            buttons[action] = button;
+
+            button.onClick.AddListener(() => StartRebind(action, button));
+        }
+    }
+
     private void StartRebind(string actionName, Button button)
     {
         waitingForButton = button;
-        button.GetComponentInChildren<Text>().text = "Press any key...";
-        button.name = actionName; 
+        button.GetComponentInChildren<Text>().text = $"{actionName}: Press any key...";
     }
 
     private void UpdateButtonLabels()
     {
-        dodgeButton.GetComponentInChildren<Text>().text = inputManager.config.dodge.ToString();
-        attackButton.GetComponentInChildren<Text>().text = inputManager.config.attack.ToString();
-        moveButton.GetComponentInChildren<Text>().text = inputManager.config.move.ToString();
-        pauseButton.GetComponentInChildren<Text>().text = inputManager.config.pause.ToString();
-        switchWeaponButton.GetComponentInChildren<Text>().text = inputManager.config.switchWeapon.ToString();
-        ability1Button.GetComponentInChildren<Text>().text = inputManager.config.ability_1.ToString();
-        ability2Button.GetComponentInChildren<Text>().text = inputManager.config.ability_2.ToString();
-        ability3Button.GetComponentInChildren<Text>().text = inputManager.config.ability_3.ToString();
-    }
-
-    private void LoadKeybinds()
-    {
-        RebindFromPrefs("Dodge", ref inputManager.config.dodge);
-        RebindFromPrefs("Attack", ref inputManager.config.attack);
-        RebindFromPrefs("Move", ref inputManager.config.move);
-        RebindFromPrefs("Pause", ref inputManager.config.pause);
-        RebindFromPrefs("SwitchWeapon", ref inputManager.config.switchWeapon);
-        RebindFromPrefs("Ability1", ref inputManager.config.ability_1);
-        RebindFromPrefs("Ability2", ref inputManager.config.ability_2);
-        RebindFromPrefs("Ability3", ref inputManager.config.ability_3);
-    }
-
-    private void RebindFromPrefs(string actionName, ref KeyCode key)
-    {
-        if (PlayerPrefs.HasKey(actionName))
+        foreach (var kvp in buttons)
         {
-            key = (KeyCode)PlayerPrefs.GetInt(actionName);
+            string action = kvp.Key;
+            Button button = kvp.Value;
+            var text = button.GetComponentInChildren<Text>();
+
+            if (text == null) continue;
+
+            KeyCode key = action switch
+            {
+                "Dodge" => inputManager.config.dodge,
+                "Attack" => inputManager.config.attack,
+                "Move" => inputManager.config.move,
+                "Pause" => inputManager.config.pause,
+                "SwitchWeapon" => inputManager.config.switchWeapon,
+                "Ability1" => inputManager.config.ability_1,
+                "Ability2" => inputManager.config.ability_2,
+                "Ability3" => inputManager.config.ability_3,
+                _ => KeyCode.None
+            };
+
+            text.text = $"{action}: {key}";
         }
     }
 }
