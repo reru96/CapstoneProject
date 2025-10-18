@@ -6,9 +6,9 @@ using UnityEngine;
 public class RoomNode : Node
 {
     public Vector3Int gridPos;
+    public bool isStart;
     public bool isBoss;
     public bool isRest;
-    private Dictionary<Direction, RoomNode> neighbors = new Dictionary<Direction, RoomNode>();
 
     public RoomNode(Vector2Int bottomLeftAreaCorner, Vector2Int topRightAreaCorner, Node parentNode, int index) : base(parentNode)
     {
@@ -19,9 +19,15 @@ public class RoomNode : Node
         this.TreeLayerIndex = index;
     }
 
+    public Vector3 CenterPosition()
+    {
+        float centerX = BottomLeftAreaCorner.x + Width / 2f;
+        float centerZ = BottomLeftAreaCorner.y + Length / 2f;
+        return new Vector3(centerX, 0, centerZ);
+    }
+
     public int Width { get => (int)(TopRightAreaCorner.x - BottomLeftAreaCorner.x); }
     public int Length { get => (int)(TopRightAreaCorner.y - BottomLeftAreaCorner.y); }
 
 }
 
-public enum Direction { North, South, East, West }

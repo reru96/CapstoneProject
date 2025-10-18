@@ -7,16 +7,30 @@ using UnityEngine.SceneManagement;
 
 public class NextScene : MonoBehaviour
 {
-    private void OnTriggerEnter(Collider other)
+    public float interactionDistance = 3f; 
+    public string nextSceneName = "Level2";
+
+    private Transform playerTransform;
+    private InputManager inputManager;
+
+    private void Start()
     {
-        if(other.CompareTag("Player"))
+     
+        var spawner = ServiceLocator.Get<PlayerSpawnManager>();
+        if (spawner != null && spawner.Player != null)
+            playerTransform = spawner.Player.transform;
+
+        inputManager = ServiceLocator.Get<InputManager>();
+    }
+
+    private void Update()
+    {
+        if (playerTransform == null || inputManager == null) return;
+
+        float distance = Vector3.Distance(transform.position, playerTransform.position);
+        if (distance <= interactionDistance && Input.GetKeyDown(inputManager.config.ability_1))
         {
-            var inputManager = ServiceLocator.Get<InputManager>();
-            gameObject.SetActive(true);
-            if (Input.GetKeyDown(inputManager.config.ability_1))
-            {
-                SceneManager.LoadScene("Level2");
-            }
+            SceneManager.LoadScene(nextSceneName);
         }
     }
 }

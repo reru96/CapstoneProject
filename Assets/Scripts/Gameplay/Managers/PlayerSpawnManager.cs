@@ -22,7 +22,7 @@ namespace Gameplay
         protected override void Awake()
         {
             base.Awake();
-            SpawnPlayerFromClassSelection();
+            HandleSceneReady();
         }
 
         public void SetRespawnPoint(Transform point)
