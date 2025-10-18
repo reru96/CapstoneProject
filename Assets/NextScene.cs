@@ -10,21 +10,18 @@ public class NextScene : MonoBehaviour
     public float interactionDistance = 3f; 
     public string nextSceneName = "Level2";
 
-    private Transform playerTransform;
+    public Transform playerTransform;
     private InputManager inputManager;
 
-    private void Start()
+    private void Update()
     {
-     
+
         var spawner = ServiceLocator.Get<PlayerSpawnManager>();
         if (spawner != null && spawner.Player != null)
             playerTransform = spawner.Player.transform;
 
         inputManager = ServiceLocator.Get<InputManager>();
-    }
 
-    private void Update()
-    {
         if (playerTransform == null || inputManager == null) return;
 
         float distance = Vector3.Distance(transform.position, playerTransform.position);

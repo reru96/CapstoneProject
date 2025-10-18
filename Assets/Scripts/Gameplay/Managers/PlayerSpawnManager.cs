@@ -22,6 +22,10 @@ namespace Gameplay
         protected override void Awake()
         {
             base.Awake();
+        }
+
+        public void Start()
+        {
             HandleSceneReady();
         }
 

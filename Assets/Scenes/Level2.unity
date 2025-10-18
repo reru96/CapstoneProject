@@ -132,7 +132,6 @@ GameObject:
   m_Component:
   - component: {fileID: 146956615}
   - component: {fileID: 146956616}
-  - component: {fileID: 146956617}
   m_Layer: 0
   m_Name: DungeonCreator
   m_TagString: Untagged
@@ -171,41 +170,101 @@ MonoBehaviour:
   dungeonWidth: 25
   dungeonLength: 50
   roomWidthMin: 5
-  roomLengthMin: 10
+  roomLengthMin: 5
   maxIterations: 15
   corridorWidth: 2
-  maxWallsPerFrame: 50
+  material: {fileID: 2100000, guid: b3ae8fdcd3858f54f95eeb04bdc36021, type: 2}
   roomBottomCornerModifier: 0.1
-  roomTopCornerModifier: 0.9
-  roomOffset: 1
-  floorMaterial: {fileID: 2100000, guid: b3ae8fdcd3858f54f95eeb04bdc36021, type: 2}
-  wallHorizontalPrefabs:
-  - {fileID: 6721924864477830164, guid: 7b87a0e3fd140eb41b5f92e42635cb9f, type: 3}
-  wallVerticalPrefabs:
-  - {fileID: 1915354989605908502, guid: b72ce3144970312479c1774375a77afd, type: 3}
-  startRoomPrefab: {fileID: 7301641914332949871, guid: a4c0054fcd454a348bd368158b24a9ba,
+  roomTopCornerMidifier: 0.9
+  roomOffset: 2
+  wallVertical: {fileID: 1915354989605908502, guid: b72ce3144970312479c1774375a77afd,
     type: 3}
-  bossRoomPrefab: {fileID: 0}
-  restRoomPrefab: {fileID: 0}
+  wallHorizontal: {fileID: 6721924864477830164, guid: 7b87a0e3fd140eb41b5f92e42635cb9f,
+    type: 3}
   navMeshSurface: {fileID: 2115119425}
-  buildNavMeshOnComplete: 1
---- !u!114 &146956617
+--- !u!1 &1261819406
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1261819407}
+  - component: {fileID: 1261819408}
+  - component: {fileID: 1261819409}
+  m_Layer: 0
+  m_Name: FirstRoom
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1261819407
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1261819406}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 5.867075, y: 23.939713, z: 46.879715}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1261819408
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 146956613}
+  m_GameObject: {fileID: 1261819406}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe02eaee930cff747a8f03acfd74387e, type: 3}
+  m_Script: {fileID: 11500000, guid: ba2b2d3593e357c418fc8f787c9b17d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startPrefab: {fileID: 7301641914332949871, guid: a4c0054fcd454a348bd368158b24a9ba,
+  startRoomSize: {x: 2, y: 2}
+  floorPrefab: {fileID: 919132149155446097, guid: 0c5687d2ee4f4a547bb24af69f57d6a0,
     type: 3}
-  bossPrefab: {fileID: 0}
-  restPrefab: {fileID: 0}
-  maxSpawnPerFrame: 1
+  wallPrefab: {fileID: 7779381877309823848, guid: cd8fa0bce77e85d42ba0aa9cb2da8add,
+    type: 3}
+  navMeshSurface: {fileID: 1261819409}
+  dungeonCreator: {fileID: 146956616}
+--- !u!114 &1261819409
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1261819406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AgentTypeID: 0
+  m_CollectObjects: 0
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_UseGeometry: 0
+  m_DefaultArea: 0
+  m_GenerateLinks: 1
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.16666667
+  m_MinRegionArea: 2
+  m_NavMeshData: {fileID: 0}
+  m_BuildHeightMesh: 0
 --- !u!1 &1309917869
 GameObject:
   m_ObjectHideFlags: 0
@@ -452,8 +511,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1465912407}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -555,9 +614,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ef21d349fc5b2043b27ef6d9197edba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentRespawnPoint: {fileID: 0}
+  currentRespawnPoint: {fileID: 2115119426}
   spawnHeightOffset: 0.5
-  navMeshCheckRadius: 2
+  navMeshCheckRadius: 20
 --- !u!4 &1528428776
 Transform:
   m_ObjectHideFlags: 0
@@ -567,7 +626,7 @@ Transform:
   m_GameObject: {fileID: 1528428774}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.0082664, y: -36.900837, z: 10.048648}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -852,7 +911,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: 9e475fe098de1bc42a7eba45389bc231, type: 2}
   m_BuildHeightMesh: 0
 --- !u!4 &2115119426
 Transform:
@@ -876,6 +935,7 @@ SceneRoots:
   - {fileID: 1812002882}
   - {fileID: 1363941894}
   - {fileID: 1309917872}
+  - {fileID: 1261819407}
   - {fileID: 146956615}
   - {fileID: 1528428776}
   - {fileID: 1465912409}

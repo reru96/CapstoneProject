@@ -19,12 +19,11 @@ public class RoomNode : Node
         this.TreeLayerIndex = index;
     }
 
-    public Vector3 CenterPosition()
-    {
-        float centerX = BottomLeftAreaCorner.x + Width / 2f;
-        float centerZ = BottomLeftAreaCorner.y + Length / 2f;
-        return new Vector3(centerX, 0, centerZ);
-    }
+    public Vector3 CenterPosition() => new Vector3(
+     (BottomLeftAreaCorner.x + TopRightAreaCorner.x) / 2f,
+     0,
+     (BottomLeftAreaCorner.y + TopRightAreaCorner.y) / 2f
+     );
 
     public int Width { get => (int)(TopRightAreaCorner.x - BottomLeftAreaCorner.x); }
     public int Length { get => (int)(TopRightAreaCorner.y - BottomLeftAreaCorner.y); }
