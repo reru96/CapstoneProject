@@ -86,4 +86,4 @@ public class StartRoom : MonoBehaviour
 
         if (navMeshSurface != null) navMeshSurface.BuildNavMesh();
     }
-}
+}              

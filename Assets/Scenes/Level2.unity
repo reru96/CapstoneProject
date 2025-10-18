@@ -132,6 +132,7 @@ GameObject:
   m_Component:
   - component: {fileID: 146956615}
   - component: {fileID: 146956616}
+  - component: {fileID: 146956617}
   m_Layer: 0
   m_Name: DungeonCreator
   m_TagString: Untagged
@@ -152,7 +153,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2115119426}
+  - {fileID: 1261819407}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &146956616
@@ -168,20 +169,51 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dungeonWidth: 25
-  dungeonLength: 50
+  dungeonLength: 25
   roomWidthMin: 5
   roomLengthMin: 5
-  maxIterations: 15
+  maxIterations: 10
   corridorWidth: 2
   material: {fileID: 2100000, guid: b3ae8fdcd3858f54f95eeb04bdc36021, type: 2}
   roomBottomCornerModifier: 0.1
   roomTopCornerMidifier: 0.9
-  roomOffset: 2
-  wallVertical: {fileID: 1915354989605908502, guid: b72ce3144970312479c1774375a77afd,
+  roomOffset: 1
+  wallVertical: {fileID: 8255019767987352840, guid: 54cc8a2746c1edb4fa7eb1ddce16895b,
     type: 3}
-  wallHorizontal: {fileID: 6721924864477830164, guid: 7b87a0e3fd140eb41b5f92e42635cb9f,
+  wallHorizontal: {fileID: 8255019767987352840, guid: 54cc8a2746c1edb4fa7eb1ddce16895b,
     type: 3}
-  navMeshSurface: {fileID: 2115119425}
+  navMeshSurface: {fileID: 146956617}
+--- !u!114 &146956617
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 146956613}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AgentTypeID: 0
+  m_CollectObjects: 0
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_UseGeometry: 0
+  m_DefaultArea: 0
+  m_GenerateLinks: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.16666667
+  m_MinRegionArea: 2
+  m_NavMeshData: {fileID: 0}
+  m_BuildHeightMesh: 0
 --- !u!1 &1261819406
 GameObject:
   m_ObjectHideFlags: 0
@@ -208,12 +240,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1261819406}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.867075, y: 23.939713, z: 46.879715}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 146956615}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1261819408
 MonoBehaviour:
@@ -227,12 +259,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba2b2d3593e357c418fc8f787c9b17d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startRoomSize: {x: 2, y: 2}
+  startRoomSize: {x: 1, y: 1}
   floorPrefab: {fileID: 919132149155446097, guid: 0c5687d2ee4f4a547bb24af69f57d6a0,
     type: 3}
-  wallPrefab: {fileID: 7779381877309823848, guid: cd8fa0bce77e85d42ba0aa9cb2da8add,
+  wallPrefab: {fileID: 8255019767987352840, guid: 54cc8a2746c1edb4fa7eb1ddce16895b,
     type: 3}
-  navMeshSurface: {fileID: 1261819409}
+  navMeshSurface: {fileID: 146956617}
   dungeonCreator: {fileID: 146956616}
 --- !u!114 &1261819409
 MonoBehaviour:
@@ -614,7 +646,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ef21d349fc5b2043b27ef6d9197edba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentRespawnPoint: {fileID: 2115119426}
+  currentRespawnPoint: {fileID: 0}
   spawnHeightOffset: 0.5
   navMeshCheckRadius: 20
 --- !u!4 &1528428776
@@ -865,69 +897,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 43.096, y: -37.102, z: 0}
---- !u!1 &2115119424
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2115119426}
-  - component: {fileID: 2115119425}
-  m_Layer: 0
-  m_Name: NavMesh Surface
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &2115119425
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2115119424}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_AgentTypeID: 0
-  m_CollectObjects: 0
-  m_Size: {x: 10, y: 10, z: 10}
-  m_Center: {x: 0, y: 2, z: 0}
-  m_LayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_UseGeometry: 0
-  m_DefaultArea: 0
-  m_GenerateLinks: 0
-  m_IgnoreNavMeshAgent: 1
-  m_IgnoreNavMeshObstacle: 1
-  m_OverrideTileSize: 0
-  m_TileSize: 256
-  m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.16666667
-  m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: 9e475fe098de1bc42a7eba45389bc231, type: 2}
-  m_BuildHeightMesh: 0
---- !u!4 &2115119426
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2115119424}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 146956615}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -935,7 +904,6 @@ SceneRoots:
   - {fileID: 1812002882}
   - {fileID: 1363941894}
   - {fileID: 1309917872}
-  - {fileID: 1261819407}
   - {fileID: 146956615}
   - {fileID: 1528428776}
   - {fileID: 1465912409}
