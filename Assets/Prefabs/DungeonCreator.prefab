@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 977675386955972810}
-  - component: {fileID: 3528447503736685075}
   - component: {fileID: 7094759113544931398}
   m_Layer: 10
   m_Name: DungeonCreator
@@ -33,35 +32,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3528447503736685075
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6082292873581967715}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8bf38d9a7159d743b46acc0491de249, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dungeonWidth: 50
-  dungeonLength: 50
-  roomWidthMin: 5
-  roomLengthMin: 5
-  maxIterations: 20
-  corridorWidth: 5
-  roomBottomCornerModifier: 0.1
-  roomTopCornerModifier: 0.9
-  roomOffset: 1
-  material: {fileID: 3876542345217667742, guid: ad7d9e2bfd1753b458b0e6463424e24e,
-    type: 3}
-  wallVertical:
-  - {fileID: 7779381877309823848, guid: 2f6c4572e07a60b43b00e1c4f489a806, type: 3}
-  wallHorizontal:
-  - {fileID: 7835217410980608570, guid: baf9a054cb4cdd648a36a253c09c2481, type: 3}
-  navMeshSurface: {fileID: 0}
-  roomsPerFrame: 3
 --- !u!114 &7094759113544931398
 MonoBehaviour:
   m_ObjectHideFlags: 0
