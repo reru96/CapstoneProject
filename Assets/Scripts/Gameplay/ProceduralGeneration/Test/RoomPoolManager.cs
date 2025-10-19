@@ -1,69 +1,87 @@
-using System.Collections;
 using System.Collections.Generic;
-using Core;
-using Unity.AI.Navigation;
-using Gameplay;
 using UnityEngine;
+using Core;
+using Gameplay;
+
+[System.Serializable]
+public class RoomTypePrefabPair
+{
+    public string roomType; 
+    public GameObject prefab;
+    public int initialPoolSize = 5;
+}
 
 public class RoomPoolManager : MonoBehaviour
 {
-    [Header("Pool Settings")]
-    public GameObject roomPrefab;
-    public int initialPoolSize = 10;
+    [Header("Room Pool Settings")]
+    public List<RoomTypePrefabPair> roomPrefabs = new List<RoomTypePrefabPair>();
 
-    private readonly List<Transform> pool = new List<Transform>();
-    private readonly List<Transform> activeRooms = new List<Transform>();
+    private Dictionary<string, Queue<GameObject>> poolDictionary = new Dictionary<string, Queue<GameObject>>();
 
     private void Awake()
     {
-        for (int i = 0; i < initialPoolSize; i++)
+        InitializePools();
+    }
+
+    private void InitializePools()
+    {
+        foreach (var pair in roomPrefabs)
         {
-            Transform room = Instantiate(roomPrefab, Vector3.zero, Quaternion.identity, transform).transform;
-            room.gameObject.SetActive(false);
-            pool.Add(room);
+            if (pair.prefab == null || string.IsNullOrEmpty(pair.roomType))
+                continue;
+
+            var queue = new Queue<GameObject>();
+
+            for (int i = 0; i < pair.initialPoolSize; i++)
+            {
+                var obj = Instantiate(pair.prefab);
+                obj.name = $"{pair.roomType}_Room_{i}";
+                obj.SetActive(false);
+                queue.Enqueue(obj);
+            }
+
+            poolDictionary[pair.roomType] = queue;
         }
     }
 
-    public Transform SpawnRoom()
+    public GameObject GetFromPool(string roomType)
     {
-        Transform room;
+        if (!poolDictionary.ContainsKey(roomType))
+        {
+            Debug.LogWarning($"[RoomPoolManager] Room type '{roomType}' not found!");
+            return null;
+        }
 
+        var pool = poolDictionary[roomType];
+
+        GameObject obj;
         if (pool.Count > 0)
-        {
-            room = pool[0];
-            pool.RemoveAt(0);
-        }
+            obj = pool.Dequeue();
         else
-        {
-            room = Instantiate(roomPrefab, Vector3.zero, Quaternion.identity, transform).transform;
-        }
+            obj = Instantiate(roomPrefabs.Find(p => p.roomType == roomType).prefab);
 
-        room.gameObject.SetActive(true);
-        activeRooms.Add(room);
-        return room;
+        obj.SetActive(true);
+        return obj;
     }
 
-    public void DespawnRoom(Transform room)
+    public void ReturnToPool(string roomType, GameObject room)
     {
-        if (!activeRooms.Contains(room)) return;
+        if (!poolDictionary.ContainsKey(roomType))
+        {
+            Destroy(room);
+            return;
+        }
 
-        room.gameObject.SetActive(false);
-        room.position = Vector3.zero;
-        room.rotation = Quaternion.identity;
-
-        activeRooms.Remove(room);
-        pool.Add(room);
+        room.SetActive(false);
+        poolDictionary[roomType].Enqueue(room);
     }
 
     public void ResetAll()
     {
-        for (int i = activeRooms.Count - 1; i >= 0; i--)
-            DespawnRoom(activeRooms[i]);
-    }
-
-    public Transform GetRoom(int index)
-    {
-        if (index < 0 || index >= activeRooms.Count) return null;
-        return activeRooms[index];
+        foreach (var queue in poolDictionary.Values)
+        {
+            foreach (var obj in queue)
+                obj.SetActive(false);
+        }
     }
 }

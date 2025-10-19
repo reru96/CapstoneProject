@@ -7,25 +7,42 @@ using UnityEngine;
 public class DungeonContentSpawner : MonoBehaviour
 {
 
-    [Header("Content Settings")]
-    public List<SODungeonContent> possibleContents;
+    [Header("Dungeon Content")]
+    public List<SODungeonContent> contentPresets = new List<SODungeonContent>();
 
-    public void SpawnContentsInRoom(Transform room)
+    private Dictionary<string, List<GameObject>> contentDictionary = new Dictionary<string, List<GameObject>>();
+
+    private void Awake()
     {
-        if (room == null || possibleContents == null || possibleContents.Count == 0)
-            return;
-
-    
-        SODungeonContent content = possibleContents[Random.Range(0, possibleContents.Count)];
-        if (content == null) return;
-
-        foreach (var entry in content.contents)
+        foreach (var content in contentPresets)
         {
-            if (entry.prefab == null) continue;
+            if (content == null || string.IsNullOrEmpty(content.roomType))
+                continue;
 
-            Vector3 spawnPos = room.position + entry.localPosition;
-            Quaternion spawnRot = Quaternion.Euler(entry.localRotation);
-            GameObject go = Instantiate(entry.prefab, spawnPos, spawnRot, room);
+            if (!contentDictionary.ContainsKey(content.roomType))
+                contentDictionary[content.roomType] = new List<GameObject>();
+
+            contentDictionary[content.roomType].AddRange(content.possibleContents);
+        }
+    }
+
+    public void SpawnContentInRoom(GameObject room, string roomType)
+    {
+        if (!contentDictionary.ContainsKey(roomType))
+        {
+            Debug.LogWarning($"[DungeonContentSpawner] Nessun contenuto per il tipo {roomType}");
+            return;
+        }
+
+        var contents = contentDictionary[roomType];
+        if (contents.Count == 0) return;
+
+        int spawnCount = Random.Range(1, Mathf.Min(3, contents.Count + 1));
+        for (int i = 0; i < spawnCount; i++)
+        {
+            var prefab = contents[Random.Range(0, contents.Count)];
+            var spawnPos = room.transform.position + new Vector3(Random.Range(-3, 3), 0, Random.Range(-3, 3));
+            Instantiate(prefab, spawnPos, Quaternion.identity, room.transform);
         }
     }
 }

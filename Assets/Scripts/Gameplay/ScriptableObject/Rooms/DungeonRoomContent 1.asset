@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f0eeeb2d394650d48bd65059f056df09, type: 3}
-  m_Name: DungeonRoomContent
+  m_Name: DungeonRoomContent 1
   m_EditorClassIdentifier: 
-  roomType: Common
+  roomType: Elite
   possibleContents:
-  - {fileID: 5200681163900939743, guid: 6d74876d99d459743af39429f3ef69b5, type: 3}
+  - {fileID: 3629098907630432920, guid: afc3fedc78427f04097996d062288c66, type: 3}
