@@ -133,6 +133,7 @@ GameObject:
   - component: {fileID: 146956615}
   - component: {fileID: 146956616}
   - component: {fileID: 146956617}
+  - component: {fileID: 146956618}
   m_Layer: 0
   m_Name: DungeonCreator
   m_TagString: Untagged
@@ -152,8 +153,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1261819407}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &146956616
@@ -183,6 +183,9 @@ MonoBehaviour:
   wallHorizontal: {fileID: 8255019767987352840, guid: 54cc8a2746c1edb4fa7eb1ddce16895b,
     type: 3}
   navMeshSurface: {fileID: 146956617}
+  roomPoolManager: {fileID: 1584540742}
+  contentSpawner: {fileID: 146956618}
+  spawnPoint: {fileID: 0}
 --- !u!114 &146956617
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -214,89 +217,20 @@ MonoBehaviour:
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 0}
   m_BuildHeightMesh: 0
---- !u!1 &1261819406
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1261819407}
-  - component: {fileID: 1261819408}
-  - component: {fileID: 1261819409}
-  m_Layer: 0
-  m_Name: FirstRoom
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1261819407
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1261819406}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 146956615}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1261819408
+--- !u!114 &146956618
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1261819406}
+  m_GameObject: {fileID: 146956613}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba2b2d3593e357c418fc8f787c9b17d6, type: 3}
+  m_Script: {fileID: 11500000, guid: b0723a0ec76bcf747982786d5618539d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startRoomSize: {x: 1, y: 1}
-  floorPrefab: {fileID: 919132149155446097, guid: 0c5687d2ee4f4a547bb24af69f57d6a0,
-    type: 3}
-  wallPrefab: {fileID: 8255019767987352840, guid: 54cc8a2746c1edb4fa7eb1ddce16895b,
-    type: 3}
-  navMeshSurface: {fileID: 146956617}
-  dungeonCreator: {fileID: 146956616}
---- !u!114 &1261819409
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1261819406}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_AgentTypeID: 0
-  m_CollectObjects: 0
-  m_Size: {x: 10, y: 10, z: 10}
-  m_Center: {x: 0, y: 2, z: 0}
-  m_LayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_UseGeometry: 0
-  m_DefaultArea: 0
-  m_GenerateLinks: 1
-  m_IgnoreNavMeshAgent: 1
-  m_IgnoreNavMeshObstacle: 1
-  m_OverrideTileSize: 0
-  m_TileSize: 256
-  m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.16666667
-  m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 0}
-  m_BuildHeightMesh: 0
+  possibleContents:
+  - {fileID: 11400000, guid: b42d0c54f4048084ca93637fe52c11c7, type: 2}
 --- !u!1 &1309917869
 GameObject:
   m_ObjectHideFlags: 0
@@ -664,6 +598,75 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1584540739
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1584540741}
+  - component: {fileID: 1584540740}
+  - component: {fileID: 1584540742}
+  m_Layer: 0
+  m_Name: ObjectPooler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1584540740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1584540739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c2bf1294a0c2fd449c846ef0b14de00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pools:
+  - tag: WallV
+    prefab: {fileID: 8255019767987352840, guid: 54cc8a2746c1edb4fa7eb1ddce16895b,
+      type: 3}
+    size: 100
+  - tag: WallH
+    prefab: {fileID: 8255019767987352840, guid: 54cc8a2746c1edb4fa7eb1ddce16895b,
+      type: 3}
+    size: 100
+--- !u!4 &1584540741
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1584540739}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 7.666069, y: -7.831426, z: 2.1667328}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1584540742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1584540739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63076b64d3350cb488317aa371157d65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomPrefab: {fileID: 4235286470899696197, guid: dbbdd054543305044a529d82dfc55c3f,
+    type: 3}
+  initialPoolSize: 10
 --- !u!1 &1812002876
 GameObject:
   m_ObjectHideFlags: 0
@@ -907,3 +910,4 @@ SceneRoots:
   - {fileID: 146956615}
   - {fileID: 1528428776}
   - {fileID: 1465912409}
+  - {fileID: 1584540741}

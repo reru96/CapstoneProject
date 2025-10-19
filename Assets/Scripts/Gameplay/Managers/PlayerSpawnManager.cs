@@ -24,30 +24,12 @@ namespace Gameplay
             base.Awake();
         }
 
-        public void Start()
-        {
-            HandleSceneReady();
-        }
-
         public void SetRespawnPoint(Transform point)
         {
             currentRespawnPoint = point;
         }
-
-        public void HandleSceneReady(DungeonCreator dungeon = null)
-        {
-            if (dungeon != null)
-            {
-                dungeon.OnDungeonReady += SpawnPlayerFromClassSelection;
-            }
-            else
-            {
-                SpawnPlayerFromClassSelection();
-            }
-        }
-
       
-        private void SpawnPlayerFromClassSelection()
+        public void SpawnPlayerFromClassSelection()
         {
             if (!ServiceLocator.TryGet<ClassSelectionManager>(out var classMgr))
             {

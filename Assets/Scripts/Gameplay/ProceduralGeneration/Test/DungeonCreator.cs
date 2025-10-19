@@ -1,186 +1,117 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using Core;
 using Gameplay;
 using Unity.AI.Navigation;
-using UnityEditor;
 using UnityEngine;
 
 namespace Gameplay
 {
     public class DungeonCreator : MonoBehaviour
     {
+        [Header("Dungeon Settings")]
         public int dungeonWidth, dungeonLength;
         public int roomWidthMin, roomLengthMin;
         public int maxIterations;
         public int corridorWidth;
         public Material material;
-        [Range(0.0f, 0.3f)]
-        public float roomBottomCornerModifier;
-        [Range(0.7f, 1.0f)]
-        public float roomTopCornerMidifier;
-        [Range(0, 2)]
-        public int roomOffset;
+        [Range(0.0f, 0.3f)] public float roomBottomCornerModifier;
+        [Range(0.7f, 1.0f)] public float roomTopCornerMidifier;
+        [Range(0, 2)] public int roomOffset;
         public GameObject wallVertical, wallHorizontal;
-        List<Vector3Int> possibleDoorVerticalPosition;
-        List<Vector3Int> possibleDoorHorizontalPosition;
-        List<Vector3Int> possibleWallHorizontalPosition;
-        List<Vector3Int> possibleWallVerticalPosition;
-        public List<RoomNode> listOfRooms; 
-        public RoomNode GetFirstRoom() => listOfRooms.Count > 0 ? listOfRooms[0] : null;
 
-        public event Action OnDungeonReady;
-        [SerializeField]private NavMeshSurface navMeshSurface;
+        [Header("References")]
+        [SerializeField] private NavMeshSurface navMeshSurface;
+        [SerializeField] private RoomPoolManager roomPoolManager;
+        [SerializeField] private DungeonContentSpawner contentSpawner;
 
+        [Header("Runtime Data")]
+        public List<RoomNode> listOfRooms = new List<RoomNode>();
+        public Transform spawnPoint;
+
+        private bool isGenerating = false;
 
         private void Start()
         {
-            CreateDungeon();
+            StartCoroutine(CreateDungeonStepByStep());
         }
 
-        public void CreateDungeon()
+        private IEnumerator CreateDungeonStepByStep()
         {
-            DestroyAllChildren();
+            if (isGenerating) yield break;
+            isGenerating = true;
+
+            if (roomPoolManager != null)
+                roomPoolManager.ResetAll();
 
             DungeonGenerator generator = new DungeonGenerator(dungeonWidth, dungeonLength);
-            var listOfRooms = generator.CalculateDungeon(maxIterations,
+            var generated = generator.CalculateDungeon(
+                maxIterations,
                 roomWidthMin,
                 roomLengthMin,
                 roomBottomCornerModifier,
                 roomTopCornerMidifier,
                 roomOffset,
-                corridorWidth);
+                corridorWidth
+            );
 
-            GameObject wallParent = new GameObject("WallParent");
-            wallParent.transform.parent = transform;
+            listOfRooms.Clear();
 
-            possibleDoorVerticalPosition = new List<Vector3Int>();
-            possibleDoorHorizontalPosition = new List<Vector3Int>();
-            possibleWallHorizontalPosition = new List<Vector3Int>();
-            possibleWallVerticalPosition = new List<Vector3Int>();
-
-            foreach (var room in listOfRooms)
+            for (int i = 0; i < generated.Count; i++)
             {
-                CreateMesh(room.BottomLeftAreaCorner, room.TopRightAreaCorner);
-            }
-
-            CreateWalls(wallParent);
-
-            if (navMeshSurface != null) navMeshSurface.BuildNavMesh();
-
-            OnDungeonReady?.Invoke();
-        }
-
-
-        private void CreateWalls(GameObject wallParent)
-        {
-            foreach (var wallPosition in possibleWallHorizontalPosition)
-            {
-                CreateWall(wallParent, wallPosition, wallHorizontal);
-            }
-            foreach (var wallPosition in possibleWallVerticalPosition)
-            {
-                CreateWall(wallParent, wallPosition, wallVertical);
-            }
-        }
-
-        private void CreateWall(GameObject wallParent, Vector3Int wallPosition, GameObject wallPrefab)
-        {
-            Instantiate(wallPrefab, wallPosition, Quaternion.identity, wallParent.transform);
-        }
-
-        private void CreateMesh(Vector2 bottomLeftCorner, Vector2 topRightCorner)
-        {
-            Vector3 bottomLeftV = new Vector3(bottomLeftCorner.x, 0, bottomLeftCorner.y);
-            Vector3 bottomRightV = new Vector3(topRightCorner.x, 0, bottomLeftCorner.y);
-            Vector3 topLeftV = new Vector3(bottomLeftCorner.x, 0, topRightCorner.y);
-            Vector3 topRightV = new Vector3(topRightCorner.x, 0, topRightCorner.y);
-
-            Vector3[] vertices = new Vector3[]
-            {
-            topLeftV,
-            topRightV,
-            bottomLeftV,
-            bottomRightV
-            };
-
-            Vector2[] uvs = new Vector2[vertices.Length];
-            for (int i = 0; i < uvs.Length; i++)
-            {
-                uvs[i] = new Vector2(vertices[i].x, vertices[i].z);
-            }
-
-            int[] triangles = new int[]
-            {
-            0,
-            1,
-            2,
-            2,
-            1,
-            3
-            };
-            Mesh mesh = new Mesh();
-            mesh.vertices = vertices;
-            mesh.uv = uvs;
-            mesh.triangles = triangles;
-
-            GameObject dungeonFloor = new GameObject("Mesh" + bottomLeftCorner, typeof(MeshFilter), typeof(MeshRenderer));
-
-            dungeonFloor.transform.position = Vector3.zero;
-            dungeonFloor.transform.localScale = Vector3.one;
-            dungeonFloor.GetComponent<MeshFilter>().mesh = mesh;
-            dungeonFloor.GetComponent<MeshRenderer>().material = material;
-            dungeonFloor.transform.parent = transform;
-
-            for (int row = (int)bottomLeftV.x; row < (int)bottomRightV.x; row++)
-            {
-                var wallPosition = new Vector3(row, 0, bottomLeftV.z);
-                AddWallPositionToList(wallPosition, possibleWallHorizontalPosition, possibleDoorHorizontalPosition);
-            }
-            for (int row = (int)topLeftV.x; row < (int)topRightCorner.x; row++)
-            {
-                var wallPosition = new Vector3(row, 0, topRightV.z);
-                AddWallPositionToList(wallPosition, possibleWallHorizontalPosition, possibleDoorHorizontalPosition);
-            }
-            for (int col = (int)bottomLeftV.z; col < (int)topLeftV.z; col++)
-            {
-                var wallPosition = new Vector3(bottomLeftV.x, 0, col);
-                AddWallPositionToList(wallPosition, possibleWallVerticalPosition, possibleDoorVerticalPosition);
-            }
-            for (int col = (int)bottomRightV.z; col < (int)topRightV.z; col++)
-            {
-                var wallPosition = new Vector3(bottomRightV.x, 0, col);
-                AddWallPositionToList(wallPosition, possibleWallVerticalPosition, possibleDoorVerticalPosition);
-            }
-        }
-
-        private void AddWallPositionToList(Vector3 wallPosition, List<Vector3Int> wallList, List<Vector3Int> doorList)
-        {
-            Vector3Int point = Vector3Int.CeilToInt(wallPosition);
-            if (wallList.Contains(point))
-            {
-                doorList.Add(point);
-                wallList.Remove(point);
-            }
-            else
-            {
-                wallList.Add(point);
-            }
-        }
-
-        private void DestroyAllChildren()
-        {
-            while (transform.childCount != 0)
-            {
-                foreach (Transform item in transform)
+                if (generated[i] is RoomNode roomNode)
                 {
-                    DestroyImmediate(item.gameObject);
+                    listOfRooms.Add(roomNode);
+
+                    Transform room = roomPoolManager.SpawnRoom();
+                    room.position = new Vector3(
+                        (roomNode.BottomLeftAreaCorner.x + roomNode.TopRightAreaCorner.x) / 2f,
+                        0f,
+                        (roomNode.BottomLeftAreaCorner.y + roomNode.TopRightAreaCorner.y) / 2f
+                    );
+
+                    if (contentSpawner != null)
+                        contentSpawner.SpawnContentsInRoom(room);
+                }
+
+                if (i % 2 == 1 || i == generated.Count - 1)
+                {
+                    if (navMeshSurface != null)
+                        navMeshSurface.BuildNavMesh();
+                    yield return null;
                 }
             }
+
+            if (listOfRooms.Count > 0)
+            {
+                var firstRoom = listOfRooms[0];
+                Vector3 center = new Vector3(
+                    (firstRoom.BottomLeftAreaCorner.x + firstRoom.TopRightAreaCorner.x) / 2f,
+                    0f,
+                    (firstRoom.BottomLeftAreaCorner.y + firstRoom.TopRightAreaCorner.y) / 2f
+                );
+
+                spawnPoint = new GameObject("PlayerSpawnPoint").transform;
+                spawnPoint.position = center + Vector3.up * 0.5f;
+                spawnPoint.SetParent(transform);
+
+                var spawner = ServiceLocator.Get<PlayerSpawnManager>();
+                if (spawner != null)
+                {
+                    spawner.SetRespawnPoint(spawnPoint);
+                    spawner.SpawnPlayerFromClassSelection();
+                }
+            }
+
+            isGenerating = false;
         }
+
+        public RoomNode GetFirstRoom() =>
+            listOfRooms.Count > 0 ? listOfRooms[0] : null;
     }
 }
+
 
 
 
