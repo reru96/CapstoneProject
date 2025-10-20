@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using Core;
+using Gameplay;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
@@ -7,6 +9,7 @@ using UnityEngine.AI;
 public class EnemyStateMachine : StateMachine
 {
     [Header("Riferimenti")]
+    public SOEnemy enemyData;
     public Transform targetPlayer;
     public NavMeshAgent agent;
     public Transform eyes;
@@ -29,6 +32,7 @@ public class EnemyStateMachine : StateMachine
     public float viewAngle = 90f;
     public LayerMask targetMask;
     public LayerMask obstructionMask;
+    public LayerMask otherEnemyMask;
     public float checkInterval = 0.1f;
     public bool canSeePlayerNow;
     public float nextCheckTime;
@@ -43,16 +47,19 @@ public class EnemyStateMachine : StateMachine
     {
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
+       
     }
 
     private void Start()
     {
-        SwitchState(new PatrollingState(this));
+        SwitchState(new PatrollingState(this)); 
     }
 
     protected override void Update()
     {
-        base.Update();
+        base.Update(); 
+        var playerSpawner = ServiceLocator.Get<PlayerSpawnManager>();
+        targetPlayer = playerSpawner.Player.transform;
 
         if (Time.time >= nextCheckTime)
         {

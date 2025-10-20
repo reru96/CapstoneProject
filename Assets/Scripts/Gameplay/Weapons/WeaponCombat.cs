@@ -9,7 +9,6 @@ public class WeaponCombat : MonoBehaviour
     private PlayerStateMachine player;
     private bool isAttacking;
 
-   
     public void Initialize(PlayerStateMachine owner)
     {
         player = owner;
@@ -22,7 +21,7 @@ public class WeaponCombat : MonoBehaviour
     }
 
     public void HandleAttackEnd()
-    { 
+    {
         isAttacking = false;
     }
 
@@ -33,7 +32,11 @@ public class WeaponCombat : MonoBehaviour
 
         GameObject attackObj = Instantiate(data.attackType[number], player.transform.position, player.transform.rotation);
 
-        if (data.swingSound)
+        BaseAttack baseAttack = attackObj.GetComponent<BaseAttack>();
+        if (baseAttack != null)
+            baseAttack.Initialize(player.p_stats);
+
+        if (data.swingSound != null)
             AudioSource.PlayClipAtPoint(data.swingSound, player.transform.position);
 
         yield return new WaitForSeconds(data.attackDuration);

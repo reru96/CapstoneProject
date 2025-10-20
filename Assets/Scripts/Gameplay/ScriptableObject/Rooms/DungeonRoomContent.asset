@@ -15,3 +15,4 @@ MonoBehaviour:
   roomType: Common
   possibleContents:
   - {fileID: 5200681163900939743, guid: 6d74876d99d459743af39429f3ef69b5, type: 3}
+  - {fileID: 8731577422625979608, guid: 26c5595afe7cfe942b95afa6a2330afc, type: 3}

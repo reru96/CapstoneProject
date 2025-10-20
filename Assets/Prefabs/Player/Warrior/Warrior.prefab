@@ -313,7 +313,7 @@ MonoBehaviour:
   maxHp: 1
   currentHp: 1
   fullHpOnAwake: 1
-  death: 3
+  death: 0
 --- !u!114 &5639985677662380651
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -348,11 +348,11 @@ MonoBehaviour:
   playerClass: {fileID: 11400000, guid: e1c6311a5c7ec6f4fbe68d6766b8e65e, type: 2}
   currentWeapon: {fileID: 11400000, guid: 19b7931afca569745b4030fc6fdafdf9, type: 2}
   currentArmor: {fileID: 11400000, guid: ce62bea9a60f38a48ace46f3d6648e44, type: 2}
-  buffStrength: 0
-  buffDexterity: 0
-  buffIntelligence: 0
-  buffFaith: 0
-  buffArcane: 0
+  buffStrength: 1
+  buffDexterity: 1
+  buffIntelligence: 1
+  buffFaith: 1
+  buffArcane: 1
 --- !u!114 &2174217780802646979
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -203,7 +203,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomPrefabs:
-  - roomType: Common
+  - roomType: Start
     prefab: {fileID: 4235286470899696197, guid: dbbdd054543305044a529d82dfc55c3f,
       type: 3}
     initialPoolSize: 10
@@ -214,8 +214,8 @@ MonoBehaviour:
   - roomType: Boss
     prefab: {fileID: 6302615377253052427, guid: e63663b27231c504587f40a001b3bde1,
       type: 3}
-    initialPoolSize: 10
-  - roomType: Start
+    initialPoolSize: 1
+  - roomType: Common
     prefab: {fileID: 6302615377253052427, guid: e63663b27231c504587f40a001b3bde1,
       type: 3}
     initialPoolSize: 10
@@ -271,7 +271,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9d3cac36c2a07941b6c69abc838a70d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  corridorPrefab: {fileID: 919132149155446097, guid: cb8ad173ed9cfa74d8d97100722da225,
+  corridorPrefab: {fileID: 1477119232930726878, guid: 6cb084713de342d4d94969b0f4ad068f,
     type: 3}
   navMeshSurface: {fileID: 848502826}
 --- !u!1 &1309917869
@@ -483,50 +483,6 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
---- !u!1 &1465912407
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1465912409}
-  - component: {fileID: 1465912408}
-  m_Layer: 0
-  m_Name: RespawnManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1465912408
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1465912407}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a1614eb59071b643bec192fae8b7f3b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &1465912409
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1465912407}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1525385321
 GameObject:
   m_ObjectHideFlags: 3
@@ -904,9 +860,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pools:
-  - tag: 
-    prefab: {fileID: 0}
-    size: 0
+  - tag: Enemy
+    prefab: {fileID: 1830648231862840522, guid: 4c67e4e852930584a8f19e404cb079f4,
+      type: 3}
+    size: 20
 --- !u!4 &1985488744
 Transform:
   m_ObjectHideFlags: 0
@@ -931,5 +888,4 @@ SceneRoots:
   - {fileID: 1309917872}
   - {fileID: 848502830}
   - {fileID: 1528428776}
-  - {fileID: 1465912409}
   - {fileID: 1985488744}

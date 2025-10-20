@@ -6,7 +6,7 @@ public class ChasingState : EnemyBaseState
 {
     public ChasingState(EnemyStateMachine enemy) : base(enemy) { }
 
-    public float attackRange = 2;
+    public float attackRange = 2f;
 
     public override void Enter()
     {
@@ -34,7 +34,7 @@ public class ChasingState : EnemyBaseState
 
         if (distToPlayer <= attackRange)
         {
-            enemy.SwitchState(new AttackState(enemy));
+            enemy.SwitchState(new CombatState(enemy));
             return;
         }
 

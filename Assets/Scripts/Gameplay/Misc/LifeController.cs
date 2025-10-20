@@ -49,17 +49,17 @@ public class LifeController : MonoBehaviour
                 gameObject.SetActive(false);
                 break;
 
-            case DeathAction.Die:
-                var respawnMgr = ServiceLocator.Get<RespawnManager>();
-                if (respawnMgr != null)
-                {
-                    respawnMgr.RespawnPlayerAtCurrent();
-                }
-                else
-                {
-                    Debug.LogWarning("[LifeController] RespawnManager non trovato!");
-                }
-                break;
+            //case DeathAction.Die:
+            //    var respawnMgr = ServiceLocator.Get<RespawnManager>();
+            //    if (respawnMgr != null)
+            //    {
+            //        respawnMgr.RespawnPlayerAtCurrent();
+            //    }
+            //    else
+            //    {
+            //        Debug.LogWarning("[LifeController] RespawnManager non trovato!");
+            //    }
+            //    break;
 
             case DeathAction.SceneReload:
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);

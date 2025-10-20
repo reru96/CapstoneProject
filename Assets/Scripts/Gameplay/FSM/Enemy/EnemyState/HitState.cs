@@ -1,15 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class HitState : EnemyBaseState
 {
-    private float stunDuration = 0.8f;
+    private float stunDuration = 1f;
     private float timer;
 
     private Color originalColor;
     private Renderer[] renderers;
     private ParticleSystem hitEffect;
+
+    private Vector3 knockbackDir;
+    private float knockbackForce = 2f; 
+    private float knockbackDuration = 0.2f;
 
     public HitState(EnemyStateMachine enemy) : base(enemy) { }
 
@@ -17,9 +22,16 @@ public class HitState : EnemyBaseState
     {
         enemy.agent.isStopped = true;
         enemy.anim.Play("Hit");
+
         timer = stunDuration;
 
-      
+        if (enemy.targetPlayer != null)
+            knockbackDir = (enemy.transform.position - enemy.targetPlayer.position).normalized;
+        else
+            knockbackDir = -enemy.transform.forward;
+
+        enemy.StartCoroutine(DoKnockback(knockbackDir));
+
         renderers = enemy.GetComponentsInChildren<Renderer>();
         if (renderers != null && renderers.Length > 0)
         {
@@ -28,16 +40,21 @@ public class HitState : EnemyBaseState
                 r.material.color = Color.red;
         }
 
-       
         if (enemy.hitEffectPrefab != null)
         {
+        
+            Vector3 dirFromPlayer = (enemy.transform.position - enemy.targetPlayer.position).normalized;
+
+        
+            Quaternion rotation = Quaternion.LookRotation(dirFromPlayer, Vector3.up);
+
             hitEffect = GameObject.Instantiate(
                 enemy.hitEffectPrefab,
                 enemy.transform.position + Vector3.up * 1.2f,
-                Quaternion.identity
+                rotation
             );
 
-            GameObject.Destroy(hitEffect.gameObject, 2f);
+            GameObject.Destroy(hitEffect.gameObject, 0.5f);
         }
     }
 
@@ -59,13 +76,33 @@ public class HitState : EnemyBaseState
 
     public override void Exit()
     {
-       
+      
         if (renderers != null)
         {
             foreach (var r in renderers)
                 r.material.color = originalColor;
         }
 
+      
         enemy.agent.isStopped = false;
+    }
+
+  
+    private System.Collections.IEnumerator DoKnockback(Vector3 dir)
+    {
+        Vector3 startPos = enemy.transform.position;
+        Vector3 endPos = startPos + dir * knockbackForce;
+
+        if (NavMesh.SamplePosition(endPos, out NavMeshHit hit, 1f, NavMesh.AllAreas))
+            endPos = hit.position;
+
+        float t = 0f;
+        while (t < knockbackDuration)
+        {
+            t += Time.deltaTime;
+            float progress = t / knockbackDuration;
+            enemy.transform.position = Vector3.Lerp(startPos, endPos, Mathf.SmoothStep(0f, 1f, progress));
+            yield return null;
+        }
     }
 }

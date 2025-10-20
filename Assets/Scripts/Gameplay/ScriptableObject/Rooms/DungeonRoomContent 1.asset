@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0eeeb2d394650d48bd65059f056df09, type: 3}
   m_Name: DungeonRoomContent 1
   m_EditorClassIdentifier: 
-  roomType: Elite
+  roomType: Start
   possibleContents:
   - {fileID: 3629098907630432920, guid: afc3fedc78427f04097996d062288c66, type: 3}

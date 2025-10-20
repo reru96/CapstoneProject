@@ -25,10 +25,10 @@ MonoBehaviour:
   attackDuration: 0.2
   hitDelay: 0.2
   physicalBaseDamage: 50
-  fireBaseDamage: 0
-  magicBaseDamage: 0
-  lightningBaseDamage: 0
-  holyBaseDamage: 0
+  fireBaseDamage: 1
+  magicBaseDamage: 1
+  lightningBaseDamage: 1
+  holyBaseDamage: 1
   strengthScaling: 4
   dexterityScaling: 4
   intelligenceScaling: 5
@@ -37,8 +37,8 @@ MonoBehaviour:
   scalesWithIntelligence: 0
   scalesWithFaith: 0
   scalesWithArcane: 0
-  strengthBonus: 0
-  dexterityBonus: 0
-  intelligenceBonus: 0
-  defenseBonus: 0
-  speedBonus: 0
+  strengthBonus: 1
+  dexterityBonus: 1
+  intelligenceBonus: 1
+  defenseBonus: 1
+  speedBonus: 1

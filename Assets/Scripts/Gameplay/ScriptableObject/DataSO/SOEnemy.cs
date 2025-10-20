@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class EnemyStats : MonoBehaviour
+[CreateAssetMenu(fileName =("Enemy"), menuName = ("Enemies/Enemy"))]
+public class SOEnemy : ScriptableObject
 {
+    public string nameEnemy;
+    public EnemyType enemyType;
     public int maxHP = 100;
     public int currentHP;
+    public GameObject enemyPrefab;
 
     [Header("Defenses")]
     public float physicalDefense = 40f;
@@ -18,20 +21,15 @@ public class EnemyStats : MonoBehaviour
     public bool isBackstabbed;
     public bool isParried;
 
-    private void Awake()
-    {
-        currentHP = maxHP;
-    }
+    public EnemyStateMachine enemyState;
+    public GameObject damagePopUpPrefab;
+}
 
-    public void TakeDamage(float amount)
-    {
-        currentHP -= Mathf.RoundToInt(amount);
-        if (currentHP <= 0)
-            Die();
-    }
-
-    private void Die()
-    {
-        Debug.Log($"{name} è morto!");
-    }
+public enum EnemyType
+{
+    CommonMelee,
+    CommonRange,
+    EliteMelee,
+    EliteRange,
+    Boss
 }

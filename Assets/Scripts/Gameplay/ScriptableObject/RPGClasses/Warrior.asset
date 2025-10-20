@@ -21,12 +21,12 @@ MonoBehaviour:
   health: 100
   mana: 100
   stamina: 100
-  baseStrength: 0
-  baseDexterity: 0
-  baseIntelligence: 0
-  baseFaith: 0
-  baseArcane: 0
-  baseVitality: 0
-  baseEndurance: 0
+  baseStrength: 1
+  baseDexterity: 1
+  baseIntelligence: 1
+  baseFaith: 1
+  baseArcane: 1
+  baseVitality: 1
+  baseEndurance: 1
   abilityNames: []
   abilityIcons: []

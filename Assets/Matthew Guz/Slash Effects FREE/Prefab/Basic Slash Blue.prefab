@@ -9791,6 +9791,7 @@ GameObject:
   - component: {fileID: 4752034024110402706}
   - component: {fileID: 3761223270038707168}
   - component: {fileID: 3846747595845127589}
+  - component: {fileID: 3529192765634862911}
   m_Layer: 0
   m_Name: Basic Slash Blue
   m_TagString: Untagged
@@ -14706,6 +14707,38 @@ MonoBehaviour:
   duration: 0.2
   destroyDelay: 0.1
   repulseForce: 0.2
+  startPos: {x: 0, y: 0, z: 0}
+  endPos: {x: 0, y: 0, z: 0}
+  dir: {x: 0, y: 0, z: 0}
+  elapsed: 0
+  damage: 1
+--- !u!54 &3529192765634862911
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5503505460791601945}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &8373613166400002822
 GameObject:
   m_ObjectHideFlags: 0
