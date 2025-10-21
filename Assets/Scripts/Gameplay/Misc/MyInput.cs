@@ -14,5 +14,5 @@ public class MyInput
     public KeyCode ability_1 = KeyCode.Alpha1;
     public KeyCode ability_2 = KeyCode.Alpha2;
     public KeyCode ability_3 = KeyCode.Alpha3;
-
+    public KeyCode action = KeyCode.K;
 }

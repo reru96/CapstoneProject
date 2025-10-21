@@ -16,7 +16,8 @@ MonoBehaviour:
   description: spada e scudo
   itemType: 2
   icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
-  prefab: {fileID: 5156660526780872327, guid: 965175182c90004459731f37915a2a13, type: 3}
+  level: 1
+  prefab: {fileID: 8449004803641222730, guid: 635b9c60fe8860a4e9a5ab1a4658720f, type: 3}
   attackType:
   - {fileID: 5503505460791601945, guid: 74c549d1b06b6b140a1fd9536eea637f, type: 3}
   - {fileID: 158789456559184324, guid: 87167b19fb4a32a4e8e4f2c5f40a40b3, type: 3}

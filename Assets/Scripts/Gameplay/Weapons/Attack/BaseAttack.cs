@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static Codice.Client.Common.EventTracking.TrackFeatureUseEvent.Features.DesktopGUI.Filters;
 
 public class BaseAttack : MonoBehaviour
 {
@@ -10,10 +9,15 @@ public class BaseAttack : MonoBehaviour
     public float duration = 0.3f;
     public float destroyDelay = 0.1f;
     public float repulseForce = 1f;
-
     protected Vector3 startPos;
     protected Vector3 endPos;
     protected float elapsed;
+    protected AttackType AttackType;
+
+    public BaseAttack(AttackType attackType)
+    {
+        this.AttackType = attackType;
+    }
 
     protected PlayerStats playerStats;
 

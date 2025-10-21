@@ -5,6 +5,8 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "RPG/Inventory/Run Item")]
 public class SORunItem : SOItem
 {
+    public int level;
+
     public virtual void Use(GameObject player)
     {
 

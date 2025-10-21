@@ -41,6 +41,9 @@ public enum DefenseSequence
 public enum AttackType
 {
     Sword,
+    Slashing,
+    Force,
+    Piercing,
     KickLeft,
     KickRight,
 }
