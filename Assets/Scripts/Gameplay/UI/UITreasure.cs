@@ -15,6 +15,11 @@ public class UITreasure : MonoBehaviour
 
     private List<SORunItem> currentChoices;
 
+    public void Start()
+    {
+        Hide();
+    }
+
     public void ShowChoices(List<SORunItem> items)
     {
         currentChoices = items;

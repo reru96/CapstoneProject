@@ -14,7 +14,7 @@ public class PlayerStateMachine : StateMachine
 
 
     public PlayerStats p_stats;
-    public Animator animator { get; private set; }
+    public Animator animator { get; set; }
     public Rigidbody rb { get; private set; }
     public NavMeshAgent agent { get; private set; }
 
@@ -69,7 +69,7 @@ public class PlayerStateMachine : StateMachine
 
         weapon = newWeapon;
         p_stats.EquipWeapon(newWeapon);
-
+        animator.runtimeAnimatorController = newWeapon.animator;
         Debug.Log($"[PlayerStateMachine] Equipped new weapon: {newWeapon.name}");
     }
 

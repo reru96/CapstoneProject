@@ -10,36 +10,33 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 16c40c636d807904cb0a4826fc7d6e00, type: 3}
-  m_Name: TwoHandSword
+  m_Name: FireSword
   m_EditorClassIdentifier: 
-  itemName: spada a due mani
+  itemName: 
   description: 
-  itemType: 2
-  icon: {fileID: 21300000, guid: 0588142bb49eb9c4db49c769caaa695d, type: 3}
-  level: 1
-  prefab: {fileID: 245404510656800938, guid: a207d82e2da6bb4409e6c1d7f11c3333, type: 3}
-  attackType:
-  - {fileID: 5503505460791601945, guid: 74c549d1b06b6b140a1fd9536eea637f, type: 3}
-  - {fileID: 158789456559184324, guid: 87167b19fb4a32a4e8e4f2c5f40a40b3, type: 3}
-  - {fileID: 1400255665468144947, guid: 6c21e7a6e514dd9499418cbbb66211cf, type: 3}
+  itemType: 0
+  icon: {fileID: 0}
+  level: 0
+  prefab: {fileID: 0}
+  attackType: []
   swingSound: {fileID: 0}
   attackDuration: 0
   hitDelay: 0.3
   animator: {fileID: 0}
   physicalBaseDamage: 50
-  fireBaseDamage: 0
+  fireBaseDamage: 50
   magicBaseDamage: 0
   lightningBaseDamage: 0
   holyBaseDamage: 0
-  strengthScaling: 4
+  strengthScaling: 2
   dexterityScaling: 4
   intelligenceScaling: 5
   faithScaling: 5
-  arcaneScaling: 5
+  arcaneScaling: 2
   scalesWithIntelligence: 0
   scalesWithFaith: 0
-  scalesWithArcane: 0
-  strengthBonus: 0
+  scalesWithArcane: 1
+  strengthBonus: 10
   dexterityBonus: 0
   intelligenceBonus: 0
   defenseBonus: 0

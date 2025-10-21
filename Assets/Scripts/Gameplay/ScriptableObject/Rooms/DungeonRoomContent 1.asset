@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomType: Start
   possibleContents:
-  - {fileID: 3629098907630432920, guid: afc3fedc78427f04097996d062288c66, type: 3}
+  - {fileID: 6813730261317663486, guid: 51dac09cec77e0245a111488c9df8d6f, type: 3}

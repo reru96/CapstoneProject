@@ -212,11 +212,11 @@ MonoBehaviour:
       type: 3}
     initialPoolSize: 10
   - roomType: Boss
-    prefab: {fileID: 6302615377253052427, guid: e63663b27231c504587f40a001b3bde1,
+    prefab: {fileID: 4235286470899696197, guid: dbbdd054543305044a529d82dfc55c3f,
       type: 3}
     initialPoolSize: 1
   - roomType: Common
-    prefab: {fileID: 6302615377253052427, guid: e63663b27231c504587f40a001b3bde1,
+    prefab: {fileID: 4235286470899696197, guid: dbbdd054543305044a529d82dfc55c3f,
       type: 3}
     initialPoolSize: 10
 --- !u!114 &848502829
@@ -859,11 +859,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c2bf1294a0c2fd449c846ef0b14de00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pools:
-  - tag: Enemy
-    prefab: {fileID: 1830648231862840522, guid: 4c67e4e852930584a8f19e404cb079f4,
-      type: 3}
-    size: 20
+  pools: []
 --- !u!4 &1985488744
 Transform:
   m_ObjectHideFlags: 0

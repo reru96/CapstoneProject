@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomType: Boss
   possibleContents:
-  - {fileID: 5754540700685389711, guid: d4fdeae2fb6f5d245b9a6116920d503e, type: 3}
+  - {fileID: 8731577422625979608, guid: 26c5595afe7cfe942b95afa6a2330afc, type: 3}

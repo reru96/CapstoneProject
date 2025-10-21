@@ -10,6 +10,7 @@ public class SOWeapon : SORunItem
     public AudioClip swingSound;
     public float attackDuration;
     public float hitDelay = 0.3f;
+    public RuntimeAnimatorController animator;
 
     [Header("Base Damage")]
     public float physicalBaseDamage = 50f;

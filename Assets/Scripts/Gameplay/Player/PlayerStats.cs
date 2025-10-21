@@ -15,6 +15,8 @@ public class PlayerStats : MonoBehaviour
     public float buffFaith;
     public float buffArcane;
 
+    public GameObject hand;
+
     public float Strength { get; private set; }
     public float Dexterity { get; private set; }
     public float Intelligence { get; private set; }
@@ -68,6 +70,9 @@ public class PlayerStats : MonoBehaviour
     public void EquipWeapon(SOWeapon newWeapon)
     {
         currentWeapon = newWeapon;
+        GameObject newWeaponObj = Instantiate(newWeapon.prefab, hand.transform);
+        newWeaponObj.transform.localPosition = Vector3.zero;
+        newWeaponObj.transform.localRotation = Quaternion.identity;
         RecalculateStats();
     }
 

@@ -17,12 +17,10 @@ public class PlayerMoveState : PlayerBaseState
     {
         var inputManager = ServiceLocator.Get<InputManager>();
         Vector3 input = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-        player.rb.velocity = input.normalized * player.agent.speed;
+        player.agent.velocity = input * player.agent.speed;
 
         Quaternion targetRotation = Quaternion.LookRotation(input.normalized, Vector3.up);
-
-       
-        player.rb.MoveRotation(Quaternion.Slerp(player.rb.rotation,targetRotation,Time.deltaTime * player.rotationSpeed));
+        player.transform.rotation = Quaternion.Slerp(player.rb.rotation,targetRotation,Time.deltaTime * player.rotationSpeed);
 
         if (input.magnitude < 0.1f)
             player.SwitchState(new PlayerIdleState(player));
@@ -37,6 +35,6 @@ public class PlayerMoveState : PlayerBaseState
 
     public override void Exit()
     {
-        player.rb.velocity = Vector3.zero;
+        player.agent.velocity = Vector3.zero;
     }
 }

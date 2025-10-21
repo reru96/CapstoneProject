@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16c40c636d807904cb0a4826fc7d6e00, type: 3}
   m_Name: Sword
   m_EditorClassIdentifier: 
-  itemName: Sword and Shield
+  itemName: 'Sword '
   description: spada e scudo
   itemType: 2
-  icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+  icon: {fileID: 21300000, guid: ebd33c945fa53dc4eb9d0c3c4ca9e523, type: 3}
   level: 1
   prefab: {fileID: 8449004803641222730, guid: 635b9c60fe8860a4e9a5ab1a4658720f, type: 3}
   attackType:
@@ -25,6 +25,7 @@ MonoBehaviour:
   swingSound: {fileID: 0}
   attackDuration: 0.2
   hitDelay: 0.2
+  animator: {fileID: 9100000, guid: 71dae9dae1f898943aa533be20d7404e, type: 2}
   physicalBaseDamage: 50
   fireBaseDamage: 1
   magicBaseDamage: 1
