@@ -28,8 +28,7 @@ public class SOPlayerClass: ScriptableObject
     public float baseIntelligence;
     public float baseFaith;
     public float baseArcane;
-    public float baseVitality;
-    public float baseEndurance;
+  
 
     [Header("Abilities")]
     public string[] abilityNames;

@@ -14,31 +14,68 @@ public class TreasurePickUp : MonoBehaviour
     public GameObject top;
     public GameObject actionButton;
 
-    public void OnTriggerEnter(Collider other)
+    private bool playerInRange = false;
+    private InputManager inputManager;
+    private bool chestOpened = false;
+
+    private void Start()
+    {
+        inputManager = ServiceLocator.Get<InputManager>();
+        if (actionButton != null)
+            actionButton.SetActive(false);
+    }
+
+    private void Update()
+    {
+        if (!playerInRange || chestOpened)
+            return;
+
+        if (Input.GetKeyDown(inputManager.config.action))
+        {
+            OpenChest();
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            var inputManager = ServiceLocator.Get<InputManager>(); 
-            actionButton.gameObject.SetActive(true);
-            TextMeshProUGUI text = actionButton.GetComponentInChildren<TextMeshProUGUI>();
-            if (text != null)
-                text.text = $"Press {inputManager.config.action}";
-            if (Input.GetKeyDown(inputManager.config.action))
-            { 
-                OpenChest();
+            playerInRange = true;
+
+            if (actionButton != null)
+            {
+                actionButton.SetActive(true);
+                TextMeshProUGUI text = actionButton.GetComponentInChildren<TextMeshProUGUI>();
+                if (text != null)
+                    text.text = $"Press {inputManager.config.action}";
             }
         }
-
     }
 
-    public void OnTriggerExit(Collider other)
+    private void OnTriggerExit(Collider other)
     {
-        actionButton?.gameObject.SetActive(false);  
+        if (other.CompareTag("Player"))
+        {
+            playerInRange = false;
+            if (actionButton != null)
+                actionButton.SetActive(false);
+
+            if (uiManager != null)
+                uiManager.Hide(); 
+        }
     }
+
     public void OpenChest()
     {
-        top.gameObject.transform.Rotate(-90f, 0, 0);
+        if (chestOpened)
+            return;
+
+        chestOpened = true;
+
+        if (top != null)
+            top.transform.Rotate(-90f, 0, 0);
+
         var items = chestData.GetRandomItems();
-        uiManager.ShowChoices(items);
+        uiManager?.ShowChoices(items);
     }
 }

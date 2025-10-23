@@ -38,14 +38,14 @@ public enum DefenseSequence
     Parry,
 }
 
-public enum AttackType
+public enum DamageType
 {
-    Sword,
-    Slashing,
-    Force,
-    Piercing,
-    KickLeft,
-    KickRight,
+   Force,
+   Piercing,
+   Slashing,
+   Fire,
+   Ice,
+   Electricity
 }
 
 public enum RollDirection

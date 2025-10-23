@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Slash : BaseAttack
 {
-    public Slash(AttackType attackType) : base(attackType)
+    public Slash(DamageType attackType) : base(attackType)
     {
-        this.AttackType = AttackType.Slashing;
+        this.AttackType = DamageType.Slashing;
     }
 }

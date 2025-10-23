@@ -12,9 +12,9 @@ public class BaseAttack : MonoBehaviour
     protected Vector3 startPos;
     protected Vector3 endPos;
     protected float elapsed;
-    protected AttackType AttackType;
+    protected DamageType AttackType;
 
-    public BaseAttack(AttackType attackType)
+    public BaseAttack(DamageType attackType)
     {
         this.AttackType = attackType;
     }
@@ -90,9 +90,9 @@ public class BaseAttack : MonoBehaviour
 
         float physical = w.physicalBaseDamage + playerStats.Strength * strScale + playerStats.Dexterity * dexScale;
         float fire = w.fireBaseDamage + (w.scalesWithFaith ? playerStats.Faith * faiScale : 0);
-        float magic = w.magicBaseDamage + (w.scalesWithIntelligence ? playerStats.Intelligence * intScale : 0);
-        float lightning = w.lightningBaseDamage + (w.scalesWithFaith ? playerStats.Faith * faiScale : 0);
-        float holy = w.holyBaseDamage + (w.scalesWithFaith ? playerStats.Faith * faiScale : 0);
+        float magic = w.iceBaseDamage + (w.scalesWithIntelligence ? playerStats.Intelligence * intScale : 0);
+        float lightning = w.electricityBaseDamage + (w.scalesWithFaith ? playerStats.Faith * faiScale : 0);
+        float holy = w.piercingBaseDamage + (w.scalesWithFaith ? playerStats.Faith * faiScale : 0);
 
         float finalPhysical = physical * (1 - (enemy.enemyData.physicalDefense / (enemy.enemyData.physicalDefense + 100)));
         float finalFire = fire * (1 - (enemy.enemyData.fireDefense / (enemy.enemyData.fireDefense + 100)));

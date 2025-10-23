@@ -9,15 +9,15 @@ using TMPro;
 public class UITreasure : MonoBehaviour
 {
     public GameObject choiceButtonPrefab;
-
     public Transform choiceContainer;
-    public GameObject panel;
+
+    public CanvasGroup canvasGroup;
 
     private List<SORunItem> currentChoices;
 
-    public void Start()
+    private void Start()
     {
-        Hide();
+        Hide(); 
     }
 
     public void ShowChoices(List<SORunItem> items)
@@ -43,27 +43,39 @@ public class UITreasure : MonoBehaviour
             button.onClick.AddListener(() => OnItemChosen(item));
         }
 
-        if (panel != null)
-            panel.SetActive(true);
-        else
-            gameObject.SetActive(true);
+        Show(); 
     }
 
-    void OnItemChosen(SORunItem chosen)
+    private void OnItemChosen(SORunItem chosen)
     {
-        Debug.Log($"Hai scelto: {chosen.itemName}");
-
+    
         var inventoryManager = ServiceLocator.Get<InventoryManager>();
         inventoryManager.runInventory.AddItem(chosen);
 
-        Hide();
+        Hide(); 
+    }
+
+    public void Show()
+    {
+        if (canvasGroup == null)
+        {
+            return;
+        }
+
+        canvasGroup.alpha = 1f;
+        canvasGroup.interactable = true;
+        canvasGroup.blocksRaycasts = true;
     }
 
     public void Hide()
     {
-        if (panel != null)
-            panel.SetActive(false);
-        else
-            gameObject.SetActive(false);
+        if (canvasGroup == null)
+        {
+            return;
+        }
+
+        canvasGroup.alpha = 0f;
+        canvasGroup.interactable = false;
+        canvasGroup.blocksRaycasts = false;
     }
 }

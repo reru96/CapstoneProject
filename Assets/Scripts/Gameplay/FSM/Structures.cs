@@ -30,7 +30,7 @@ public class DefenseAnimation
 [Serializable]
 public class AttackCooldown
 {
-    public AttackType attackType;
+    public DamageType attackType;
     public float cooldown;
 }
 

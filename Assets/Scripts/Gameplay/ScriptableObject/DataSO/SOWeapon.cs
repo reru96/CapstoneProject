@@ -15,9 +15,10 @@ public class SOWeapon : SORunItem
     [Header("Base Damage")]
     public float physicalBaseDamage = 50f;
     public float fireBaseDamage = 0f;
-    public float magicBaseDamage = 0f;
-    public float lightningBaseDamage = 0f;
-    public float holyBaseDamage = 0f;
+    public float iceBaseDamage = 0f;
+    public float electricityBaseDamage = 0f;
+    public float slashingBaseDamage = 0f;
+    public float piercingBaseDamage = 0f;
 
     [Header("Scaling Grades")]
     public ScalingGrade strengthScaling = ScalingGrade.D;
@@ -34,6 +35,8 @@ public class SOWeapon : SORunItem
     public float strengthBonus;
     public float dexterityBonus;
     public float intelligenceBonus;
+    public float faithBonus;
+    public float arcaneBonus;
     public float defenseBonus;
     public float speedBonus;
 
