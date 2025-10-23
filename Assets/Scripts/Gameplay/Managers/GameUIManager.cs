@@ -30,7 +30,7 @@ public class GameUIManager : Injectable<GameManager>
             var exp = player.GetComponent<PlayerStats>();
 
             staticUI?.Initialize(life, mana, stamina);
-            staticUI?.UpdateExp(exp.exp, exp.expToNextLevel);
+            staticUI?.UpdateExp(exp.exp);
         }
     }
 
