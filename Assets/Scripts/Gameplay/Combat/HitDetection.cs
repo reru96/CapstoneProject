@@ -18,32 +18,12 @@ public class HitDetection : MonoBehaviour
 
     private WeaponCombat ownerWeapon;
     private PlayerStateMachine ownerPlayer;
+    private PlayerStats playerStats;
     private Collider[] selfColliders;
 
     private void Awake()
     {
         enabled = false;
-    }
-
-    public void Initialize(WeaponCombat weapon, Transform hand = null, float baseDamage = -1f, LayerMask? mask = null)
-    {
-        ownerWeapon = weapon;
-        ownerPlayer = weapon != null ? weapon.GetPlayer() : null;
-
-        if (hand != null)
-            handTransform = hand;
-
-        if (baseDamage >= 0f)
-            baseValue = baseDamage;
-
-        if (mask.HasValue)
-            targetLayerMask = mask.Value;
-
-        CacheSelfColliders();
-    }
-
-    private void CacheSelfColliders()
-    {
         selfColliders = GetComponentsInChildren<Collider>(true);
     }
 

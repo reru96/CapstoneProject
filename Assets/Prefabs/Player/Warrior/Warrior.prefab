@@ -1218,6 +1218,7 @@ GameObject:
   - component: {fileID: 6658399957628381955}
   - component: {fileID: 2734189961331237943}
   - component: {fileID: 6208610126424316736}
+  - component: {fileID: 825022514880572436}
   m_Layer: 3
   m_Name: Warrior
   m_TagString: Player
@@ -1375,6 +1376,7 @@ MonoBehaviour:
   playerClass: {fileID: 11400000, guid: e1c6311a5c7ec6f4fbe68d6766b8e65e, type: 2}
   currentWeapon: {fileID: 11400000, guid: 28197a96ff12a554fb1916a24671cb0e, type: 2}
   currentArmor: {fileID: 11400000, guid: ce62bea9a60f38a48ace46f3d6648e44, type: 2}
+  hand: {fileID: 9177872514103173886}
   buffHealth: 0
   buffMana: 0
   buffStamina: 0
@@ -1439,6 +1441,21 @@ CapsuleCollider:
   m_Height: 1.82
   m_Direction: 1
   m_Center: {x: 0, y: 0.93, z: 0}
+--- !u!114 &825022514880572436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5156660526780872327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f18d55b67610bc40b28721956a315ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: {fileID: 11400000, guid: 28197a96ff12a554fb1916a24671cb0e, type: 2}
+  hitDetection: {fileID: 0}
+  projectileSpawn: {fileID: 7469548393659012447}
 --- !u!1 &5191853845579050268
 GameObject:
   m_ObjectHideFlags: 0

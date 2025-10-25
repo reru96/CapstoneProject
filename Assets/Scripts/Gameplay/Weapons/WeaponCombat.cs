@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Core;
 using UnityEngine;
+using UnityEngine.XR;
 
 public class WeaponCombat : MonoBehaviour
 {
@@ -11,7 +12,6 @@ public class WeaponCombat : MonoBehaviour
     private bool isAttacking;
     [SerializeField] private HitDetection hitDetection;
     [SerializeField] private Transform projectileSpawn;
-    [SerializeField] private Transform handPoint;
 
     private void Awake()
     {
@@ -27,9 +27,6 @@ public class WeaponCombat : MonoBehaviour
     public void Initialize(PlayerStateMachine owner)
     {
         player = owner;
-
-        if (hitDetection != null)
-            hitDetection.Initialize(this, hand: handPoint ?? transform, baseDamage: data != null ? data.basedamage : -1f);
 
     }
 

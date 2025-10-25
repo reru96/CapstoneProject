@@ -22,6 +22,7 @@ public class PlayerStats : MonoBehaviour
 
     public int exp;
     public int expToNextLevel = 100;
+
     public int Level { get; private set; } = 1;
     public int StatPoints { get; private set; } = 0;
     public float Health { get; private set; }
