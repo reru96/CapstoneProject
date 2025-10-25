@@ -1215,7 +1215,6 @@ GameObject:
   - component: {fileID: 7277221142035606824}
   - component: {fileID: 5639985677662380651}
   - component: {fileID: 4038690714759056641}
-  - component: {fileID: 2174217780802646979}
   - component: {fileID: 6658399957628381955}
   - component: {fileID: 2734189961331237943}
   - component: {fileID: 6208610126424316736}
@@ -1352,6 +1351,7 @@ MonoBehaviour:
   p_data: {fileID: 11400000, guid: e1c6311a5c7ec6f4fbe68d6766b8e65e, type: 2}
   weapon: {fileID: 11400000, guid: 28197a96ff12a554fb1916a24671cb0e, type: 2}
   p_stats: {fileID: 4038690714759056641}
+  weaponInstance: {fileID: 0}
   currentVelocity: {x: 0, y: 0, z: 0}
   accelerationTime: 0.2
   rotationSpeed: 25
@@ -1359,7 +1359,7 @@ MonoBehaviour:
   isMoving: 0
   isDodging: 0
   isAttacking: 0
-  weaponInstance: {fileID: 0}
+  upperBodyLayerName: UpperBody
 --- !u!114 &4038690714759056641
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1386,19 +1386,6 @@ MonoBehaviour:
   buffArcane: 1
   exp: 0
   expToNextLevel: 100
---- !u!114 &2174217780802646979
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5156660526780872327}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f18d55b67610bc40b28721956a315ed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: 28197a96ff12a554fb1916a24671cb0e, type: 2}
 --- !u!114 &6658399957628381955
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -8,7 +8,7 @@ public class PlayerAttackState : PlayerBaseState
 {
    
     private WeaponCombat weapon;
-    private int attackNumber;
+    private int attackNumber = 1;
     private bool bufferNextAttack;
     private bool attackQueued;
 

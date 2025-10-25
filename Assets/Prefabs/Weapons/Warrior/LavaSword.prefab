@@ -167,6 +167,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5797497935107553509}
   - component: {fileID: 1134420758466220188}
+  - component: {fileID: 5101088843036780778}
+  - component: {fileID: 6395234126397283376}
   m_Layer: 0
   m_Name: LavaSword
   m_TagString: Untagged
@@ -182,14 +184,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 245404510656800938}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0.13313475, z: -0, w: 0.991098}
+  m_LocalPosition: {x: -0.06698334, y: 0, z: 0.08833867}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5443751178142004506}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -15.302, z: 0}
 --- !u!136 &1134420758466220188
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -209,10 +211,44 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 1
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 0.3
+  m_Height: 2.07
+  m_Direction: 0
+  m_Center: {x: -0.88, y: -0.04, z: -0.16}
+--- !u!114 &5101088843036780778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 245404510656800938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6583c12afa6ed34aa4715e194dd2143, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handTransform: {fileID: 0}
+  raycastDistance: 2
+  targetLayerMask:
+    serializedVersion: 2
+    m_Bits: 128
+  hitWeapon: 0
+  baseValue: 10
+--- !u!114 &6395234126397283376
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 245404510656800938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f18d55b67610bc40b28721956a315ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: {fileID: 0}
+  hitDetection: {fileID: 5101088843036780778}
+  projectileSpawn: {fileID: 0}
 --- !u!1 &367487116602099813
 GameObject:
   m_ObjectHideFlags: 0
@@ -621,13 +657,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2008279919339796279}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.34852526, y: -0.123135276, z: -0.58017576, w: -0.725785}
-  m_LocalPosition: {x: 94, y: -188.8, z: -200.5}
+  m_LocalRotation: {x: 0.23272657, y: -0.25794142, z: -0.63554037, w: -0.68948764}
+  m_LocalPosition: {x: 17.054808, y: -188.80002, z: -243.56319}
   m_LocalScale: {x: 0.2341522, y: 0.38724285, z: 0.29606518}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5443751178142004506}
-  m_LocalEulerAnglesHint: {x: -40.45, y: -17.251, z: -276.326}
+  m_LocalEulerAnglesHint: {x: -40.45, y: 4.513, z: -276.326}
 --- !u!33 &8139268953531992347
 MeshFilter:
   m_ObjectHideFlags: 0

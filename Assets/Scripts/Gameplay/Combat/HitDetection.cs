@@ -61,9 +61,9 @@ public class HitDetection : MonoBehaviour
             if (t.TryGetComponent<EnemyStateMachine>(out var enemy))
             {
                 PlayerStateMachine player = GetComponentInParent<PlayerStateMachine>();
-                if (player != null && player.p_stats != null && player.combat != null && player.combat.data != null)
+                if (player != null && player.p_stats != null && player.weaponInstance != null && player.weaponInstance.data != null)
                 {
-                    float dmg = DamageUtility.CalculateDamage(player.p_stats, player.combat.data, enemy.enemyData);
+                    float dmg = DamageUtility.CalculateDamage(player.p_stats, player.weaponInstance.data, enemy.enemyData);
                     DamageUtility.ApplyDamageToEnemy(enemy, dmg);
                     enemy.OnHit(transform.position);
                 }
