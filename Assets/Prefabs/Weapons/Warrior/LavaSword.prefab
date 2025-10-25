@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1265530987244276450}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: polySurface123
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,7 +41,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5055312221222603762}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: transform119
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -72,7 +72,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4015621065084504557}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: transform122
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -103,7 +103,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4745319938323558547}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: polySurface130
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -135,7 +135,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8471518813979923840}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: transform117
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -166,10 +166,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5797497935107553509}
-  - component: {fileID: 1134420758466220188}
   - component: {fileID: 5101088843036780778}
   - component: {fileID: 6395234126397283376}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: LavaSword
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -184,37 +183,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 245404510656800938}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0.13313475, z: -0, w: 0.991098}
-  m_LocalPosition: {x: -0.06698334, y: 0, z: 0.08833867}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5443751178142004506}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: -15.302, z: 0}
---- !u!136 &1134420758466220188
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 245404510656800938}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.3
-  m_Height: 2.07
-  m_Direction: 0
-  m_Center: {x: -0.88, y: -0.04, z: -0.16}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5101088843036780778
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -229,6 +205,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   handTransform: {fileID: 0}
   raycastDistance: 2
+  raycastRadius: 0.25
   targetLayerMask:
     serializedVersion: 2
     m_Bits: 128
@@ -246,9 +223,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f18d55b67610bc40b28721956a315ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 0}
+  data: {fileID: 11400000, guid: 28197a96ff12a554fb1916a24671cb0e, type: 2}
   hitDetection: {fileID: 5101088843036780778}
   projectileSpawn: {fileID: 0}
+  handPoint: {fileID: 0}
 --- !u!1 &367487116602099813
 GameObject:
   m_ObjectHideFlags: 0
@@ -258,7 +236,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 898726944129170060}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: transform112
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -289,7 +267,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6501825902924360933}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: polySurface125
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -321,7 +299,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5666304779537088794}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: polySurface110
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -353,7 +331,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3186461820831221353}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: polySurface113
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -385,7 +363,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5195422840524430381}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: polySurface108
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -417,7 +395,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4054323984831611818}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: polySurface132
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -449,7 +427,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1850589318530772694}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: polySurface117
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -481,7 +459,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1669103468375699688}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: transform111
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -512,7 +490,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7383702217860736947}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: polySurface124
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -544,7 +522,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6167207584800734840}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: polySurface127
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -576,7 +554,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8552415450078592138}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: polySurface114
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -608,7 +586,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1805484372509676582}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: polySurface106
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -642,7 +620,9 @@ GameObject:
   - component: {fileID: 5336703412899170535}
   - component: {fileID: 8139268953531992347}
   - component: {fileID: 7359972655795254129}
-  m_Layer: 0
+  - component: {fileID: 5187132210189974161}
+  - component: {fileID: 124268490237192956}
+  m_Layer: 11
   m_Name: polySurface124.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -714,6 +694,56 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!54 &5187132210189974161
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2008279919339796279}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!136 &124268490237192956
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2008279919339796279}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 49.371597
+  m_Height: 539.8488
+  m_Direction: 1
+  m_Center: {x: 4.9492645, y: 254.96883, z: 984.203}
 --- !u!1 &2292752501748628372
 GameObject:
   m_ObjectHideFlags: 0
@@ -723,7 +753,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8276577410007860740}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: transform126
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -754,7 +784,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6047637973965527569}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: polySurface115
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -786,7 +816,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8393572110438928035}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: transform130
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -817,7 +847,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1203551119455632368}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: transform121
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -848,7 +878,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5714393468069711325}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: transform116
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -879,7 +909,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 856483926445396492}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: polySurface118
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -911,7 +941,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9173310692728123032}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: transform133
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -942,7 +972,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2085476836413423863}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: polySurface131
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -974,7 +1004,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5443751178142004506}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: LavaSword_Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1035,7 +1065,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4695225834360975128}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: transform137
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1066,7 +1096,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4670056262670267053}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: polySurface111
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1098,7 +1128,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7831033269110584857}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: transform135
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1129,7 +1159,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 251404722383420250}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: polySurface121
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1161,7 +1191,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5932105354570659415}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: transform132
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1192,7 +1222,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6329350574733678771}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: polySurface119
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1224,7 +1254,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5300146141439021350}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: polySurface109
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1256,7 +1286,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2271978746326024745}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: polySurface112
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1288,7 +1318,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4801530073200451510}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: transform115
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1319,7 +1349,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1838754419264540961}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: transform114
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1350,7 +1380,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6262050206406977606}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: transform128
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1381,7 +1411,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3118257390423007585}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: polySurface120
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1413,7 +1443,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2020129368213971713}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: transform136
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1444,7 +1474,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9176747665375800313}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: transform134
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1475,7 +1505,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8880193146754875200}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: transform120
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1506,7 +1536,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5406209465894036702}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: transform113
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1537,7 +1567,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3384879370971007627}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: polySurface128
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1569,7 +1599,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4771462944468468123}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: transform125
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1600,7 +1630,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7598123582218928928}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: polySurface116
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1632,7 +1662,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5402400836041639922}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: transform127
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1663,7 +1693,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4575394503519402121}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: polySurface129
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1695,7 +1725,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7714202073074972273}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: transform123
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1726,7 +1756,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3155959984573652222}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: polySurface107
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1758,7 +1788,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6404032449741808585}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: transform124
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1789,7 +1819,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1854500310968066881}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: transform129
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1820,7 +1850,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5218569333770057187}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: transform118
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1851,7 +1881,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8689797657394734795}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: polySurface122
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1883,7 +1913,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 270431507056550878}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: transform131
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1914,7 +1944,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3842715576979822439}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: polySurface126
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1946,7 +1976,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4990749865376523371}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: transform138
   m_TagString: Untagged
   m_Icon: {fileID: 0}

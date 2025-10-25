@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 3858622025608294646}
   - component: {fileID: 3477272991562575618}
   - component: {fileID: 1754790541576499598}
-  - component: {fileID: 3422462878606024729}
   m_Layer: 0
   m_Name: 'Multiple Slash 2 '
   m_TagString: Untagged
@@ -5007,22 +5006,6 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!114 &3422462878606024729
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1400255665468144947}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21ca6315fd4edd942be1a1128f8a1297, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  distance: 3
-  duration: 0.3
-  destroyDelay: 0.2
-  repulseForce: 1.5
 --- !u!1 &8326875285562556626
 GameObject:
   m_ObjectHideFlags: 0

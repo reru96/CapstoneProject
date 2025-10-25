@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 7023287381916535993}
   - component: {fileID: 1231740799838009829}
   - component: {fileID: 7047409975252356364}
-  - component: {fileID: 4883298578067479851}
   - component: {fileID: 7136024943201519924}
   - component: {fileID: 7208170429884565153}
   - component: {fileID: 5624192506071733700}
@@ -4893,22 +4892,6 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!114 &4883298578067479851
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 158789456559184324}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21ca6315fd4edd942be1a1128f8a1297, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  distance: 1
-  duration: 0.2
-  destroyDelay: 0.1
-  repulseForce: 0.2
 --- !u!135 &7136024943201519924
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -4973,6 +4956,9 @@ MonoBehaviour:
   duration: 0.3
   destroyDelay: 0.1
   repulseForce: 1
+  startPos: {x: 0, y: 0, z: 0}
+  endPos: {x: 0, y: 0, z: 0}
+  AttackType: 0
 --- !u!1 &8111811156769411746
 GameObject:
   m_ObjectHideFlags: 0

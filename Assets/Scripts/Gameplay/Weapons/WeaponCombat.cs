@@ -11,15 +11,38 @@ public class WeaponCombat : MonoBehaviour
     private bool isAttacking;
     [SerializeField] private HitDetection hitDetection;
     [SerializeField] private Transform projectileSpawn;
+    [SerializeField] private Transform handPoint;
+
+    private void Awake()
+    {
+        if (hitDetection == null)
+            hitDetection = GetComponentInChildren<HitDetection>(true);
+        if (projectileSpawn == null)
+        {
+            Transform t = transform.Find("ProjectileSpawn") ?? transform.Find("Muzzle");
+            if (t != null) projectileSpawn = t;
+        }
+    }
 
     public void Initialize(PlayerStateMachine owner)
     {
         player = owner;
+
+        if (hitDetection != null)
+            hitDetection.Initialize(this, hand: handPoint ?? transform, baseDamage: data != null ? data.basedamage : -1f);
+
     }
+
+    public PlayerStateMachine GetPlayer() => player;
 
     public void HandleAttackStart(int number)
     {
         if (isAttacking) return;
+        if (player == null)
+        {
+            Debug.LogWarning("[WeaponCombat] Initialize(player) non chiamato prima di HandleAttackStart");
+            return;
+        }
         StartCoroutine(AttackRoutine(number));
     }
 
@@ -31,6 +54,12 @@ public class WeaponCombat : MonoBehaviour
     private IEnumerator AttackRoutine(int number)
     {
         isAttacking = true;
+        if (data == null)
+        {
+            Debug.LogWarning("[WeaponCombat] data weapon null");
+            yield break;
+        }
+
         yield return new WaitForSeconds(data.hitDelay);
 
         if (data.isRanged)
@@ -52,7 +81,7 @@ public class WeaponCombat : MonoBehaviour
                     if (projectile != null)
                     {
                         var proj = projectile.GetComponent<Projectile>();
-                        if (proj != null)
+                        if (proj != null && player != null)
                             proj.Initialize(player.p_stats, data);
                     }
                 }

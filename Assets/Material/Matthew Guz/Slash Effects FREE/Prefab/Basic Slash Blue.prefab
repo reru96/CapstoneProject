@@ -9790,7 +9790,6 @@ GameObject:
   - component: {fileID: 7364936370289906279}
   - component: {fileID: 4752034024110402706}
   - component: {fileID: 3761223270038707168}
-  - component: {fileID: 3846747595845127589}
   - component: {fileID: 3529192765634862911}
   m_Layer: 0
   m_Name: Basic Slash Blue
@@ -14691,27 +14690,6 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 3.287656
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &3846747595845127589
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5503505460791601945}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21ca6315fd4edd942be1a1128f8a1297, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  distance: 1
-  duration: 0.2
-  destroyDelay: 0.1
-  repulseForce: 0.2
-  startPos: {x: 0, y: 0, z: 0}
-  endPos: {x: 0, y: 0, z: 0}
-  dir: {x: 0, y: 0, z: 0}
-  elapsed: 0
-  damage: 1
 --- !u!54 &3529192765634862911
 Rigidbody:
   m_ObjectHideFlags: 0

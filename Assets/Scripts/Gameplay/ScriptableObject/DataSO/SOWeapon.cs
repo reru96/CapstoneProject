@@ -46,4 +46,5 @@ public class SOWeapon : SORunItem
     public float arcaneBonus;
     public float defenseBonus;
     public float speedBonus;
+    internal float basedamage;
 }

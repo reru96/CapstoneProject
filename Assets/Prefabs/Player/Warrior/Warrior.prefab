@@ -1311,8 +1311,8 @@ Animator:
   m_Avatar: {fileID: 9000000, guid: e53e134b722213149821322a1e70c6b0, type: 3}
   m_Controller: {fileID: 9100000, guid: 71dae9dae1f898943aa533be20d7404e, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_UpdateMode: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_WarningMessage: 
@@ -1375,7 +1375,6 @@ MonoBehaviour:
   playerClass: {fileID: 11400000, guid: e1c6311a5c7ec6f4fbe68d6766b8e65e, type: 2}
   currentWeapon: {fileID: 11400000, guid: 28197a96ff12a554fb1916a24671cb0e, type: 2}
   currentArmor: {fileID: 11400000, guid: ce62bea9a60f38a48ace46f3d6648e44, type: 2}
-  hand: {fileID: 9177872514103173886}
   buffHealth: 0
   buffMana: 0
   buffStamina: 0
