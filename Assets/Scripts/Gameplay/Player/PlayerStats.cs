@@ -8,7 +8,7 @@ public class PlayerStats : MonoBehaviour
     private const float levelMultiplier = 1.2f;
     public SOPlayerClass playerClass;
     public SOWeapon currentWeapon;
-    public SOArmor currentArmor; 
+    public SOArmor currentArmor;
     public GameObject hand;
 
     public float buffHealth;
@@ -21,12 +21,12 @@ public class PlayerStats : MonoBehaviour
     public float buffArcane;
 
     public int exp;
-    public int expToNextLevel = 100;    
-    public int Level { get; private set; } = 1;  
+    public int expToNextLevel = 100;
+    public int Level { get; private set; } = 1;
     public int StatPoints { get; private set; } = 0;
-    public float Health {  get; private set; }
+    public float Health { get; private set; }
     public float Mana { get; private set; }
-    public float Stamina{get; private set;}
+    public float Stamina { get; private set; }
     public float Strength { get; private set; }
     public float Dexterity { get; private set; }
     public float Intelligence { get; private set; }
@@ -45,6 +45,12 @@ public class PlayerStats : MonoBehaviour
 
     public void RecalculateStats()
     {
+        if (playerClass == null)
+        {
+            Debug.LogWarning("[PlayerStats] playerClass mancante");
+            return;
+        }
+
         Health = playerClass.health;
         Mana = playerClass.mana;
         Stamina = playerClass.stamina;
@@ -56,13 +62,12 @@ public class PlayerStats : MonoBehaviour
 
         if (currentWeapon != null)
         {
-            Strength += currentWeapon.strengthScaling != ScalingGrade.None ? currentWeapon.strengthBonus : 0;
-            Dexterity += currentWeapon.dexterityScaling != ScalingGrade.None ? currentWeapon.dexterityBonus : 0;
-            Intelligence += currentWeapon.intelligenceScaling != ScalingGrade.None? currentWeapon.intelligenceBonus : 0;
-            Faith += currentWeapon.faithScaling != ScalingGrade.None ? currentWeapon.faithBonus : 0;
-            Arcane += currentWeapon.arcaneScaling != ScalingGrade.None ? currentWeapon.arcaneBonus : 0;
+            Strength += currentWeapon.strengthBonus;
+            Dexterity += currentWeapon.dexterityBonus;
+            Intelligence += currentWeapon.intelligenceBonus;
+            Faith += currentWeapon.faithBonus;
+            Arcane += currentWeapon.arcaneBonus;
         }
-
 
         if (currentArmor != null)
         {
@@ -91,15 +96,25 @@ public class PlayerStats : MonoBehaviour
 
     public void EquipWeapon(SOWeapon newWeapon)
     {
+        if (newWeapon == null) return;
+
         currentWeapon = newWeapon;
-       
-        foreach (Transform child in hand.transform)
+
+        if (hand != null)
         {
-            GameObject.Destroy(child.gameObject);
+            foreach (Transform child in hand.transform)
+            {
+                GameObject.Destroy(child.gameObject);
+            }
+
+            if (newWeapon.prefab != null)
+            {
+                GameObject newWeaponObj = Instantiate(newWeapon.prefab, hand.transform);
+                newWeaponObj.transform.localPosition = Vector3.zero;
+                newWeaponObj.transform.localRotation = Quaternion.identity;
+            }
         }
-        GameObject newWeaponObj = Instantiate(newWeapon.prefab, hand.transform);
-        newWeaponObj.transform.localPosition = Vector3.zero;
-        newWeaponObj.transform.localRotation = Quaternion.identity;
+
         RecalculateStats();
     }
 
@@ -147,7 +162,7 @@ public class PlayerStats : MonoBehaviour
     {
         exp -= expToNextLevel;
         Level++;
-        StatPoints += 5; 
+        StatPoints += 5;
         expToNextLevel = Mathf.RoundToInt(expToNextLevel * levelMultiplier);
 
         RecalculateStats();
@@ -182,7 +197,7 @@ public class PlayerStats : MonoBehaviour
     {
         if (Defenses.TryGetValue(type, out float defense))
         {
-            incomingDamage -= defense; 
+            incomingDamage -= defense;
             if (incomingDamage < 0) incomingDamage = 0;
         }
         return incomingDamage;

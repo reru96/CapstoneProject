@@ -6,8 +6,9 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyStateMachine : StateMachine
+public class EnemyStateMachine : StateMachine, IDamagable
 {
+
     [Header("Riferimenti")]
     public SOEnemy enemyData;
     public Transform targetPlayer;
@@ -43,23 +44,23 @@ public class EnemyStateMachine : StateMachine
     public float alertDuration = 5f;
     public float alertTimer;
 
-    void Awake()
+    private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
-       
     }
 
     private void Start()
     {
-        SwitchState(new PatrollingState(this)); 
+        SwitchState(new PatrollingState(this));
     }
 
     protected override void Update()
     {
-        base.Update(); 
+        base.Update();
         var playerSpawner = ServiceLocator.Get<PlayerSpawnManager>();
-        targetPlayer = playerSpawner.Player.transform;
+        if (playerSpawner != null && playerSpawner.Player != null)
+            targetPlayer = playerSpawner.Player.transform;
 
         if (Time.time >= nextCheckTime)
         {
@@ -94,7 +95,6 @@ public class EnemyStateMachine : StateMachine
         return true;
     }
 
-   
     public Vector3 GetRandomPatrolPoint()
     {
         Vector3 randomDirection = Random.insideUnitSphere * patrolRadius;
@@ -124,12 +124,45 @@ public class EnemyStateMachine : StateMachine
 
     public void OnHit(Vector3 hitPosition)
     {
-       
+        lastSeenPosition = hitPosition;
+        lastSeenTime = Time.time;
+
         if (!(CurrentState is HitState))
-        {
-        
-            lastSeenPosition = hitPosition;
             SwitchState(new HitState(this));
-        }
     }
+
+
+    public void TakeDamage(Transform attacker, HitWeapon weapon, float baseValue = 0f)
+    {
+        PlayerStateMachine player = null;
+        PlayerStats pStats = null;
+        SOWeapon weaponSO = null;
+
+        if (attacker != null)
+        {
+            player = attacker.GetComponentInParent<PlayerStateMachine>();
+            if (player != null)
+            {
+                pStats = player.p_stats;
+                weaponSO = (player.GetWeapon() != null) ? player.GetWeapon().data : player.weapon;
+            }
+        }
+
+        float damage = 0f;
+        if (weaponSO != null && pStats != null)
+        {
+            damage = DamageUtility.CalculateDamage(pStats, weaponSO, enemyData);
+        }
+        else
+        {
+            damage = Mathf.Max(1f, baseValue * Random.Range(0.9f, 1.1f));
+        }
+
+        DamageUtility.ApplyDamageToEnemy(this, damage);
+
+
+        Vector3 hitPos = attacker != null ? attacker.position : transform.position;
+        OnHit(hitPos);
+    }
+}
 }

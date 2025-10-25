@@ -6,12 +6,19 @@ using UnityEngine.AI;
 
 public class MagneticArrow : Arrow
 {
+
     [SerializeField] private float pullRadius = 5f;
     [SerializeField] private float pullForce = 10f;
     [SerializeField] private float pullDuration = 1.5f;
     [SerializeField] private GameObject magneticEffectPrefab;
 
     private bool hasActivated = false;
+
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        hasActivated = false;
+    }
 
     protected override void OnTriggerEnter(Collider other)
     {
@@ -21,8 +28,11 @@ public class MagneticArrow : Arrow
         hasHit = true;
         hasActivated = true;
 
-        rb.velocity = Vector3.zero;
-        rb.angularVelocity = Vector3.zero;
+        if (rb != null)
+        {
+            rb.velocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+        }
 
         StartCoroutine(ActivateMagneticField());
     }
@@ -51,17 +61,26 @@ public class MagneticArrow : Arrow
 
                 var enemy = hit.GetComponent<EnemyStateMachine>();
                 var agent = hit.GetComponent<NavMeshAgent>();
-                if (enemy != null && agent != null)
+                if (enemy != null)
                 {
-                    Vector3 dir = (center - enemy.transform.position).normalized;
-                    agent.Move(dir * pullForce * Time.deltaTime);
+           
+                    float dmg = DamageUtility.CalculateDamage(shooterStats, weaponData, enemy.enemyData);
+                    DamageUtility.ApplyDamageToEnemy(enemy, dmg);
+
+                    if (agent != null)
+                    {
+                        Vector3 dir = (center - enemy.transform.position).normalized;
+                        agent.Move(dir * pullForce * Time.deltaTime);
+                    }
                 }
             }
 
             yield return null;
         }
 
-        GetComponent<Poolable>()?.ReturnToPool();
+        if (poolable != null)
+            poolable.ReturnToPool();
+        else
+            ServiceLocator.Get<ObjectPooler>()?.ReturnToPool(gameObject);
     }
-
 }

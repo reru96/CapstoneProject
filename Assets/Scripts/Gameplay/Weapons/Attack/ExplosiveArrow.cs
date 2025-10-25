@@ -6,11 +6,18 @@ using UnityEngine.AI;
 
 public class ExplosiveArrow : Arrow
 {
+
     [SerializeField] private float explosionRadius = 3f;
     [SerializeField] private float explosionForce = 5f;
     [SerializeField] private GameObject explosionEffect;
 
     private bool hasExploded = false;
+
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        hasExploded = false;
+    }
 
     protected override void OnTriggerEnter(Collider other)
     {
@@ -20,8 +27,11 @@ public class ExplosiveArrow : Arrow
         hasHit = true;
         hasExploded = true;
 
-        rb.velocity = Vector3.zero;
-        rb.angularVelocity = Vector3.zero;
+        if (rb != null)
+        {
+            rb.velocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+        }
 
         Explode();
     }
@@ -44,7 +54,8 @@ public class ExplosiveArrow : Arrow
             var enemy = hit.GetComponent<EnemyStateMachine>();
             if (enemy != null)
             {
-                DamageCalculation(enemy);
+                float dmg = DamageUtility.CalculateDamage(shooterStats, weaponData, enemy.enemyData);
+                DamageUtility.ApplyDamageToEnemy(enemy, dmg);
 
                 var agent = hit.GetComponent<NavMeshAgent>();
                 if (agent != null)
@@ -55,7 +66,10 @@ public class ExplosiveArrow : Arrow
             }
         }
 
-        GetComponent<Poolable>()?.ReturnToPool();
+        if (poolable != null)
+            poolable.ReturnToPool();
+        else
+            ServiceLocator.Get<ObjectPooler>()?.ReturnToPool(gameObject);
     }
 
 }

@@ -6,9 +6,11 @@ using UnityEngine;
 
 public class WeaponCombat : MonoBehaviour
 {
-    public SOWeapon data;
     private PlayerStateMachine player;
+    public SOWeapon data;
     private bool isAttacking;
+    [SerializeField] private HitDetection hitDetection;
+    [SerializeField] private Transform projectileSpawn;
 
     public void Initialize(PlayerStateMachine owner)
     {
@@ -31,39 +33,53 @@ public class WeaponCombat : MonoBehaviour
         isAttacking = true;
         yield return new WaitForSeconds(data.hitDelay);
 
-        var pooler = ServiceLocator.Get<ObjectPooler>();
-        if (pooler == null)
+        if (data.isRanged)
         {
-            Debug.LogError("[WeaponCombat] ObjectPooler non trovato!");
-            yield break;
-        }
+            GameObject prefab = data.projectilePrefab;
+            if (prefab != null)
+            {
+                var pooler = ServiceLocator.Get<ObjectPooler>();
+                if (pooler == null)
+                {
+                    Debug.LogError("[WeaponCombat] ObjectPooler non trovato");
+                }
+                else
+                {
+                    Vector3 spawnPos = (projectileSpawn != null) ? projectileSpawn.position : transform.position + transform.forward * 0.5f;
+                    Quaternion rot = transform.rotation;
 
-        GameObject prefabGO = data.attackType[number];
-        if (prefabGO == null)
-        {
-            Debug.LogWarning("[WeaponCombat] Prefab attacco non assegnato!");
-            yield break;
-        }
-
-        BaseAttack attackObj = pooler.Spawn<BaseAttack>(prefabGO, player.transform.position, player.transform.rotation);
-
-
-        if (attackObj != null)
-        {
-            attackObj.Initialize(player.p_stats);
-
-            if (data.swingSound != null)
-                AudioSource.PlayClipAtPoint(data.swingSound, player.transform.position);
+                    GameObject projectile = pooler.Spawn(prefab, spawnPos, rot);
+                    if (projectile != null)
+                    {
+                        var proj = projectile.GetComponent<Projectile>();
+                        if (proj != null)
+                            proj.Initialize(player.p_stats, data);
+                    }
+                }
+            }
         }
         else
         {
-            Debug.LogWarning("[WeaponCombat] Spawn dal pool fallito per: " + prefabGO.name);
+            if (hitDetection != null)
+            {
+                hitDetection.Activate();
+                yield return new WaitForSeconds(data.attackWindow);
+                hitDetection.Deactivate();
+            }
+            else
+            {
+                Debug.LogWarning("[WeaponCombat] hitDetection non assegnato");
+            }
         }
+
+        if (data.swingSound != null)
+            AudioSource.PlayClipAtPoint(data.swingSound, transform.position);
 
         yield return new WaitForSeconds(data.attackDuration);
         isAttacking = false;
     }
 }
+
 
 
 

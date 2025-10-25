@@ -6,13 +6,15 @@ using UnityEngine;
 
 public class PlayerAttackState : PlayerBaseState
 {
+   
     private WeaponCombat weapon;
     private int attackNumber;
     private bool bufferNextAttack;
+    private bool attackQueued;
 
     private readonly string[] attackAnimations = { "Attack1", "Attack2", "Attack3" };
-    private readonly float[] bufferTimes = { 0.3f, 0.3f, 0.3f }; 
-    private readonly float[] endTimes = { 0.9f, 1f, 1f };       
+    private readonly float[] bufferTimes = { 0.3f, 0.3f, 0.3f };
+    private readonly float[] endTimes = { 0.9f, 1f, 1f };
 
     private const int UpperBodyLayerIndex = 1;
 
@@ -25,12 +27,19 @@ public class PlayerAttackState : PlayerBaseState
     public override void Enter()
     {
         bufferNextAttack = false;
-
+        attackQueued = false;
         player.SetUpperBodyActive(true);
-        player.animator.Play(attackAnimations[attackNumber], UpperBodyLayerIndex, 0f);
-        player.animator.SetLayerWeight(UpperBodyLayerIndex, 1f);
+
+        if (UpperBodyLayerIndex >= 0)
+        {
+            player.animator.Play(attackAnimations[attackNumber], UpperBodyLayerIndex, 0f);
+            player.animator.SetLayerWeight(UpperBodyLayerIndex, 1f);
+        }
+
 
         weapon.HandleAttackStart(attackNumber);
+
+        Debug.Log($"[PlayerAttackState] Enter attack {attackNumber + 1}");
     }
 
     public override void Tick()
@@ -40,15 +49,17 @@ public class PlayerAttackState : PlayerBaseState
 
         AnimatorStateInfo stateInfo = player.animator.GetCurrentAnimatorStateInfo(UpperBodyLayerIndex);
 
-        if (attackNumber < attackAnimations.Length - 1 && stateInfo.normalizedTime >= bufferTimes[attackNumber] && bufferNextAttack)
+        if (attackNumber < attackAnimations.Length - 1 &&
+            stateInfo.normalizedTime >= bufferTimes[attackNumber] &&
+            attackQueued)
         {
-            bufferNextAttack = false;
+            attackQueued = false;
             player.SwitchState(new PlayerAttackState(player, attackNumber + 1));
             return;
         }
 
-
-        if (stateInfo.normalizedTime >= endTimes[attackNumber] && !(attackNumber < attackAnimations.Length - 1 && bufferNextAttack))
+        if (stateInfo.normalizedTime >= endTimes[attackNumber] &&
+            !(attackNumber < attackAnimations.Length - 1 && attackQueued))
         {
             weapon.HandleAttackEnd();
 
@@ -63,11 +74,10 @@ public class PlayerAttackState : PlayerBaseState
     private void HandleMovement()
     {
         Vector3 input = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-        player.agent.velocity = input * player.agent.speed;
 
         if (input.sqrMagnitude > 0.01f)
         {
-            float moveSpeedMultiplier = 0.2f;
+            float moveSpeedMultiplier = 0.2f; 
             player.agent.velocity = input.normalized * (player.agent.speed * moveSpeedMultiplier);
 
             Quaternion targetRotation = Quaternion.LookRotation(input.normalized, Vector3.up);
@@ -84,7 +94,10 @@ public class PlayerAttackState : PlayerBaseState
         var inputManager = ServiceLocator.Get<InputManager>();
 
         if (Input.GetKeyDown(inputManager.config.attack))
+        {
             bufferNextAttack = true;
+            attackQueued = true;
+        }
 
         if (Input.GetKeyDown(inputManager.config.dodge))
         {
@@ -96,8 +109,10 @@ public class PlayerAttackState : PlayerBaseState
     public override void Exit()
     {
         weapon.HandleAttackEnd();
-
-        player.animator.SetLayerWeight(UpperBodyLayerIndex, 0f);
+        if (UpperBodyLayerIndex >= 0)
+            player.animator.SetLayerWeight(UpperBodyLayerIndex, 0f);
         player.SetUpperBodyActive(false);
+
+        Debug.Log($"[PlayerAttackState] Exit attack {attackNumber + 1}");
     }
 }

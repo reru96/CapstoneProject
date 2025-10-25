@@ -8,21 +8,23 @@ using UnityEngine.AI;
 
 public class PlayerStateMachine : StateMachine
 {
-   
     public SOPlayerClass p_data;
     public SOWeapon weapon;
-
 
     public PlayerStats p_stats;
     public Animator animator { get; set; }
     public Rigidbody rb { get; private set; }
     public NavMeshAgent agent { get; private set; }
 
+    [HideInInspector] public Vector3 currentVelocity = Vector3.zero;   
 
-    [HideInInspector] public Vector3 currentVelocity = Vector3.zero;
+    [SerializeField] private string upperBodyLayerName = "UpperBody";
+    private int _upperBodyLayerIndex = -1;
+    public int UpperBodyLayerIndex => _upperBodyLayerIndex;
+
     public float accelerationTime = 0.2f;
     public float rotationSpeed = 25f;
-    private int _upperBodyLayerIndex;
+ 
     public bool isInvincible = false;
     public bool isMoving = false;
     public bool isDodging = false;
@@ -43,24 +45,36 @@ public class PlayerStateMachine : StateMachine
 
         if (weaponInstance != null)
             weaponInstance.Initialize(this);
-        int upperBodyLayer = animator.GetLayerIndex("UpperBody");
-        animator.SetLayerWeight(upperBodyLayer, 0f);
-    }
+      
+        if (animator != null)
+        {
+            _upperBodyLayerIndex = animator.GetLayerIndex(upperBodyLayerName);
+            if (_upperBodyLayerIndex < 0)
+                Debug.LogWarning($"[PlayerStateMachine] Layer '{upperBodyLayerName}' non trovato. Verifica il nome nel Animator.");
+            else
+                animator.SetLayerWeight(_upperBodyLayerIndex, 0f);
+        }
 
-    public void SetUpperBodyActive(bool active)
-    {
-        float targetWeight = active ? 1f : 0f;
-        animator.SetLayerWeight(_upperBodyLayerIndex, targetWeight);
     }
 
     private void Start()
     {
-      
         if (weapon != null)
         {
             _inventory.runInventory.AddItem(weapon);
             _inventory.runInventory.EquipItem(weapon);
-            p_stats.EquipWeapon(weapon);
+            if (p_stats != null)
+                p_stats.EquipWeapon(weapon);
+            
+            var pooler = ServiceLocator.Get<ObjectPooler>();
+            if (pooler != null)
+            {
+                pooler.ClearAllPools(); 
+                pooler.ConfigurePoolsForWeapons(new List<SOWeapon> { weapon });
+            }
+
+
+            animator.runtimeAnimatorController = weapon.animator;
         }
 
         SwitchState(new PlayerIdleState(this));
@@ -73,9 +87,24 @@ public class PlayerStateMachine : StateMachine
         if (newWeapon == null) return;
 
         weapon = newWeapon;
-        p_stats.EquipWeapon(newWeapon);
-        animator.runtimeAnimatorController = newWeapon.animator;
-        Debug.Log($"[PlayerStateMachine] Equipped new weapon: {newWeapon.name}");
+        if (p_stats != null)
+            p_stats.EquipWeapon(newWeapon);
+
+        var pooler = ServiceLocator.Get<ObjectPooler>();
+        if (pooler != null)
+            pooler.ConfigurePoolsForWeapons(new List<SOWeapon> { newWeapon });
+
+        if (animator != null && newWeapon.animator != null)
+            animator.runtimeAnimatorController = newWeapon.animator;
+
     }
+
+    public void SetUpperBodyActive(bool active)
+    {
+        if (animator == null || _upperBodyLayerIndex < 0) return;
+        float targetWeight = active ? 1f : 0f;
+        animator.SetLayerWeight(_upperBodyLayerIndex, targetWeight);
+    }
+
 
 }

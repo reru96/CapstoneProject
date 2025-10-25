@@ -18,7 +18,7 @@ MonoBehaviour:
 '
   itemType: 2
   icon: {fileID: 21300000, guid: 0588142bb49eb9c4db49c769caaa695d, type: 3}
-  level: 0
+  level: 1
   prefab: {fileID: 245404510656800938, guid: a207d82e2da6bb4409e6c1d7f11c3333, type: 3}
   attackType:
   - {fileID: 539289997039638868, guid: 844eb5aef40a0214f81a15775e5293e1, type: 3}
@@ -43,6 +43,8 @@ MonoBehaviour:
   scalesWithIntelligence: 0
   scalesWithFaith: 0
   scalesWithArcane: 1
+  scalesWithDex: 0
+  scalesWithStrenght: 0
   strengthBonus: 10
   dexterityBonus: 0
   intelligenceBonus: 0

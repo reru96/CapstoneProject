@@ -8,7 +8,7 @@ public class LifeController : MonoBehaviour
     [SerializeField] private int maxHp = 100;
     [SerializeField] private int currentHp;
     [SerializeField] private bool fullHpOnAwake = true;
-    [SerializeField] private DeathAction death = DeathAction.Destroy;
+    [SerializeField] private DeathAction death = DeathAction.Disable;
 
     public int GetMaxHp() => maxHp;
     public int GetHp() => currentHp;
@@ -40,27 +40,12 @@ public class LifeController : MonoBehaviour
         {
             case DeathAction.None:
                 break;
-
             case DeathAction.Destroy:
                 Destroy(gameObject);
                 break;
-
             case DeathAction.Disable:
                 gameObject.SetActive(false);
                 break;
-
-            //case DeathAction.Die:
-            //    var respawnMgr = ServiceLocator.Get<RespawnManager>();
-            //    if (respawnMgr != null)
-            //    {
-            //        respawnMgr.RespawnPlayerAtCurrent();
-            //    }
-            //    else
-            //    {
-            //        Debug.LogWarning("[LifeController] RespawnManager non trovato!");
-            //    }
-            //    break;
-
             case DeathAction.SceneReload:
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
                 break;

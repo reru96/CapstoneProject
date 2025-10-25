@@ -112,6 +112,32 @@ public class ObjectPooler : Injectable<ObjectPooler>
                 AddToPool(prefab, playerClass.defaultPoolSize);
         }
     }
+
+    public void ConfigurePoolsForWeapons(IEnumerable<SOWeapon> weapons, int defaultSize = 10)
+    {
+        if (weapons == null) return;
+
+        foreach (var w in weapons)
+        {
+            if (w == null) continue;
+
+            
+            if (w.prefab != null && !HasPrefab(w.prefab))
+                AddToPool(w.prefab, defaultSize);
+
+            if (w.attackType != null)
+            {
+                foreach (var atk in w.attackType)
+                {
+                    if (atk != null && !HasPrefab(atk))
+                        AddToPool(atk, defaultSize);
+                }
+            }
+
+            if (w.isRanged && w.projectilePrefab != null && !HasPrefab(w.projectilePrefab))
+                AddToPool(w.projectilePrefab, defaultSize);
+        }
+    }
 }
 
 

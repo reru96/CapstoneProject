@@ -5,15 +5,20 @@ using UnityEngine;
 [CreateAssetMenu(menuName = ("RPG/Weapon"))]
 public class SOWeapon : SORunItem
 {
+
     public GameObject prefab;
     public GameObject[] attackType;
     public AudioClip swingSound;
-    public float attackDuration;
+    public float attackDuration = 1f;
     public PanelType panelType;
     public float hitDelay = 0.3f;
     public RuntimeAnimatorController animator;
 
-    [Header("Base Damage")]
+    public bool isRanged = false;
+    public GameObject projectilePrefab;       
+    public float projectileSpeed = 15f;
+    public float attackWindow = 0.25f;        
+
     public float physicalBaseDamage = 50f;
     public float fireBaseDamage = 0f;
     public float iceBaseDamage = 0f;
@@ -21,20 +26,19 @@ public class SOWeapon : SORunItem
     public float slashingBaseDamage = 0f;
     public float piercingBaseDamage = 0f;
 
-    [Header("Scaling Grades")]
     public ScalingGrade strengthScaling = ScalingGrade.D;
     public ScalingGrade dexterityScaling = ScalingGrade.D;
     public ScalingGrade intelligenceScaling = ScalingGrade.E;
     public ScalingGrade faithScaling = ScalingGrade.E;
     public ScalingGrade arcaneScaling = ScalingGrade.E;
 
-    [Header("Elemental Scaling Influence")]
-    public bool scalesWithIntelligence; 
-    public bool scalesWithFaith;        
+    public bool scalesWithIntelligence;
+    public bool scalesWithFaith;
     public bool scalesWithArcane;
     public bool scalesWithDex;
     public bool scalesWithStrenght;
 
+ 
     public float strengthBonus;
     public float dexterityBonus;
     public float intelligenceBonus;
@@ -42,5 +46,4 @@ public class SOWeapon : SORunItem
     public float arcaneBonus;
     public float defenseBonus;
     public float speedBonus;
-
 }

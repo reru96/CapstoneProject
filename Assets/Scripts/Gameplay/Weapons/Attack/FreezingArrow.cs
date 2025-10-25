@@ -17,8 +17,11 @@ public class FreezingArrow : Arrow
 
         hasHit = true;
 
-        rb.velocity = Vector3.zero;
-        rb.angularVelocity = Vector3.zero;
+        if (rb != null)
+        {
+            rb.velocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+        }
 
         ApplyFreeze();
     }
@@ -40,14 +43,23 @@ public class FreezingArrow : Arrow
 
             var enemy = hit.GetComponent<EnemyStateMachine>();
             var agent = hit.GetComponent<NavMeshAgent>();
-            if (enemy != null && agent != null)
+            if (enemy != null)
             {
-                agent.isStopped = true;
-                StartCoroutine(UnfreezeAgent(agent, freezeDuration));
+                float dmg = DamageUtility.CalculateDamage(shooterStats, weaponData, enemy.enemyData);
+                DamageUtility.ApplyDamageToEnemy(enemy, dmg);
+
+                if (agent != null)
+                {
+                    agent.isStopped = true;
+                    StartCoroutine(UnfreezeAgent(agent, freezeDuration));
+                }
             }
         }
 
-        GetComponent<Poolable>()?.ReturnToPool();
+        if (poolable != null)
+            poolable.ReturnToPool();
+        else
+            ServiceLocator.Get<ObjectPooler>()?.ReturnToPool(gameObject);
     }
 
     private IEnumerator UnfreezeAgent(NavMeshAgent agent, float duration)

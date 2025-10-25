@@ -1899,7 +1899,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: 1e3c688acc0432646b98a7ede1ff3417, type: 2}
-  firePoint: {fileID: 8416753203660343752}
 --- !u!114 &1576374434860171703
 MonoBehaviour:
   m_ObjectHideFlags: 0
