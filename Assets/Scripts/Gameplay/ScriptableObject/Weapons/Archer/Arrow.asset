@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16c40c636d807904cb0a4826fc7d6e00, type: 3}
+  m_Name: Arrow
+  m_EditorClassIdentifier: 
+  itemName: Wood Bow
+  description: arco e frecce
+  itemType: 2
+  icon: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  level: 0
+  prefab: {fileID: 2100496819006484195, guid: 3b479bb75053db24fb8881fd73e113bf, type: 3}
+  attackType:
+  - {fileID: 2018491215067575691, guid: d1adacf627072af4b880061218c682b1, type: 3}
+  - {fileID: 2018491215067575691, guid: d1adacf627072af4b880061218c682b1, type: 3}
+  - {fileID: 4885819618833549151, guid: 13d63286f36fae447af00c713defa6e8, type: 3}
+  swingSound: {fileID: 0}
+  attackDuration: 10
+  panelType: 1
+  hitDelay: 0.2
+  animator: {fileID: 9100000, guid: 1dc2eff5a37070345a2f29f04ce41305, type: 2}
+  physicalBaseDamage: 50
+  fireBaseDamage: 0
+  iceBaseDamage: 0
+  electricityBaseDamage: 0
+  slashingBaseDamage: 0
+  piercingBaseDamage: 0
+  strengthScaling: 4
+  dexterityScaling: 2
+  intelligenceScaling: 5
+  faithScaling: 5
+  arcaneScaling: 5
+  scalesWithIntelligence: 0
+  scalesWithFaith: 0
+  scalesWithArcane: 0
+  scalesWithDex: 1
+  scalesWithStrenght: 1
+  strengthBonus: 0
+  dexterityBonus: 0
+  intelligenceBonus: 0
+  faithBonus: 0
+  arcaneBonus: 0
+  defenseBonus: 0
+  speedBonus: 0

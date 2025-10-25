@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Core;
 using Gameplay;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -63,7 +64,8 @@ public class InputRebindUI : MonoBehaviour
         {
                 "Dodge", "Attack", "Move", "Pause",
                 "SwitchWeapon", "Ability1", "Ability2", "Ability3"
-            };
+            
+        };
 
         foreach (string action in actions)
         {
@@ -83,7 +85,7 @@ public class InputRebindUI : MonoBehaviour
     private void StartRebind(string actionName, Button button)
     {
         waitingForButton = button;
-        button.GetComponentInChildren<Text>().text = $"{actionName}: Press any key...";
+        button.GetComponentInChildren<TextMeshProUGUI>().text = $"{actionName}: Press any key...";
     }
 
     private void UpdateButtonLabels()
@@ -92,7 +94,7 @@ public class InputRebindUI : MonoBehaviour
         {
             string action = kvp.Key;
             Button button = kvp.Value;
-            var text = button.GetComponentInChildren<Text>();
+            var text = button.GetComponentInChildren<TextMeshProUGUI>();
 
             if (text == null) continue;
 

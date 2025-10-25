@@ -12,24 +12,15 @@ public class TreasurePickUp : MonoBehaviour
     public SOTreasureChestData chestData;
     public UITreasure uiManager;
     public GameObject top;
-    public GameObject actionButton;
 
     private bool playerInRange = false;
-    private InputManager inputManager;
     private bool chestOpened = false;
-
-    private void Start()
-    {
-        inputManager = ServiceLocator.Get<InputManager>();
-        if (actionButton != null)
-            actionButton.SetActive(false);
-    }
 
     private void Update()
     {
         if (!playerInRange || chestOpened)
             return;
-
+        var inputManager = ServiceLocator.Get<InputManager>();
         if (Input.GetKeyDown(inputManager.config.action))
         {
             OpenChest();
@@ -40,15 +31,10 @@ public class TreasurePickUp : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            playerInRange = true;
-
-            if (actionButton != null)
-            {
-                actionButton.SetActive(true);
-                TextMeshProUGUI text = actionButton.GetComponentInChildren<TextMeshProUGUI>();
-                if (text != null)
-                    text.text = $"Press {inputManager.config.action}";
-            }
+            playerInRange = true; 
+            var inputManager = ServiceLocator.Get<InputManager>();
+            var gameUIManager = ServiceLocator.Get<GameUIManager>();
+            gameUIManager?.ShowActionPrompt($"Press {inputManager.config.action} to open");
         }
     }
 
@@ -56,26 +42,25 @@ public class TreasurePickUp : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            var gameUIManager = ServiceLocator.Get<GameUIManager>();
             playerInRange = false;
-            if (actionButton != null)
-                actionButton.SetActive(false);
-
-            if (uiManager != null)
-                uiManager.Hide(); 
+            gameUIManager?.HideActionPrompt();
+            uiManager?.Hide();
         }
     }
 
     public void OpenChest()
     {
-        if (chestOpened)
-            return;
-
+        if (chestOpened) return;
         chestOpened = true;
 
         if (top != null)
             top.transform.Rotate(-90f, 0, 0);
-
-        var items = chestData.GetRandomItems();
+        
+        var gameUIManager = ServiceLocator.Get<GameUIManager>();
+        gameUIManager?.HideActionPrompt();
+        var items = chestData.GetRandomItems(); 
+        gameUIManager?.ShowTreasure(items);
         uiManager?.ShowChoices(items);
     }
 }

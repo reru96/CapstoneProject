@@ -13,6 +13,7 @@ public class InventoryPanel
 public enum PanelType
 {
     Weapons,
+    BaseWeapons,
     Consumables,
     Upgrades
 }

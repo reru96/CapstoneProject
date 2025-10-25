@@ -14,6 +14,7 @@ namespace Gameplay
         [SerializeField] private float spawnHeightOffset = 0.5f;
         [SerializeField] private float navMeshCheckRadius = 2f;
 
+        public event Action<GameObject> OnPlayerSpawned;
         private GameObject player;
 
         public GameObject Player => player;
@@ -69,6 +70,8 @@ namespace Gameplay
 
             var agent = player.GetComponent<NavMeshAgent>();
             if (agent != null && !agent.isOnNavMesh) agent.enabled = false;
+
+            OnPlayerSpawned?.Invoke(player);
 
             Debug.Log($"[PlayerSpawnManager] Player spawnato in {spawnPos}");
         }

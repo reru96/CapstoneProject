@@ -22,7 +22,7 @@ public class UIStatic : MonoBehaviour
 
     private void Awake()
     {
-        SetVisible(true); 
+        SetVisible(true);
     }
 
     public void Initialize(LifeController life, ManaController mana, StaminaController stamina)
@@ -40,17 +40,31 @@ public class UIStatic : MonoBehaviour
     private void UpdateBars()
     {
         if (lifeController != null && healthBar != null)
-            healthBar.value = lifeController.GetHp() / lifeController.GetMaxHp();
+        {
+            float hp = (float)lifeController.GetHp();
+            float maxHp = Mathf.Max(1f, (float)lifeController.GetMaxHp());
+            healthBar.value = Mathf.Clamp01(hp / maxHp);
+        }
 
         if (manaController != null && manaBar != null)
-            manaBar.value = manaController.currentMana / manaController.MaxMana;
+        {
+            float cur = manaController.currentMana;
+            float max = Mathf.Max(1f, manaController.MaxMana);
+            manaBar.value = Mathf.Clamp01(cur / max);
+        }
 
         if (staminaController != null && staminaBar != null)
-            staminaBar.value = staminaController.currentStamina / staminaController.maxStamina;
+        {
+            float cur = staminaController.currentStamina;
+            float max = Mathf.Max(1f, staminaController.maxStamina);
+            staminaBar.value = Mathf.Clamp01(cur / max);
+        }
     }
 
     public void SetWeapon(SOWeapon weapon)
     {
+        if (weaponSlotImage == null) return;
+
         if (weapon != null)
         {
             weaponSlotImage.sprite = weapon.icon;

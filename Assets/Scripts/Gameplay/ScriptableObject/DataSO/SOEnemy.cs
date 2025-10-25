@@ -9,17 +9,15 @@ public class SOEnemy : ScriptableObject
     public int maxHP = 100;
     public int currentHP;
     public GameObject enemyPrefab;
+    public float expDrop = 100;
 
     [Header("Defenses")]
     public float physicalDefense = 40f;
     public float fireDefense = 20f;
     public float magicDefense = 25f;
     public float lightningDefense = 15f;
-    public float holyDefense = 30f;
-
-    [Header("State Flags")]
-    public bool isBackstabbed;
-    public bool isParried;
+    public float piercingDefense = 30f;
+    public float slashingDefense = 30f;
 
     public EnemyStateMachine enemyState;
     public GameObject damagePopUpPrefab;

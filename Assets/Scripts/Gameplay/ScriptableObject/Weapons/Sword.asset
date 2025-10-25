@@ -24,13 +24,15 @@ MonoBehaviour:
   - {fileID: 3600389243222657682, guid: 3fee2e03e4bdc854bb38f7bcbca7c75d, type: 3}
   swingSound: {fileID: 0}
   attackDuration: 0.2
+  panelType: 0
   hitDelay: 0.2
   animator: {fileID: 9100000, guid: 71dae9dae1f898943aa533be20d7404e, type: 2}
   physicalBaseDamage: 50
   fireBaseDamage: 1
-  magicBaseDamage: 1
-  lightningBaseDamage: 1
-  holyBaseDamage: 1
+  iceBaseDamage: 0
+  electricityBaseDamage: 0
+  slashingBaseDamage: 0
+  piercingBaseDamage: 0
   strengthScaling: 4
   dexterityScaling: 4
   intelligenceScaling: 5
@@ -42,5 +44,7 @@ MonoBehaviour:
   strengthBonus: 1
   dexterityBonus: 1
   intelligenceBonus: 1
+  faithBonus: 0
+  arcaneBonus: 0
   defenseBonus: 1
   speedBonus: 1

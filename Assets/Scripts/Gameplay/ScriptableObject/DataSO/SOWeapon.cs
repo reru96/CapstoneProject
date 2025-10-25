@@ -9,6 +9,7 @@ public class SOWeapon : SORunItem
     public GameObject[] attackType;
     public AudioClip swingSound;
     public float attackDuration;
+    public PanelType panelType;
     public float hitDelay = 0.3f;
     public RuntimeAnimatorController animator;
 
@@ -31,6 +32,8 @@ public class SOWeapon : SORunItem
     public bool scalesWithIntelligence; 
     public bool scalesWithFaith;        
     public bool scalesWithArcane;
+    public bool scalesWithDex;
+    public bool scalesWithStrenght;
 
     public float strengthBonus;
     public float dexterityBonus;

@@ -92,6 +92,11 @@ public class PlayerStats : MonoBehaviour
     public void EquipWeapon(SOWeapon newWeapon)
     {
         currentWeapon = newWeapon;
+       
+        foreach (Transform child in hand.transform)
+        {
+            GameObject.Destroy(child.gameObject);
+        }
         GameObject newWeaponObj = Instantiate(newWeapon.prefab, hand.transform);
         newWeaponObj.transform.localPosition = Vector3.zero;
         newWeaponObj.transform.localRotation = Quaternion.identity;

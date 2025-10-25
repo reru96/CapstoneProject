@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Core;
 using UnityEngine;
 
 public class WeaponCombat : MonoBehaviour
@@ -30,17 +31,39 @@ public class WeaponCombat : MonoBehaviour
         isAttacking = true;
         yield return new WaitForSeconds(data.hitDelay);
 
-        GameObject attackObj = Instantiate(data.attackType[number], player.transform.position, player.transform.rotation);
+        var pooler = ServiceLocator.Get<ObjectPooler>();
+        if (pooler == null)
+        {
+            Debug.LogError("[WeaponCombat] ObjectPooler non trovato!");
+            yield break;
+        }
 
-        BaseAttack baseAttack = attackObj.GetComponent<BaseAttack>();
-        if (baseAttack != null)
-            baseAttack.Initialize(player.p_stats);
+        GameObject prefabGO = data.attackType[number];
+        if (prefabGO == null)
+        {
+            Debug.LogWarning("[WeaponCombat] Prefab attacco non assegnato!");
+            yield break;
+        }
 
-        if (data.swingSound != null)
-            AudioSource.PlayClipAtPoint(data.swingSound, player.transform.position);
+        BaseAttack attackObj = pooler.Spawn<BaseAttack>(prefabGO, player.transform.position, player.transform.rotation);
+
+
+        if (attackObj != null)
+        {
+            attackObj.Initialize(player.p_stats);
+
+            if (data.swingSound != null)
+                AudioSource.PlayClipAtPoint(data.swingSound, player.transform.position);
+        }
+        else
+        {
+            Debug.LogWarning("[WeaponCombat] Spawn dal pool fallito per: " + prefabGO.name);
+        }
 
         yield return new WaitForSeconds(data.attackDuration);
-
         isAttacking = false;
     }
 }
+
+
+

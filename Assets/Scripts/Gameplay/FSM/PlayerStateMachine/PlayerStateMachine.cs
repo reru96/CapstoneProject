@@ -19,9 +19,14 @@ public class PlayerStateMachine : StateMachine
     public NavMeshAgent agent { get; private set; }
 
 
+    [HideInInspector] public Vector3 currentVelocity = Vector3.zero;
+    public float accelerationTime = 0.2f;
     public float rotationSpeed = 25f;
     private int _upperBodyLayerIndex;
     public bool isInvincible = false;
+    public bool isMoving = false;
+    public bool isDodging = false;
+    public bool isAttacking = false;
 
     [HideInInspector] public WeaponCombat weaponInstance;
     private InventoryManager _inventory;

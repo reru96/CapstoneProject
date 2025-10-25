@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16c40c636d807904cb0a4826fc7d6e00, type: 3}
+  m_Name: IceBow
+  m_EditorClassIdentifier: 
+  itemName: 
+  description: 
+  itemType: 0
+  icon: {fileID: 0}
+  level: 0
+  prefab: {fileID: 3664532533411046811, guid: 62c26a017287c62408dc79a16c3831f2, type: 3}
+  attackType:
+  - {fileID: 1592602160227013922, guid: 1d149fc58246d424f8148bdb40962fbd, type: 3}
+  - {fileID: 1592602160227013922, guid: 1d149fc58246d424f8148bdb40962fbd, type: 3}
+  - {fileID: 1592602160227013922, guid: 1d149fc58246d424f8148bdb40962fbd, type: 3}
+  swingSound: {fileID: 0}
+  attackDuration: 0
+  panelType: 0
+  hitDelay: 0.3
+  animator: {fileID: 9100000, guid: 1dc2eff5a37070345a2f29f04ce41305, type: 2}
+  physicalBaseDamage: 50
+  fireBaseDamage: 0
+  iceBaseDamage: 0
+  electricityBaseDamage: 0
+  slashingBaseDamage: 0
+  piercingBaseDamage: 0
+  strengthScaling: 4
+  dexterityScaling: 4
+  intelligenceScaling: 5
+  faithScaling: 5
+  arcaneScaling: 5
+  scalesWithIntelligence: 0
+  scalesWithFaith: 0
+  scalesWithArcane: 0
+  scalesWithDex: 0
+  scalesWithStrenght: 0
+  strengthBonus: 0
+  dexterityBonus: 0
+  intelligenceBonus: 0
+  faithBonus: 0
+  arcaneBonus: 0
+  defenseBonus: 0
+  speedBonus: 0

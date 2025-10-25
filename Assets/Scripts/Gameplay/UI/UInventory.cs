@@ -13,7 +13,6 @@ public class UInventory : MonoBehaviour
     private void Awake()
     {
         _inventoryManager = ServiceLocator.Get<InventoryManager>();
-        RefreshAllPanels();
         SetInventoryVisibility(false);
     }
 
@@ -32,7 +31,7 @@ public class UInventory : MonoBehaviour
             switch (panel.type)
             {
                 case PanelType.Weapons:
-                    RefreshRunItemsPanel(panel, _inventoryManager.runInventory.items);
+                    RefreshRunItemsPanel(panel, _inventoryManager.runInventory.items, skipBaseWeapon: true);
                     break;
                 case PanelType.Consumables:
                     RefreshRunItemsPanel(panel, _inventoryManager.runInventory.consumables);
@@ -44,12 +43,19 @@ public class UInventory : MonoBehaviour
         }
     }
 
-    private void RefreshRunItemsPanel(InventoryPanel panel, List<SORunItem> items)
+    private void RefreshRunItemsPanel(InventoryPanel panel, List<SORunItem> items, bool skipBaseWeapon = false)
     {
-        for (int i = 0; i < panel.slots.Length; i++)
+        int startIndex = skipBaseWeapon ? 1 : 0; 
+
+        for (int i = startIndex; i < panel.slots.Length; i++)
         {
-            if (i < items.Count)
-                panel.slots[i].SetItem(items[i]);
+            int itemIndex = i; 
+        
+            if (skipBaseWeapon)
+                itemIndex = i; 
+
+            if (itemIndex < items.Count)
+                panel.slots[i].SetItem(items[itemIndex]);
             else
                 panel.slots[i].Clear();
         }

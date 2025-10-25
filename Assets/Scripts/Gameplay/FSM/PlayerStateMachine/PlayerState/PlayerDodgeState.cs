@@ -1,63 +1,81 @@
 using System.Collections;
 using System.Collections.Generic;
 using JetBrains.Annotations;
+using PlasticGui;
 using UnityEngine;
 
 public class PlayerDodgeState : PlayerBaseState
 {
-    public PlayerDodgeState(PlayerStateMachine player) : base(player)
-    {
+   
+    private static readonly float animationEndThreshold = 0.95f; 
+    private readonly int dodgeHash = Animator.StringToHash("Dodge");
 
-    }
+    public PlayerDodgeState(PlayerStateMachine player) : base(player) { }
+
     public override void Enter()
     {
-        player.animator.Play("Dodge");
+        player.isDodging = true;
         player.isInvincible = true;
+
+        player.animator.SetBool("isDodging", true);
+        player.agent.velocity = Vector3.zero;
     }
 
     public override void Tick()
     {
+        HandleMovement();
 
+        AnimatorStateInfo stateInfo = player.animator.GetCurrentAnimatorStateInfo(0);
+
+        if (stateInfo.shortNameHash == dodgeHash && stateInfo.normalizedTime >= animationEndThreshold)
+        {
+            EndDodge();
+        }
+    }
+
+    private void HandleMovement()
+    {
         Vector3 input = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-        player.agent.velocity = input * player.agent.speed;
 
         if (input.sqrMagnitude > 0.01f)
         {
-  
-            player.agent.velocity = input.normalized * player.agent.speed;
+            Vector3 direction = input.normalized;
+            player.agent.velocity = direction * player.agent.speed;
 
-            Quaternion targetRotation = Quaternion.LookRotation(input.normalized, Vector3.up);
+            Quaternion targetRotation = Quaternion.LookRotation(direction, Vector3.up);
             player.transform.rotation = Quaternion.Slerp(player.rb.rotation, targetRotation, Time.deltaTime * player.rotationSpeed);
         }
         else
         {
             player.agent.velocity = Vector3.zero;
         }
+    }
 
-        AnimatorStateInfo stateInfo = player.animator.GetCurrentAnimatorStateInfo(0);
+    private void EndDodge()
+    {
+        player.isDodging = false;
+        player.isInvincible = false;
+        player.animator.SetBool("isDodging", false);
 
-        if (stateInfo.normalizedTime >= 1f) 
+        Vector3 input = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+
+        if (input.sqrMagnitude > 0.01f)
         {
-            player.isInvincible = false;
-
-            if (input.sqrMagnitude > 0.01f)
-            {
-                player.SwitchState(new PlayerMoveState(player));
-            }
-            else
-            {
-                player.SwitchState(new PlayerIdleState(player));
-            }
+            player.isMoving = true;
+            player.SwitchState(new PlayerMoveState(player));
         }
-
-     
+        else
+        {
+            player.SwitchState(new PlayerIdleState(player));
+        }
     }
 
     public override void Exit()
     {
-        base.Exit();
+        player.isDodging = false;
         player.isInvincible = false;
+        player.animator.SetBool("isDodging", false);
+
     }
 }
-
 

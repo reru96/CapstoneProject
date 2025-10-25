@@ -16,16 +16,22 @@ MonoBehaviour:
   description: 
   previewImage: {fileID: 0}
   classColor: {r: 1, g: 1, b: 1, a: 1}
+  poolPrefabs:
+  - {fileID: 2018491215067575691, guid: d1adacf627072af4b880061218c682b1, type: 3}
+  - {fileID: 4885819618833549151, guid: 13d63286f36fae447af00c713defa6e8, type: 3}
+  - {fileID: 1752666591107084698, guid: b7519aa80e8d3d347a26f61d5330c493, type: 3}
+  - {fileID: 1592602160227013922, guid: 1d149fc58246d424f8148bdb40962fbd, type: 3}
+  - {fileID: 6214830578606716803, guid: 64a53b2c0f1fcd8479f7e5484fd9935d, type: 3}
+  defaultPoolSize: 10
   prefab: {fileID: 4283383439619140376, guid: 84bce7eeff0fa6c469378259af883f7c, type: 3}
   requiredLevel: 1
   health: 100
   mana: 100
   stamina: 100
-  speed: 100
-  damage: 10
-  defense: 100
-  strenght: 10
-  intelligence: 100
-  dexterity: 100
+  baseStrength: 0
+  baseDexterity: 0
+  baseIntelligence: 0
+  baseFaith: 0
+  baseArcane: 0
   abilityNames: []
   abilityIcons: []

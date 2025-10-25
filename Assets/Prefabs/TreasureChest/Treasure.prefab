@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4787788457732528336}
   - component: {fileID: 7901611392201921075}
+  - component: {fileID: 4117608940712940740}
   m_Layer: 0
   m_Name: Treasure
   m_TagString: Untagged
@@ -47,9 +48,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chestData: {fileID: 11400000, guid: 10c7f37d8a9f3b04fa4ce8b503f2f374, type: 2}
-  uiManager: {fileID: 0}
+  uiManager: {fileID: 5981429064697049103, guid: 5418c5e17c4122940b3f6cfb2f7e08fb,
+    type: 3}
   top: {fileID: 3495986025644869002}
-  actionButton: {fileID: 0}
+--- !u!135 &4117608940712940740
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6813730261317663486}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 1.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &4342970966134487259
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -2,9 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using Core;
 using Gameplay;
+using TMPro;
 using UnityEngine;
 
-public class GameUIManager : Injectable<GameManager>
+public class GameUIManager : Injectable<GameUIManager>
 {
    
     public RestPointUI restPointUI;
@@ -12,36 +13,64 @@ public class GameUIManager : Injectable<GameManager>
     public UInventory inventoryUI;
     public UIStatic staticUI;
 
+    [SerializeField] private CanvasGroup actionPromptGroup;
+    [SerializeField] private TMP_Text actionPromptText;
+
     private bool isInventoryOpen = false;
 
-    private InventoryManager inventoryManager;
+    protected override void Awake()
+    {
+        base.Awake();
+        DontDestroyOnLoad(this);    
+    }
 
     private void Start()
     {
         HideAll();
+        HideActionPrompt();
 
-        inventoryManager = ServiceLocator.Get<InventoryManager>();
-        var player = ServiceLocator.Get<PlayerSpawnManager>().Player;
-        if (player != null)
+        if (ServiceLocator.TryGet<PlayerSpawnManager>(out var playerSpawnMgr))
         {
-            var life = player.GetComponent<LifeController>();
-            var mana = player.GetComponent<ManaController>();
-            var stamina = player.GetComponent<StaminaController>();
-            var exp = player.GetComponent<PlayerStats>();
+            if (playerSpawnMgr.Player != null)
+            {
+                InitializeStaticUIForPlayer(playerSpawnMgr.Player);
+            }
 
-            staticUI?.Initialize(life, mana, stamina);
-            staticUI?.UpdateExp(exp.exp);
+            playerSpawnMgr.OnPlayerSpawned += (spawnedPlayer) =>
+            {
+                InitializeStaticUIForPlayer(spawnedPlayer);
+            };
         }
+
+        UpdateWeaponUI();
+
+    }
+
+    private void InitializeStaticUIForPlayer(GameObject playerObj)
+    {
+        if (playerObj == null || staticUI == null) return;
+
+        var life = playerObj.GetComponent<LifeController>();
+        var mana = playerObj.GetComponent<ManaController>();
+        var stamina = playerObj.GetComponent<StaminaController>();
+        var exp = playerObj.GetComponent<PlayerStats>();
+
+        staticUI.Initialize(life, mana, stamina);
+
+        if (exp != null)
+            staticUI.UpdateExp(exp.exp);
     }
 
     private void Update()
     {
         HandleInventoryToggle();
+        UpdateWeaponUI();
        
     }
 
     public void UpdateWeaponUI()
     {
+        var inventoryManager = ServiceLocator.Get<InventoryManager>();
         var currentWeapon = inventoryManager.runInventory.CycleWeapon(0); 
         staticUI.SetWeapon(currentWeapon);
     }
@@ -117,6 +146,26 @@ public class GameUIManager : Injectable<GameManager>
     public void HideStaticUI()
     {
         staticUI?.Hide();
+    }
+
+    public void ShowActionPrompt(string message)
+    {
+        if (actionPromptGroup == null || actionPromptText == null)
+            return;
+
+        actionPromptText.text = message;
+        actionPromptGroup.alpha = 1f;
+        actionPromptGroup.interactable = false;
+        actionPromptGroup.blocksRaycasts = false;
+    }
+
+    public void HideActionPrompt()
+    {
+        if (actionPromptGroup == null) return;
+
+        actionPromptGroup.alpha = 0f;
+        actionPromptGroup.interactable = false;
+        actionPromptGroup.blocksRaycasts = false;
     }
 
     private void HideAllMenusExcept(MonoBehaviour exception)

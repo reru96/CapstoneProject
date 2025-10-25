@@ -16,6 +16,13 @@ MonoBehaviour:
   description: 
   previewImage: {fileID: 0}
   classColor: {r: 1, g: 1, b: 1, a: 1}
+  poolPrefabs:
+  - {fileID: 539289997039638868, guid: 844eb5aef40a0214f81a15775e5293e1, type: 3}
+  - {fileID: 5503505460791601945, guid: 74c549d1b06b6b140a1fd9536eea637f, type: 3}
+  - {fileID: 3600389243222657682, guid: 3fee2e03e4bdc854bb38f7bcbca7c75d, type: 3}
+  - {fileID: 1205478487176026167, guid: 8436419d5cd706242bb810378b8a8835, type: 3}
+  - {fileID: 1400255665468144947, guid: 6c21e7a6e514dd9499418cbbb66211cf, type: 3}
+  defaultPoolSize: 10
   prefab: {fileID: 5156660526780872327, guid: 965175182c90004459731f37915a2a13, type: 3}
   requiredLevel: 0
   health: 100
@@ -26,7 +33,5 @@ MonoBehaviour:
   baseIntelligence: 1
   baseFaith: 1
   baseArcane: 1
-  baseVitality: 1
-  baseEndurance: 1
   abilityNames: []
   abilityIcons: []

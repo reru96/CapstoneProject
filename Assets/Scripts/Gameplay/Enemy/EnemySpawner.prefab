@@ -53,4 +53,4 @@ MonoBehaviour:
   sampleRadius: 2
   groundMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 4294967295

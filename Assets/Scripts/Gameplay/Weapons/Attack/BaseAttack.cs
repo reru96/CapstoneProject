@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Core;
 using UnityEngine;
 
 public class BaseAttack : MonoBehaviour
@@ -9,27 +10,29 @@ public class BaseAttack : MonoBehaviour
     public float duration = 0.3f;
     public float destroyDelay = 0.1f;
     public float repulseForce = 1f;
-    protected Vector3 startPos;
-    protected Vector3 endPos;
+
+    [SerializeField]protected Vector3 startPos;
+    [SerializeField]protected Vector3 endPos;
     protected float elapsed;
-    protected DamageType AttackType;
-
-    public BaseAttack(DamageType attackType)
-    {
-        this.AttackType = attackType;
-    }
-
+    [SerializeField]protected DamageType AttackType;
     protected PlayerStats playerStats;
+
+    private Poolable poolable;
 
     public void Initialize(PlayerStats stats)
     {
         playerStats = stats;
     }
 
-    protected virtual void Start()
+    protected virtual void OnEnable()
     {
         startPos = transform.position;
         endPos = startPos + transform.forward * distance;
+        elapsed = 0f;
+
+        poolable = GetComponent<Poolable>();
+        if (poolable != null)
+            poolable.SetReturnDelay(destroyDelay);
     }
 
     protected virtual void Update()
@@ -38,9 +41,6 @@ public class BaseAttack : MonoBehaviour
         {
             transform.position = Vector3.Lerp(startPos, endPos, elapsed / duration);
             elapsed += Time.deltaTime;
-
-            if (elapsed >= duration)
-                Destroy(gameObject, destroyDelay);
         }
     }
 
@@ -48,15 +48,16 @@ public class BaseAttack : MonoBehaviour
     {
         if (!other.CompareTag("Enemy")) return;
 
-        EnemyStateMachine enemy = other.GetComponent<EnemyStateMachine>();
+        var enemy = other.GetComponent<EnemyStateMachine>();
         if (enemy == null)
         {
-            Debug.LogWarning("Collider ha tag Enemy ma manca EnemyStateMachine!");
             return;
         }
-        enemy.GetComponent<EnemyStateMachine>()?.OnHit(transform.position);
+
+        enemy.OnHit(transform.position);
         DamageCalculation(enemy);
 
+        poolable?.ReturnToPool();
     }
 
     protected virtual void DamageCalculation(EnemyStateMachine enemy)
@@ -89,21 +90,20 @@ public class BaseAttack : MonoBehaviour
         float arcScale = Scaling.GetScalingMultiplier(w.arcaneScaling);
 
         float physical = w.physicalBaseDamage + playerStats.Strength * strScale + playerStats.Dexterity * dexScale;
-        float fire = w.fireBaseDamage + (w.scalesWithFaith ? playerStats.Faith * faiScale : 0);
-        float magic = w.iceBaseDamage + (w.scalesWithIntelligence ? playerStats.Intelligence * intScale : 0);
+        float fire = w.fireBaseDamage + (w.scalesWithArcane ? playerStats.Arcane * arcScale : 0);
+        float ice = w.iceBaseDamage + (w.scalesWithIntelligence ? playerStats.Intelligence * intScale : 0);
         float lightning = w.electricityBaseDamage + (w.scalesWithFaith ? playerStats.Faith * faiScale : 0);
-        float holy = w.piercingBaseDamage + (w.scalesWithFaith ? playerStats.Faith * faiScale : 0);
+        float piercing = w.piercingBaseDamage + (w.scalesWithDex ? playerStats.Dexterity * dexScale : 0);
+        float slashing = w.slashingBaseDamage + (w.scalesWithStrenght ? playerStats.Strength * strScale : 0);
 
         float finalPhysical = physical * (1 - (enemy.enemyData.physicalDefense / (enemy.enemyData.physicalDefense + 100)));
         float finalFire = fire * (1 - (enemy.enemyData.fireDefense / (enemy.enemyData.fireDefense + 100)));
-        float finalMagic = magic * (1 - (enemy.enemyData.magicDefense / (enemy.enemyData.magicDefense + 100)));
+        float finalIce = ice * (1 - (enemy.enemyData.magicDefense / (enemy.enemyData.magicDefense + 100)));
         float finalLightning = lightning * (1 - (enemy.enemyData.lightningDefense / (enemy.enemyData.lightningDefense + 100)));
-        float finalHoly = holy * (1 - (enemy.enemyData.holyDefense / (enemy.enemyData.holyDefense + 100)));
+        float finalPiercing = piercing * (1 - (enemy.enemyData.piercingDefense / (enemy.enemyData.piercingDefense + 100)));
+        float finalSlashing = slashing * (1- (enemy.enemyData.slashingDefense /(enemy.enemyData.slashingDefense + 100)));
 
-        float totalDamage = finalPhysical + finalFire + finalMagic + finalLightning + finalHoly;
-
-        if (enemy.enemyData.isBackstabbed) totalDamage *= 1.5f;
-        if (enemy.enemyData.isParried) totalDamage *= 2f;
+        float totalDamage = finalPhysical + finalFire + finalIce + finalLightning;
 
         totalDamage *= Random.Range(0.9f, 1.1f);
         totalDamage = Mathf.Max(1f, totalDamage);

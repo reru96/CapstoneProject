@@ -17,6 +17,19 @@ public enum GameState
     GameOver
 }
 
+public enum RoomType
+{
+    None,
+    Start,
+    Common,
+    Rest,
+    Treasure,
+    Boss,
+    Elite,
+    Corridor
+}
+
+
 public enum AttackSequence
 {
     Attack1 = 0,

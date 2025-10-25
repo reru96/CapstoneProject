@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "DungeonRoomContent", menuName = "Dungeon/Room Content")]
 public class SODungeonContent : ScriptableObject
 {
-    public string roomType; 
+    public RoomType roomType; 
     public List<GameObject> possibleContents;
 }
 
