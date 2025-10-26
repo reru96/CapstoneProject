@@ -25,3 +25,5 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 6285a10ccc4b5fb48836cd0eefb368d8, type: 3}
   - key: foot_3
     clip: {fileID: 8300000, guid: f77d582fc9fea3747ad2cfef89c4e92c, type: 3}
+  - key: Swing
+    clip: {fileID: 8300000, guid: f77d582fc9fea3747ad2cfef89c4e92c, type: 3}
