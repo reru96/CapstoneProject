@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 143779303158445915}
   - component: {fileID: 5729379207388846900}
   - component: {fileID: 6959914774300640250}
+  - component: {fileID: 2775917191403395915}
   m_Layer: 0
   m_Name: Shockwave
   m_TagString: Untagged
@@ -26,13 +27,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1818488343670424439}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.06954085, y: -0.13290618, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1195339021228397373}
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!198 &5729379207388846900
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -4888,6 +4889,27 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!135 &2775917191403395915
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1818488343670424439}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 2.38
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3837305093315562307
 GameObject:
   m_ObjectHideFlags: 0
@@ -4914,15 +4936,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3837305093315562307}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.6048978, y: -0.3661949, z: -0.3661949, w: 0.6048978}
-  m_LocalPosition: {x: 0.34, y: 0, z: 1.6}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 1.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 143779303158445915}
   - {fileID: 7575075834177399963}
   m_Father: {fileID: 1173243701402730150}
-  m_LocalEulerAnglesHint: {x: -90, y: -62.38, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!198 &93775406430535237
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -9808,8 +9830,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5503505460791601945}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.035381794, y: -0.12881517, z: -0.8751736}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.5, z: -0.8705174}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -14731,7 +14753,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c94c3f89deaa69f4c87f413a6ece7ce5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
+  speed: 0.5
   lifeTime: 2
 --- !u!114 &-221950536827109307
 MonoBehaviour:
@@ -14757,6 +14779,7 @@ GameObject:
   - component: {fileID: 7575075834177399963}
   - component: {fileID: 7981800728490180044}
   - component: {fileID: 5246517689844900732}
+  - component: {fileID: 5291372546194993830}
   m_Layer: 0
   m_Name: Shockwave 2
   m_TagString: Untagged
@@ -14772,13 +14795,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8373613166400002822}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.06954085, y: -0.13290618, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1195339021228397373}
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!198 &7981800728490180044
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -19634,3 +19657,24 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!135 &5291372546194993830
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8373613166400002822}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 2.77
+  m_Center: {x: 0, y: 0, z: 0}

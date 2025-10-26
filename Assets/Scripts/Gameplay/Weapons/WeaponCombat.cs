@@ -49,7 +49,10 @@ public class WeaponCombat : MonoBehaviour
 
         
         GameObject attack = Instantiate(data.attackType[number], player.transform.position, player.transform.rotation);
-          
+        var proj = attack.GetComponent<Projectile>();
+        if (proj != null)
+            proj.Initialize(player.p_stats, data);
+
         var AudioManager = ServiceLocator.Get<AudioManager>();
         if (data.swingSound != null && number < data.swingSound.Length)
             AudioManager.PlaySfx(data.swingSound[number]);

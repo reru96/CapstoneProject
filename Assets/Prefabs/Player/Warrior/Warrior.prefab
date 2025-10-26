@@ -1313,7 +1313,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 71dae9dae1f898943aa533be20d7404e, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 1
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_WarningMessage: 
@@ -1454,8 +1454,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: 28197a96ff12a554fb1916a24671cb0e, type: 2}
-  hitDetection: {fileID: 0}
-  projectileSpawn: {fileID: 7469548393659012447}
 --- !u!1 &5191853845579050268
 GameObject:
   m_ObjectHideFlags: 0

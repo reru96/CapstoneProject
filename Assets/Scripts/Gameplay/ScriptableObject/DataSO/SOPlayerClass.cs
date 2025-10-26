@@ -34,4 +34,7 @@ public class SOPlayerClass: ScriptableObject
     public string[] abilityNames;
     public Sprite[] abilityIcons;
 
+    public float attackMoveMultiplier = 0.25f;
+    public float rotationSpeedDuringAttack = 0.2f;
+
 }

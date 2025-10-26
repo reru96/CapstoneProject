@@ -5071,7 +5071,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
-  lifeTime: 1
+  lifeTime: 2
 --- !u!114 &5503069885500782277
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5084,7 +5084,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c265fcfddaba07b41ba223524d6f3974, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  returnDelay: 0.5
+  returnDelay: 2
 --- !u!1 &8326875285562556626
 GameObject:
   m_ObjectHideFlags: 0
@@ -10100,6 +10100,7 @@ GameObject:
   - component: {fileID: 6167906232561510582}
   - component: {fileID: 4642735012205261206}
   - component: {fileID: 2862039325231839043}
+  - component: {fileID: 2422093434900680325}
   m_Layer: 0
   m_Name: '2nd Slash '
   m_TagString: Untagged
@@ -15093,3 +15094,24 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!65 &2422093434900680325
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8868875534242508432}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 5.26029, y: 5.2600904, z: 5.26029}
+  m_Center: {x: 0, y: 0, z: 0}

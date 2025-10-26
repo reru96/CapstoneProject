@@ -17,8 +17,8 @@ public class PlayerAttackState : PlayerBaseState
     private readonly float[] endTimes = { 1f, 1f, 1f }; 
 
     private const int UpperBodyLayerIndex = 1;
-    private const float rotationSpeedDuringAttack = 1f;
-    private const float attackMoveMultiplier = 0.25f; 
+    private float rotationSpeedDuringAttack;
+    private float attackMoveMultiplier; 
     private const float queueAcceptWindow = 0.35f; 
 
     private float queueWindowStartTime = 0f;
@@ -99,11 +99,11 @@ public class PlayerAttackState : PlayerBaseState
         if (rawInput.sqrMagnitude > 0.01f && player.agent != null)
         {
             Vector3 worldDir = player.transform.TransformDirection(rawInput.normalized);
-            player.agent.velocity = worldDir * (player.agent.speed * attackMoveMultiplier);
+            player.agent.velocity = worldDir * (player.agent.speed * player.p_data.attackMoveMultiplier);
 
            
             Quaternion targetRotation = Quaternion.LookRotation(worldDir, Vector3.up);
-            player.transform.rotation = Quaternion.Slerp(player.transform.rotation, targetRotation, Time.deltaTime * rotationSpeedDuringAttack);
+            player.transform.rotation = Quaternion.Slerp(player.transform.rotation, targetRotation, Time.deltaTime * player.p_data.rotationSpeedDuringAttack);
         }
         else if (player.agent != null)
         {

@@ -58,10 +58,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.2
-  m_Height: 1.3432122
+  m_Radius: 0.23
+  m_Height: 1.7
   m_Direction: 1
-  m_Center: {x: 0, y: 0.70860654, z: 0}
+  m_Center: {x: 0, y: 1.05, z: 0}
 --- !u!195 &8301904204908734295
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -80,7 +80,7 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 1.45
+  m_Height: 1.72
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
@@ -159,8 +159,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62db3828c36e7cd419c281eaff80dd86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHp: 10
-  currentHp: 0
+  maxHp: 100
+  currentHp: 100
   fullHpOnAwake: 1
   death: 2
 --- !u!1 &2753077597935359027

@@ -35,3 +35,5 @@ MonoBehaviour:
   baseArcane: 1
   abilityNames: []
   abilityIcons: []
+  attackMoveMultiplier: 0
+  rotationSpeedDuringAttack: 0
