@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 258295244375626962}
   - component: {fileID: 4460004510363100456}
   - component: {fileID: -4329780037137901893}
-  - component: {fileID: -6874663989287076876}
+  - component: {fileID: 8692641517240046297}
+  - component: {fileID: 1010646867611738415}
   m_Layer: 0
   m_Name: Double Slash
   m_TagString: Untagged
@@ -4913,7 +4914,7 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-6874663989287076876
+--- !u!114 &8692641517240046297
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4922,15 +4923,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 3600389243222657682}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6583c12afa6ed34aa4715e194dd2143, type: 3}
+  m_Script: {fileID: 11500000, guid: c94c3f89deaa69f4c87f413a6ece7ce5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  triggerCollider: {fileID: -4329780037137901893}
-  baseValue: 10
-  targetLayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  hitWeapon: 0
+  speed: 1
+  lifeTime: 1
+--- !u!114 &1010646867611738415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3600389243222657682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c265fcfddaba07b41ba223524d6f3974, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  returnDelay: 0.5
 --- !u!1 &4936908092126958425
 GameObject:
   m_ObjectHideFlags: 0

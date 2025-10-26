@@ -44,80 +44,80 @@ public class BaseAttack : MonoBehaviour
         }
     }
 
-    protected virtual void OnTriggerEnter(Collider other)
-    {
-        if (!other.CompareTag("Enemy")) return;
+    //protected virtual void OnTriggerEnter(Collider other)
+    //{
+    //    if (!other.CompareTag("Enemy")) return;
 
-        var enemy = other.GetComponent<EnemyStateMachine>();
-        if (enemy == null)
-        {
-            return;
-        }
+    //    var enemy = other.GetComponent<EnemyStateMachine>();
+    //    if (enemy == null)
+    //    {
+    //        return;
+    //    }
 
-        enemy.OnHit(transform.position);
-        DamageCalculation(enemy);
+    //    enemy.OnHit(transform.position);
+    //    DamageUtility.DamageCalculation();
 
-        poolable?.ReturnToPool();
-    }
+    //    poolable?.ReturnToPool();
+    //}
 
-    protected virtual void DamageCalculation(EnemyStateMachine enemy)
-    {
-        if (playerStats == null)
-        {
-            Debug.LogWarning("BaseAttack: playerStats non assegnato!");
-            return;
-        }
+    //protected virtual void DamageCalculation(EnemyStateMachine enemy)
+    //{
+    //    if (playerStats == null)
+    //    {
+    //        Debug.LogWarning("BaseAttack: playerStats non assegnato!");
+    //        return;
+    //    }
 
-        if (playerStats.currentWeapon == null)
-        {
-            Debug.LogWarning("BaseAttack: il player non ha arma equipaggiata!");
-            return;
-        }
+    //    if (playerStats.currentWeapon == null)
+    //    {
+    //        Debug.LogWarning("BaseAttack: il player non ha arma equipaggiata!");
+    //        return;
+    //    }
 
-        if (enemy == null || enemy.enemyData == null)
-        {
-            Debug.LogWarning("BaseAttack: enemy o enemyData non assegnato!");
-            return;
-        }
+    //    if (enemy == null || enemy.enemyData == null)
+    //    {
+    //        Debug.LogWarning("BaseAttack: enemy o enemyData non assegnato!");
+    //        return;
+    //    }
 
-        SOWeapon w = playerStats.currentWeapon;
-
-  
-        float strScale = Scaling.GetScalingMultiplier(w.strengthScaling);
-        float dexScale = Scaling.GetScalingMultiplier(w.dexterityScaling);
-        float intScale = Scaling.GetScalingMultiplier(w.intelligenceScaling);
-        float faiScale = Scaling.GetScalingMultiplier(w.faithScaling);
-        float arcScale = Scaling.GetScalingMultiplier(w.arcaneScaling);
-
-        float physical = w.physicalBaseDamage + playerStats.Strength * strScale + playerStats.Dexterity * dexScale;
-        float fire = w.fireBaseDamage + (w.scalesWithArcane ? playerStats.Arcane * arcScale : 0);
-        float ice = w.iceBaseDamage + (w.scalesWithIntelligence ? playerStats.Intelligence * intScale : 0);
-        float lightning = w.electricityBaseDamage + (w.scalesWithFaith ? playerStats.Faith * faiScale : 0);
-        float piercing = w.piercingBaseDamage + (w.scalesWithDex ? playerStats.Dexterity * dexScale : 0);
-        float slashing = w.slashingBaseDamage + (w.scalesWithStrenght ? playerStats.Strength * strScale : 0);
-
-        float finalPhysical = physical * (1 - (enemy.enemyData.physicalDefense / (enemy.enemyData.physicalDefense + 100)));
-        float finalFire = fire * (1 - (enemy.enemyData.fireDefense / (enemy.enemyData.fireDefense + 100)));
-        float finalIce = ice * (1 - (enemy.enemyData.magicDefense / (enemy.enemyData.magicDefense + 100)));
-        float finalLightning = lightning * (1 - (enemy.enemyData.lightningDefense / (enemy.enemyData.lightningDefense + 100)));
-        float finalPiercing = piercing * (1 - (enemy.enemyData.piercingDefense / (enemy.enemyData.piercingDefense + 100)));
-        float finalSlashing = slashing * (1- (enemy.enemyData.slashingDefense /(enemy.enemyData.slashingDefense + 100)));
-
-        float totalDamage = finalPhysical + finalFire + finalIce + finalLightning;
-
-        totalDamage *= Random.Range(0.9f, 1.1f);
-        totalDamage = Mathf.Max(1f, totalDamage);
+    //    SOWeapon w = playerStats.currentWeapon;
 
   
-        LifeController life = enemy.GetComponent<LifeController>();
-        if (life != null)
-            life.AddHp(-(int)totalDamage);
+    //    float strScale = Scaling.GetScalingMultiplier(w.strengthScaling);
+    //    float dexScale = Scaling.GetScalingMultiplier(w.dexterityScaling);
+    //    float intScale = Scaling.GetScalingMultiplier(w.intelligenceScaling);
+    //    float faiScale = Scaling.GetScalingMultiplier(w.faithScaling);
+    //    float arcScale = Scaling.GetScalingMultiplier(w.arcaneScaling);
+
+    //    float physical = w.physicalBaseDamage + playerStats.Strength * strScale + playerStats.Dexterity * dexScale;
+    //    float fire = w.fireBaseDamage + (w.scalesWithArcane ? playerStats.Arcane * arcScale : 0);
+    //    float ice = w.iceBaseDamage + (w.scalesWithIntelligence ? playerStats.Intelligence * intScale : 0);
+    //    float lightning = w.electricityBaseDamage + (w.scalesWithFaith ? playerStats.Faith * faiScale : 0);
+    //    float piercing = w.piercingBaseDamage + (w.scalesWithDex ? playerStats.Dexterity * dexScale : 0);
+    //    float slashing = w.slashingBaseDamage + (w.scalesWithStrenght ? playerStats.Strength * strScale : 0);
+
+    //    float finalPhysical = physical * (1 - (enemy.enemyData.physicalDefense / (enemy.enemyData.physicalDefense + 100)));
+    //    float finalFire = fire * (1 - (enemy.enemyData.fireDefense / (enemy.enemyData.fireDefense + 100)));
+    //    float finalIce = ice * (1 - (enemy.enemyData.magicDefense / (enemy.enemyData.magicDefense + 100)));
+    //    float finalLightning = lightning * (1 - (enemy.enemyData.lightningDefense / (enemy.enemyData.lightningDefense + 100)));
+    //    float finalPiercing = piercing * (1 - (enemy.enemyData.piercingDefense / (enemy.enemyData.piercingDefense + 100)));
+    //    float finalSlashing = slashing * (1- (enemy.enemyData.slashingDefense /(enemy.enemyData.slashingDefense + 100)));
+
+    //    float totalDamage = finalPhysical + finalFire + finalIce + finalLightning;
+
+    //    totalDamage *= Random.Range(0.9f, 1.1f);
+    //    totalDamage = Mathf.Max(1f, totalDamage);
+
+  
+    //    LifeController life = enemy.GetComponent<LifeController>();
+    //    if (life != null)
+    //        life.AddHp(-(int)totalDamage);
 
      
-        ShowDamagePopup(enemy, totalDamage);
+    //    ShowDamagePopup(enemy, totalDamage);
 
-        Debug.Log($"Total Damage Dealt: {totalDamage:F1}");
-    }
+    //    Debug.Log($"Total Damage Dealt: {totalDamage:F1}");
+    //}
 
     protected void ShowDamagePopup(EnemyStateMachine enemy, float damage)
     {

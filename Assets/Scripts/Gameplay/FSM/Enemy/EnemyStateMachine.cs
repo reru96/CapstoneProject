@@ -6,7 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyStateMachine : StateMachine, IDamagable
+public class EnemyStateMachine : StateMachine
 {
 
     [Header("Riferimenti")]
@@ -131,10 +131,5 @@ public class EnemyStateMachine : StateMachine, IDamagable
             SwitchState(new HitState(this));
     }
 
-
-    public void TakeDamage(Transform attacker, float baseValue = 0f)
-    {
-       
-    }
 }
 
