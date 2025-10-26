@@ -17,7 +17,7 @@ public class PlayerAttackState : PlayerBaseState
     private readonly float[] endTimes = { 1f, 1f, 1f }; 
 
     private const int UpperBodyLayerIndex = 1;
-    private const float rotationSpeedDuringAttack = 8f;
+    private const float rotationSpeedDuringAttack = 1f;
     private const float attackMoveMultiplier = 0.25f; 
     private const float queueAcceptWindow = 0.35f; 
 

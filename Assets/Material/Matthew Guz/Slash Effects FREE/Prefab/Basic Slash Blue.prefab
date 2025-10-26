@@ -9791,6 +9791,7 @@ GameObject:
   - component: {fileID: 4752034024110402706}
   - component: {fileID: 3761223270038707168}
   - component: {fileID: 3529192765634862911}
+  - component: {fileID: 4085149358830483092}
   m_Layer: 0
   m_Name: Basic Slash Blue
   m_TagString: Untagged
@@ -14717,6 +14718,24 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &4085149358830483092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5503505460791601945}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6583c12afa6ed34aa4715e194dd2143, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerCollider: {fileID: 3761223270038707168}
+  baseValue: 10
+  targetLayerMask:
+    serializedVersion: 2
+    m_Bits: 4094
+  hitWeapon: 0
 --- !u!1 &8373613166400002822
 GameObject:
   m_ObjectHideFlags: 0

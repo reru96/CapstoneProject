@@ -202,14 +202,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6583c12afa6ed34aa4715e194dd2143, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  handTransform: {fileID: 0}
-  raycastDistance: 2
-  raycastRadius: 0.25
+  triggerCollider: {fileID: 124268490237192956}
+  baseValue: 10
   targetLayerMask:
     serializedVersion: 2
     m_Bits: 128
   hitWeapon: 0
-  baseValue: 10
 --- !u!1 &367487116602099813
 GameObject:
   m_ObjectHideFlags: 0

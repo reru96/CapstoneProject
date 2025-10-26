@@ -22,11 +22,25 @@ MonoBehaviour:
   - {fileID: 1752666591107084698, guid: b7519aa80e8d3d347a26f61d5330c493, type: 3}
   - {fileID: 1752666591107084698, guid: b7519aa80e8d3d347a26f61d5330c493, type: 3}
   - {fileID: 1752666591107084698, guid: b7519aa80e8d3d347a26f61d5330c493, type: 3}
-  swingSound: {fileID: 0}
+  swingSound:
+  - 0
+  - 0
+  - 0
   attackDuration: 0.2
   panelType: 0
+  hitType: 0
   hitDelay: 0.3
   animator: {fileID: 0}
+  particleSystem: []
+  isRanged: 0
+  projectilePrefab: {fileID: 0}
+  projectileSpeed: 15
+  attackWindow: 0.25
+  baseDamage: 50
+  hitLayerMask:
+    serializedVersion: 2
+    m_Bits: 128
+  hitDetectionPrefab: {fileID: 0}
   physicalBaseDamage: 50
   fireBaseDamage: 0
   iceBaseDamage: 0

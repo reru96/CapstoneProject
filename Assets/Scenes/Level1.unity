@@ -1874,11 +1874,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   virtualCamera: {fileID: 2114863891}
-  wallMask:
-    serializedVersion: 2
-    m_Bits: 64
-  transparentAlpha: 0.3
-  fadeSpeed: 5
 --- !u!1001 &341199689
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9312,10 +9307,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1829077068}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac31725eb1a7db2479a81514b9fc53a4, type: 3}
+  m_Script: {fileID: 11500000, guid: 74f9f76b09b3576478a96ccc8a44173b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawn: {fileID: 1829077069}
+  spawnPoint: {fileID: 1829077069}
 --- !u!1001 &1831233576
 PrefabInstance:
   m_ObjectHideFlags: 0

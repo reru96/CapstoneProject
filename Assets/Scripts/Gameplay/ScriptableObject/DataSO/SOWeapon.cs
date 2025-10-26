@@ -5,19 +5,24 @@ using UnityEngine;
 [CreateAssetMenu(menuName = ("RPG/Weapon"))]
 public class SOWeapon : SORunItem
 {
-
     public GameObject prefab;
     public GameObject[] attackType;
-    public AudioClip swingSound;
+    public string[] swingSound;
     public float attackDuration = 1f;
     public PanelType panelType;
+    public HitWeapon hitType;
     public float hitDelay = 0.3f;
     public RuntimeAnimatorController animator;
+    public ParticleSystem[] particleSystem;
 
     public bool isRanged = false;
-    public GameObject projectilePrefab;       
+    public GameObject projectilePrefab;
     public float projectileSpeed = 15f;
-    public float attackWindow = 0.25f;        
+    public float attackWindow = 0.25f;
+
+    public float baseDamage = 50f;
+    public LayerMask hitLayerMask = ~0;
+    public GameObject hitDetectionPrefab;
 
     public float physicalBaseDamage = 50f;
     public float fireBaseDamage = 0f;
@@ -38,7 +43,6 @@ public class SOWeapon : SORunItem
     public bool scalesWithDex;
     public bool scalesWithStrenght;
 
- 
     public float strengthBonus;
     public float dexterityBonus;
     public float intelligenceBonus;
@@ -46,5 +50,4 @@ public class SOWeapon : SORunItem
     public float arcaneBonus;
     public float defenseBonus;
     public float speedBonus;
-    internal float basedamage;
 }
