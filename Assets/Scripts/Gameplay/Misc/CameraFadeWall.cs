@@ -7,115 +7,28 @@ using UnityEngine;
 
 public class CameraFadeWall : MonoBehaviour
 {
-
-    [Header("Cinemachine")]
     public CinemachineVirtualCamera virtualCamera;
-
-    [Header("Fade Settings")]
-    public LayerMask wallMask;
-    public float transparentAlpha = 0.3f;
-    public float fadeSpeed = 5f;
-
-    private List<Renderer> fadedWalls = new List<Renderer>();
-    private Dictionary<Renderer, Color> originalColors = new Dictionary<Renderer, Color>();
 
     private void Start()
     {
         if (virtualCamera == null)
             virtualCamera = GetComponent<CinemachineVirtualCamera>();
 
-        var playerSpawnManager = ServiceLocator.Get<PlayerSpawnManager>();
-      
-        if (playerSpawnManager != null)
-        {
-            playerSpawnManager.OnPlayerSpawned += OnPlayerSpawned;
-        }
+        StartCoroutine(AssignCameraTarget());
     }
 
-    private void OnPlayerSpawned(GameObject player)
+    private IEnumerator AssignCameraTarget()
     {
-        if (player == null) return;
-
-        var playerSpawnManager = ServiceLocator.Get<PlayerSpawnManager>();
-        player = playerSpawnManager.Player;
-
-        if (virtualCamera != null)
+       
+        PlayerSpawnManager playerManager = null;
+        while (playerManager == null || playerManager.Player == null)
         {
-            virtualCamera.Follow = player.transform;
-            virtualCamera.LookAt = player.transform;
-            virtualCamera.gameObject.SetActive(true);
-
-            Debug.Log("[CameraFadeWall] Player assegnato alla VirtualCamera.");
+            playerManager = ServiceLocator.Get<PlayerSpawnManager>();
+            yield return null; 
         }
-        else
-        {
-            Debug.LogWarning("[CameraFadeWall] Nessuna VirtualCamera trovata!");
-        }
+
+        virtualCamera.Follow = playerManager.Player.transform;
+        virtualCamera.LookAt = playerManager.Player.transform;
+        virtualCamera.Priority = 10; 
     }
-
-    private void OnDestroy()
-    {
-        var playerSpawnManager = ServiceLocator.Get<PlayerSpawnManager>();
-        if (playerSpawnManager != null)
-            playerSpawnManager.OnPlayerSpawned -= OnPlayerSpawned;
-    }
-
-
-    //private void Update()
-    //{
-    //    FadeWalls();
-    //}
-
-    //private void FadeWalls()
-    //{
-    //    List<Renderer> hitRenderers = new List<Renderer>();
-
-    //    var playerSpawnManager = ServiceLocator.Get<PlayerSpawnManager>();
-    //    Transform playerTransform = playerSpawnManager.Player.transform;
-    //    Vector3 dir = playerTransform.position - transform.position;
-    //    Ray ray = new Ray(transform.position, dir);
-    //    RaycastHit[] hits = Physics.RaycastAll(ray, dir.magnitude, wallMask);
-
-    //    foreach (var hit in hits)
-    //    {
-    //        Renderer rend = hit.collider.GetComponent<Renderer>();
-    //        if (rend == null) continue;
-
-    //        hitRenderers.Add(rend);
-
-    //        if (!originalColors.ContainsKey(rend))
-    //            originalColors[rend] = rend.material.color;
-
-    //        Color targetColor = originalColors[rend];
-    //        targetColor.a = transparentAlpha;
-
-    //        rend.material.color = Color.Lerp(rend.material.color, targetColor, Time.deltaTime * fadeSpeed);
-
-    //        if (!fadedWalls.Contains(rend))
-    //            fadedWalls.Add(rend);
-    //    }
-
-   
-    //    for (int i = fadedWalls.Count - 1; i >= 0; i--)
-    //    {
-    //        Renderer rend = fadedWalls[i];
-    //        if (!hitRenderers.Contains(rend))
-    //        {
-    //            if (originalColors.ContainsKey(rend))
-    //            {
-    //                Color targetColor = originalColors[rend];
-    //                rend.material.color = Color.Lerp(rend.material.color, targetColor, Time.deltaTime * fadeSpeed);
-
-              
-    //                if (Mathf.Abs(rend.material.color.a - targetColor.a) < 0.01f)
-    //                {
-    //                    rend.material.color = targetColor;
-    //                    fadedWalls.RemoveAt(i);
-    //                    originalColors.Remove(rend);
-    //                }
-    //            }
-    //        }
-    //    }
-    //}
-
 }

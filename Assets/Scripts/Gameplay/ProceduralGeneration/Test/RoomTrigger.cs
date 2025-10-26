@@ -5,6 +5,7 @@ using UnityEngine;
 public class RoomTrigger : MonoBehaviour
 {
     [HideInInspector] public DungeonManager dungeonManager;
+    public Vector3 spawnOffset = new Vector3(15, 0, 0);
     [HideInInspector] public Room roomData;
 
     private bool triggered = false;
@@ -16,7 +17,9 @@ public class RoomTrigger : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             triggered = true;
-            dungeonManager.SpawnConnectedRooms(roomData);
+            Vector3 spawnPosition = transform.position + spawnOffset;
+            dungeonManager.SpawnNextRoom(spawnPosition);
+            GetComponent<Collider>().enabled = false;
         }
     }
 

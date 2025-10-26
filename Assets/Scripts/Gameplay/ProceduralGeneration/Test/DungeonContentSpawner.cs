@@ -1,13 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
-using Core;
-using Gameplay;
 using UnityEngine;
 
 public class DungeonContentSpawner : MonoBehaviour
 {
-
-    [Header("Dungeon Content")]
     public List<SODungeonContent> contentPresets = new List<SODungeonContent>();
 
     private Dictionary<RoomType, List<GameObject>> contentDictionary = new Dictionary<RoomType, List<GameObject>>();
@@ -46,4 +42,3 @@ public class DungeonContentSpawner : MonoBehaviour
         }
     }
 }
-

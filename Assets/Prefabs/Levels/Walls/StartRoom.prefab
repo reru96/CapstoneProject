@@ -1008,6 +1008,37 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &3301311111221111088
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2166511180468831696}
+  m_Layer: 0
+  m_Name: PlayerSpawner
+  m_TagString: SpawnPoint
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2166511180468831696
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3301311111221111088}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.04, z: 0.306}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8722428418579485988}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3387267747299286290
 GameObject:
   m_ObjectHideFlags: 0
@@ -1269,6 +1300,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8722428418579485988}
+  - component: {fileID: 998784477930656063}
   m_Layer: 0
   m_Name: StartRoom
   m_TagString: Untagged
@@ -1290,8 +1322,22 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7660605775307307629}
+  - {fileID: 2166511180468831696}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &998784477930656063
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4235286470899696197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da8648f3f47731b47acdc7441fd5996e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomType: 1
 --- !u!1 &5241533870929767109
 GameObject:
   m_ObjectHideFlags: 0
@@ -1556,6 +1602,8 @@ GameObject:
   - component: {fileID: 8141756768372735639}
   - component: {fileID: 5221931915972292540}
   - component: {fileID: 2599744803508942884}
+  - component: {fileID: 4266920986417467363}
+  - component: {fileID: 8562405211187527066}
   m_Layer: 0
   m_Name: Pillar.012
   m_TagString: Untagged
@@ -1629,6 +1677,45 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &4266920986417467363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5845708417375929130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cafec2424a585ff4eb6729ccc7a52ff8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dungeonManager: {fileID: 0}
+  spawnOffset: {x: 15, y: 0, z: 0}
+  roomData:
+    type: 0
+    bottomLeft: {x: 0, y: 0}
+    topRight: {x: 0, y: 0}
+--- !u!65 &8562405211187527066
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5845708417375929130}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 4.4575415, y: 3.033955, z: 1.3715392}
+  m_Center: {x: -1.7712288, y: 0.0115686655, z: 0.22822797}
 --- !u!1 &6065067117936358580
 GameObject:
   m_ObjectHideFlags: 0
@@ -2204,6 +2291,8 @@ GameObject:
   - component: {fileID: 2916551883532162452}
   - component: {fileID: 216155836385376053}
   - component: {fileID: 7394894618898553547}
+  - component: {fileID: 2938216355861230567}
+  - component: {fileID: 8151139640043836443}
   m_Layer: 0
   m_Name: Pillar.006 (1)
   m_TagString: Untagged
@@ -2277,6 +2366,45 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &2938216355861230567
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7887110998037360933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cafec2424a585ff4eb6729ccc7a52ff8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dungeonManager: {fileID: 0}
+  spawnOffset: {x: 15, y: 0, z: 0}
+  roomData:
+    type: 0
+    bottomLeft: {x: 0, y: 0}
+    topRight: {x: 0, y: 0}
+--- !u!65 &8151139640043836443
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7887110998037360933}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 4.4575424, y: 3.033955, z: 1.45}
+  m_Center: {x: -1.7712293, y: 0.0115686655, z: -0.0000009536743}
 --- !u!1 &8337803114636329212
 GameObject:
   m_ObjectHideFlags: 0
@@ -2539,6 +2667,8 @@ GameObject:
   - component: {fileID: 8442139864874879223}
   - component: {fileID: 2969574454515720206}
   - component: {fileID: 935551786822269803}
+  - component: {fileID: 64188699815784102}
+  - component: {fileID: 8096167164042969554}
   m_Layer: 0
   m_Name: Pillar.006
   m_TagString: Untagged
@@ -2612,3 +2742,42 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &64188699815784102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8901124511774469666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cafec2424a585ff4eb6729ccc7a52ff8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dungeonManager: {fileID: 0}
+  spawnOffset: {x: 15, y: 0, z: 0}
+  roomData:
+    type: 0
+    bottomLeft: {x: 0, y: 0}
+    topRight: {x: 0, y: 0}
+--- !u!65 &8096167164042969554
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8901124511774469666}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 4.4575415, y: 3.033955, z: 3.08}
+  m_Center: {x: -1.7712291, y: 0.0115686655, z: 0}
