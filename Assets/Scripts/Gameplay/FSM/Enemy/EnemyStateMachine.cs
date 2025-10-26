@@ -132,37 +132,9 @@ public class EnemyStateMachine : StateMachine, IDamagable
     }
 
 
-    public void TakeDamage(Transform attacker, HitWeapon weapon, float baseValue = 0f)
+    public void TakeDamage(Transform attacker, float baseValue = 0f)
     {
-        PlayerStateMachine player = null;
-        PlayerStats pStats = null;
-        SOWeapon weaponSO = null;
-
-        if (attacker != null)
-        {
-            player = attacker.GetComponentInParent<PlayerStateMachine>();
-            if (player != null)
-            {
-                pStats = player.p_stats;
-                weaponSO = (player.GetWeapon() != null) ? player.GetWeapon().data : player.weapon;
-            }
-        }
-
-        float damage = 0f;
-        if (weaponSO != null && pStats != null)
-        {
-            damage = DamageUtility.CalculateDamage(pStats, weaponSO, enemyData);
-        }
-        else
-        {
-            damage = Mathf.Max(1f, baseValue * Random.Range(0.9f, 1.1f));
-        }
-
-        DamageUtility.ApplyDamageToEnemy(this, damage);
-
-
-        Vector3 hitPos = attacker != null ? attacker.position : transform.position;
-        OnHit(hitPos);
+       
     }
 }
 
