@@ -20,11 +20,10 @@ public class GameUIManager : Injectable<GameUIManager>
 
     protected override void Awake()
     {
-        base.Awake();
-        DontDestroyOnLoad(this);    
+        base.Awake();   
     }
 
-    private void Start()
+    private void OnEnable()
     {
         HideAll();
         HideActionPrompt();
@@ -70,9 +69,11 @@ public class GameUIManager : Injectable<GameUIManager>
 
     public void UpdateWeaponUI()
     {
-        var inventoryManager = ServiceLocator.Get<InventoryManager>();
-        var currentWeapon = inventoryManager.runInventory.CycleWeapon(0); 
-        staticUI.SetWeapon(currentWeapon);
+        if (ServiceLocator.TryGet<InventoryManager>(out var inventoryManager))
+        {
+            var currentWeapon = inventoryManager.runInventory?.CycleWeapon(0);
+            staticUI?.SetWeapon(currentWeapon);
+        }
     }
 
     private void HandleInventoryToggle()

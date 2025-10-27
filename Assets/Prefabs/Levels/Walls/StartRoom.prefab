@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 6508630699828992209}
   - component: {fileID: 1790056057027578061}
   - component: {fileID: 954971230850458827}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Plane.007
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -599,7 +599,7 @@ GameObject:
   - component: {fileID: 1974565267141916306}
   - component: {fileID: 95184843680565939}
   - component: {fileID: 5594514423830399080}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Plane.012
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -851,7 +851,7 @@ GameObject:
   - component: {fileID: 5318455889094526329}
   - component: {fileID: 822127788406213388}
   - component: {fileID: 1097158328770234631}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Plane.010
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -935,7 +935,7 @@ GameObject:
   - component: {fileID: 8485959538396967128}
   - component: {fileID: 3546570010021596628}
   - component: {fileID: 7059600715992253123}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Plane.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1008,51 +1008,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &3301311111221111088
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2166511180468831696}
-  - component: {fileID: 8939448974655879525}
-  m_Layer: 0
-  m_Name: PlayerSpawner
-  m_TagString: SpawnPoint
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2166511180468831696
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3301311111221111088}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.04, z: 0.306}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 8722428418579485988}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8939448974655879525
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3301311111221111088}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74f9f76b09b3576478a96ccc8a44173b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spawnPoint: {fileID: 2166511180468831696}
 --- !u!1 &3387267747299286290
 GameObject:
   m_ObjectHideFlags: 0
@@ -1064,7 +1019,7 @@ GameObject:
   - component: {fileID: 1929318429963088366}
   - component: {fileID: 8728315275268738132}
   - component: {fileID: 5517077093900616229}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Plane.013
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1336,7 +1291,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7660605775307307629}
-  - {fileID: 2166511180468831696}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &998784477930656063
@@ -1616,7 +1570,6 @@ GameObject:
   - component: {fileID: 8141756768372735639}
   - component: {fileID: 5221931915972292540}
   - component: {fileID: 2599744803508942884}
-  - component: {fileID: 4266920986417467363}
   - component: {fileID: 8562405211187527066}
   m_Layer: 0
   m_Name: Pillar.012
@@ -1691,24 +1644,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &4266920986417467363
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5845708417375929130}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cafec2424a585ff4eb6729ccc7a52ff8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dungeonManager: {fileID: 0}
-  spawnOffset: {x: 15, y: 0, z: 0}
-  roomData:
-    type: 0
-    bottomLeft: {x: 0, y: 0}
-    topRight: {x: 0, y: 0}
 --- !u!65 &8562405211187527066
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1741,7 +1676,7 @@ GameObject:
   - component: {fileID: 4006272505696279732}
   - component: {fileID: 7416186908216504906}
   - component: {fileID: 6815002384183705992}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Plane.011
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1886,7 +1821,7 @@ GameObject:
   - component: {fileID: 4757633954146846895}
   - component: {fileID: 4343516495220619861}
   - component: {fileID: 2555763347448051709}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Plane.009
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2053,7 +1988,7 @@ GameObject:
   - component: {fileID: 8657007892466346931}
   - component: {fileID: 1993525506342243624}
   - component: {fileID: 1795618626756503306}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Plane.008
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2305,7 +2240,6 @@ GameObject:
   - component: {fileID: 2916551883532162452}
   - component: {fileID: 216155836385376053}
   - component: {fileID: 7394894618898553547}
-  - component: {fileID: 2938216355861230567}
   - component: {fileID: 8151139640043836443}
   m_Layer: 0
   m_Name: Pillar.006 (1)
@@ -2380,24 +2314,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &2938216355861230567
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7887110998037360933}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cafec2424a585ff4eb6729ccc7a52ff8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dungeonManager: {fileID: 0}
-  spawnOffset: {x: 15, y: 0, z: 0}
-  roomData:
-    type: 0
-    bottomLeft: {x: 0, y: 0}
-    topRight: {x: 0, y: 0}
 --- !u!65 &8151139640043836443
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2430,7 +2346,7 @@ GameObject:
   - component: {fileID: 3002350137598998962}
   - component: {fileID: 3344786827480023985}
   - component: {fileID: 9212435626766630748}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2681,7 +2597,6 @@ GameObject:
   - component: {fileID: 8442139864874879223}
   - component: {fileID: 2969574454515720206}
   - component: {fileID: 935551786822269803}
-  - component: {fileID: 64188699815784102}
   - component: {fileID: 8096167164042969554}
   m_Layer: 0
   m_Name: Pillar.006
@@ -2756,24 +2671,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &64188699815784102
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8901124511774469666}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cafec2424a585ff4eb6729ccc7a52ff8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dungeonManager: {fileID: 0}
-  spawnOffset: {x: 15, y: 0, z: 0}
-  roomData:
-    type: 0
-    bottomLeft: {x: 0, y: 0}
-    topRight: {x: 0, y: 0}
 --- !u!65 &8096167164042969554
 BoxCollider:
   m_ObjectHideFlags: 0

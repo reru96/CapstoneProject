@@ -50,5 +50,9 @@ namespace Core
             return _services.ContainsKey(typeof(T));
         }
 
+        public static T TryGet<T>()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

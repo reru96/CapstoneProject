@@ -4,10 +4,8 @@ using UnityEngine;
 using Core;
 using Gameplay;
 
-namespace Gameplay
+public class RoomMetaData : MonoBehaviour
 {
-    public class RoomMetaData : MonoBehaviour
-    {
-        public RoomType roomType;
-    }
+    public RoomType roomType;
 }
+

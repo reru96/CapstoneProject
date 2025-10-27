@@ -23,6 +23,7 @@ namespace Gameplay
         protected override void Awake()
         {
             base.Awake();
+            DontDestroyOnLoad(this);
         }
 
         public void SetRespawnPoint(Transform point)
@@ -32,6 +33,8 @@ namespace Gameplay
       
         public void SpawnPlayerFromClassSelection()
         {
+            Debug.Log("[PlayerSpawnManager] SpawnPlayerFromClassSelection chiamato");
+
             if (!ServiceLocator.TryGet<ClassSelectionManager>(out var classMgr))
             {
                 Debug.LogWarning("[PlayerSpawnManager] ClassSelectionManager non trovato!");
@@ -40,10 +43,13 @@ namespace Gameplay
 
             if (classMgr.SelectedClass != null)
             {
+                Debug.Log("[PlayerSpawnManager] Classe selezionata trovata");
                 SpawnPlayer(classMgr.SelectedClass);
             }
             else
             {
+                Debug.Log("[PlayerSpawnManager] Nessuna classe selezionata, mi iscrivo a OnClassChanged");
+                classMgr.OnClassChanged -= SpawnPlayer;
                 classMgr.OnClassChanged += SpawnPlayer;
             }
         }

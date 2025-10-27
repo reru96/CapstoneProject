@@ -7,6 +7,7 @@ using UnityEngine;
 public class PlayerSpawner : MonoBehaviour
 {
     public Transform spawnPoint;
+
     private void Start()
     {
         var playerSpawner = ServiceLocator.Get<PlayerSpawnManager>();
