@@ -15,6 +15,6 @@ MonoBehaviour:
   roomName: Boss
   roomPrefab: {fileID: 5328646956594413213, guid: 364c7919f727d4c4aa83d4bfd651b9ed,
     type: 3}
-  roomGridSize: {x: 3, y: 3}
+  roomGridSize: {x: 5, y: 5}
   roomWorldSize: {x: 30, y: 3, z: 30}
   roomType: 5

@@ -15,6 +15,6 @@ MonoBehaviour:
   roomName: Treasure
   roomPrefab: {fileID: 5093310273799992216, guid: 00affdd0e1060d341b21ec4c6141a8f5,
     type: 3}
-  roomGridSize: {x: 2, y: 2}
-  roomWorldSize: {x: 10, y: 3, z: 10}
+  roomGridSize: {x: 3, y: 3}
+  roomWorldSize: {x: 15, y: 3, z: 15}
   roomType: 4

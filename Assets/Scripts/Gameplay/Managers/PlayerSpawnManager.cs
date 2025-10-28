@@ -76,8 +76,9 @@ namespace Gameplay
 
             var agent = player.GetComponent<NavMeshAgent>();
             if (agent != null && !agent.isOnNavMesh) agent.enabled = false;
-
+            
             OnPlayerSpawned?.Invoke(player);
+            GameEvent.PlayerSpawned();
 
             Debug.Log($"[PlayerSpawnManager] Player spawnato in {spawnPos}");
         }

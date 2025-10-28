@@ -23,41 +23,42 @@ public class GameUIManager : Injectable<GameUIManager>
         base.Awake();   
     }
 
-    private void OnEnable()
+    public void OnEnable()
     {
         HideAll();
         HideActionPrompt();
 
-        if (ServiceLocator.TryGet<PlayerSpawnManager>(out var playerSpawnMgr))
-        {
-            if (playerSpawnMgr.Player != null)
-            {
-                InitializeStaticUIForPlayer(playerSpawnMgr.Player);
-            }
-
-            playerSpawnMgr.OnPlayerSpawned += (spawnedPlayer) =>
-            {
-                InitializeStaticUIForPlayer(spawnedPlayer);
-            };
-        }
+        GameEvent.OnPlayerSpawned += InitializeStaticUIForPlayer;
 
         UpdateWeaponUI();
 
     }
 
-    private void InitializeStaticUIForPlayer(GameObject playerObj)
+    public void OnDislable()
     {
-        if (playerObj == null || staticUI == null) return;
+        GameEvent.OnPlayerSpawned -= InitializeStaticUIForPlayer;
+    }
 
-        var life = playerObj.GetComponent<LifeController>();
-        var mana = playerObj.GetComponent<ManaController>();
-        var stamina = playerObj.GetComponent<StaminaController>();
-        var exp = playerObj.GetComponent<PlayerStats>();
 
-        staticUI.Initialize(life, mana, stamina);
+    private void InitializeStaticUIForPlayer()
+    {
+        if (!ServiceLocator.TryGet<PlayerSpawnManager>(out var playerSpawnMgr))
+            return;
+
+        var player = playerSpawnMgr.Player;
+        if (player == null) return;
+
+        var life = player.GetComponent<LifeController>();
+        var mana = player.GetComponent<ManaController>();
+        var stamina = player.GetComponent<StaminaController>();
+        var exp = player.GetComponent<PlayerStats>();
+
+        staticUI?.Initialize(life, mana, stamina);
 
         if (exp != null)
-            staticUI.UpdateExp(exp.exp);
+            staticUI?.UpdateExp(exp.exp);
+
+        UpdateWeaponUI();
     }
 
     private void Update()

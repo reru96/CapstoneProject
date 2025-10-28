@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Rest
   m_EditorClassIdentifier: 
   roomName: Rest
-  roomPrefab: {fileID: 5093310273799992216, guid: 00affdd0e1060d341b21ec4c6141a8f5,
+  roomPrefab: {fileID: 8271925310979531348, guid: 70c7ce42607028c469f97d58bea1900e,
     type: 3}
-  roomGridSize: {x: 2, y: 2}
-  roomWorldSize: {x: 10, y: 3, z: 10}
-  roomType: 2
+  roomGridSize: {x: 3, y: 3}
+  roomWorldSize: {x: 15, y: 3, z: 15}
+  roomType: 3

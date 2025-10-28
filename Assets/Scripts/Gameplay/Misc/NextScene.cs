@@ -7,12 +7,28 @@ using UnityEngine.SceneManagement;
 
 public class NextScene : MonoBehaviour
 {
-    private void OnTriggerEnter(Collider other)
+    public string scene = "DungeonScene";
+    private bool playerInTrigger = false;
+
+
+    private void Update()
     {
         var inputManager = ServiceLocator.Get<InputManager>();
-        if(Input.GetKeyDown(inputManager.config.ability_1))
+        if (playerInTrigger && Input.GetKeyDown(inputManager.config.ability_1))
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            SceneManager.LoadScene(scene);
         }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+            playerInTrigger = true;
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+            playerInTrigger = false;
     }
 }

@@ -6,37 +6,91 @@ using UnityEngine;
 
 public class BossSpawner : MonoBehaviour
 {
-    public SOEnemy bossPrefab;      
-    public Transform spawnPoint;       
+    public GameObject bossPrefab;
+    public Transform spawnPoint;
     public float activationRange = 15f;
 
     private PlayerSpawnManager spawnManager;
     private GameObject currentBoss;
+    private Coroutine checkRoutine;
+    private bool bossSpawned = false;
 
-    void Start()
+    private void OnEnable()
     {
-        spawnManager = ServiceLocator.TryGet<PlayerSpawnManager>();
+        GameEvent.OnPlayerSpawned += HandlePlayerSpawned;
     }
 
-    void Update()
+    private void OnDisable()
     {
-        float distance = Vector3.Distance(transform.position, spawnManager.Player.transform.position);
+        GameEvent.OnPlayerSpawned -= HandlePlayerSpawned;
+        StopCheckRoutine();
+        DestroyBoss();
+    }
 
-        if (distance < activationRange)
+    private void HandlePlayerSpawned()
+    {
+        spawnManager = ServiceLocator.Get<PlayerSpawnManager>();
+        checkRoutine = StartCoroutine(CheckPlayerDistanceRoutine());
+    }
+
+    private IEnumerator CheckPlayerDistanceRoutine()
+    {
+        while (true)
         {
-            if (currentBoss == null)
+            if (spawnManager?.Player == null)
+                yield break;
+
+            float distance = Vector3.Distance(transform.position, spawnManager.Player.transform.position);
+
+            if (distance < activationRange)
             {
-                currentBoss = Instantiate(bossPrefab.enemyPrefab, spawnPoint.position, spawnPoint.rotation);
+                if (!bossSpawned)
+                {
+                    SpawnBoss();
+                }
             }
+            else
+            {
+                if (bossSpawned)
+                {
+                    EndBossFight();
+                }
+            }
+
+            yield return new WaitForSeconds(1f);
         }
-        else
+    }
+
+    private void SpawnBoss()
+    {
+        currentBoss = Instantiate(bossPrefab, spawnPoint.position, spawnPoint.rotation);
+        bossSpawned = true;
+        Debug.Log("[BossSpawner] Boss spawnato!");
+    }
+
+    private void EndBossFight()
+    {
+        DestroyBoss();
+        bossSpawned = false;
+        Debug.Log("[BossSpawner] Boss distrutto perché il giocatore è uscito dalla stanza.");
+    }
+
+    private void DestroyBoss()
+    {
+        if (currentBoss != null)
         {
-           
-            if (currentBoss != null)
-            {
-                Destroy(currentBoss);
-                currentBoss = null;
-            }
+            Destroy(currentBoss);
+            currentBoss = null;
+        }
+    }
+
+    private void StopCheckRoutine()
+    {
+        if (checkRoutine != null)
+        {
+            StopCoroutine(checkRoutine);
+            checkRoutine = null;
         }
     }
 }
+

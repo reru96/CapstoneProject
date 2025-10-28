@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using Core;
 using Gameplay;
@@ -10,63 +10,104 @@ public class EnemySpawner : MonoBehaviour
     public GameObject enemyPrefab;
     public int spawnCount = 5;
     public float spawnRadius = 10f;
-    public float spawnDelay = 2f;
-    public float maxDistance = 10f;
+    public float spawnDelay = 3f;
+    public Transform spawnPoint;
+
+    public float activationDistance = 15f; 
+    public float checkInterval = 1f;    
 
     public float sampleRadius = 2f;
     public LayerMask groundMask;
-    private PlayerSpawnManager playerSpawnManager;
 
-    private void Start()
+    private GameObject player;
+    private Coroutine spawnRoutine;
+    private bool isActive = false;
+
+    private void OnEnable()
     {
-        playerSpawnManager = ServiceLocator.TryGet<PlayerSpawnManager>();
+        GameEvent.OnPlayerSpawned += HandlePlayerSpawned;
     }
-    private void Update()
+
+    private void OnDisable()
     {
-        StartCoroutine(SpawnEnemiesRoutine());
+        GameEvent.OnPlayerSpawned -= HandlePlayerSpawned;
+        StopSpawning();
+    }
+
+    private void HandlePlayerSpawned()
+    {
+        player = ServiceLocator.Get<PlayerSpawnManager>().Player;
+        StartCoroutine(CheckPlayerDistance());
+    }
+
+    private IEnumerator CheckPlayerDistance()
+    {
+        while (true)
+        {
+            if (player == null)
+                yield break;
+
+            float distance = Vector3.Distance(transform.position, player.transform.position);
+
+            if (distance < activationDistance)
+            {
+                if (!isActive)
+                {
+                    isActive = true;
+                    spawnRoutine = StartCoroutine(SpawnEnemiesRoutine());
+                }
+            }
+            else
+            {
+                if (isActive)
+                {
+                    isActive = false;
+                    StopSpawning();
+                }
+            }
+
+            yield return new WaitForSeconds(checkInterval);
+        }
     }
 
     private IEnumerator SpawnEnemiesRoutine()
     {
-        int enemiesToSpawn = 5;
-        float spawnDelay = 5f;
-
-        for (int i = 0; i < enemiesToSpawn; i++)
+        for (int i = 0; i < spawnCount; i++)
         {
-
-            float distance = Vector3.Distance(transform.position, playerSpawnManager.Player.transform.position);
-            if (distance < maxDistance)
+            if (enemyPrefab == null)
             {
-                SpawnEnemy();
-            }
-            else
-            {
+                Debug.LogWarning($"[{name}] Enemy prefab non assegnato!");
                 yield break;
             }
 
+            if (player == null || Vector3.Distance(transform.position, player.transform.position) > activationDistance)
+            {
+                StopSpawning();
+                yield break;
+            }
+
+            SpawnEnemy();
             yield return new WaitForSeconds(spawnDelay);
         }
+
+        isActive = false; 
     }
 
-    public void SpawnEnemy()
+    private void SpawnEnemy()
     {
-        if (enemyPrefab == null)
-        {
-            Debug.LogWarning("Enemy prefab non assegnato!");
-            return;
-        }
-
         Vector3 randomPos = transform.position + Random.insideUnitSphere * spawnRadius;
         randomPos.y = transform.position.y;
 
+        Instantiate(enemyPrefab, spawnPoint.position, Quaternion.identity);
+    }
 
-        if (NavMesh.SamplePosition(randomPos, out NavMeshHit hit, sampleRadius, NavMesh.AllAreas))
+    private void StopSpawning()
+    {
+        if (spawnRoutine != null)
         {
-            GameObject enemy = Instantiate(enemyPrefab, hit.position, Quaternion.identity);
-        }
-        else
-        {
-            Debug.Log("Nessuna NavMesh trovata vicino al punto di spawn.");
+            StopCoroutine(spawnRoutine);
+            spawnRoutine = null;
         }
     }
 }
+

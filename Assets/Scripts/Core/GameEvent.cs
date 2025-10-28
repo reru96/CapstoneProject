@@ -7,6 +7,13 @@ public static class GameEvent
 {
     public static Action OnDungeonReady;
 
+    public static Action OnPlayerSpawned;
+
+
+    public static void PlayerSpawned()
+    {
+        OnPlayerSpawned?.Invoke();
+    }
     public static void DungeonReady()
     {
         Debug.Log($"[GameEvent] DungeonReady invocato. Listener attivi: {OnDungeonReady?.GetInvocationList().Length ?? 0}");

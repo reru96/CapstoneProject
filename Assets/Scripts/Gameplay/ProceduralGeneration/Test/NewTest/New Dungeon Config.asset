@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: New Dungeon Config
   m_EditorClassIdentifier: 
   rooms:
-  - {fileID: 11400000, guid: 3f9689ff13326ea4cb3e1ff6d2f52f27, type: 2}
   - {fileID: 11400000, guid: 44b8a00e074eaa04ca9e509e90c09683, type: 2}
-  - {fileID: 11400000, guid: b9d3ae6695e530743bc6d147b3d74025, type: 2}
+  - {fileID: 11400000, guid: a57c6fa8842e06e4fb7e0b693c41dc7c, type: 2}
+  - {fileID: 11400000, guid: 709adc4481b6c1f45aff639f2b2c0f4d, type: 2}
+  - {fileID: 11400000, guid: 3f9689ff13326ea4cb3e1ff6d2f52f27, type: 2}
   - {fileID: 11400000, guid: b9d3ae6695e530743bc6d147b3d74025, type: 2}
   roomCount: 10

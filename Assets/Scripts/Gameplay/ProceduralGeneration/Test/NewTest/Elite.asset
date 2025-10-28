@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eefc0293e432a8c43b9a81c25c31576a, type: 3}
   m_Name: Elite
   m_EditorClassIdentifier: 
-  roomName: Elite
-  roomPrefab: {fileID: 5093310273799992216, guid: 00affdd0e1060d341b21ec4c6141a8f5,
+  roomName: Common
+  roomPrefab: {fileID: 1979795982840672599, guid: 302b21aed7d07864cb344b57bd28883e,
     type: 3}
-  roomGridSize: {x: 2, y: 2}
-  roomWorldSize: {x: 10, y: 3, z: 10}
-  roomType: 6
+  roomGridSize: {x: 3, y: 3}
+  roomWorldSize: {x: 15, y: 3, z: 15}
+  roomType: 2
