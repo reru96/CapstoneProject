@@ -6,50 +6,87 @@ using UnityEngine;
 
 public class StatueShop : MonoBehaviour
 {
-    public float interactionRange = 3f;
-    public float waitTime = 10f;
-    public List<SOShopItem> availableItems;
+    [Header("Shop Settings")]
+    [SerializeField] private string actionMessage;
 
-    private PlayerSpawnManager spawnManager;
+    private GameUIManager gameUI;
+    [SerializeField]private ShopUI shopUI;
+    private InputManager inputManager;
+    private PlayerStats playerStats;
+    private InventoryManager inventoryManager;
+
+    private bool playerInRange = false;
+    private bool shopOpen = false;
+    private Transform playerTransform;
 
     private void Start()
     {
-        StartCoroutine(WaitPlayer());
+        gameUI = ServiceLocator.Get<GameUIManager>();
+        inputManager = ServiceLocator.Get<InputManager>();
+        inventoryManager = ServiceLocator.Get<InventoryManager>();
+        shopUI = gameUI.GetComponent<ShopUI>();
+
+        var spawnManager = ServiceLocator.Get<PlayerSpawnManager>();
+        if (spawnManager != null)
+            playerTransform = spawnManager.Player?.transform;
+
+        if (playerTransform != null)
+            playerStats = playerTransform.GetComponent<PlayerStats>();
     }
 
-    private IEnumerator WaitPlayer()
-    {
-        yield return new WaitForSeconds(interactionRange);
-        spawnManager = ServiceLocator.Get<PlayerSpawnManager>();
-
-    }
     private void Update()
     {
-        if (spawnManager.Player == null) return;
+        if (!playerInRange || shopUI == null || inputManager == null)
+            return;
 
-        float distance = Vector3.Distance(transform.position, spawnManager.Player.transform.position);
-        if (distance < interactionRange)
+        if (Input.GetKeyDown(inputManager.config.action))
         {
-            var inputManager = ServiceLocator.Get<InputManager>();
-            if (Input.GetKeyDown(inputManager.config.action))
-            {
+            if (!shopOpen)
                 OpenShop();
-            }
+            else
+                CloseShop();
         }
     }
 
     private void OpenShop()
     {
-        var playerStats = spawnManager.Player.GetComponent<PlayerStats>();
-        if (playerStats == null) return;
+        if (shopUI == null || inventoryManager == null || playerStats == null)
+            return;
 
-        var uiManager = ServiceLocator.Get<GameUIManager>();
-        uiManager.ShowShop(availableItems, playerStats, this);
+        shopUI.Show();
+        shopUI.Initialize(inventoryManager.permanentInventory, playerStats);
+
+        gameUI.HideActionPrompt();
+        shopOpen = true;
     }
 
-    public void CloseShop()
+    private void CloseShop()
     {
-        var uiManager = ServiceLocator.Get<GameUIManager>();
-        uiManager.HideShop();
+        if (shopUI == null) return;
+
+        shopUI.Hide();
+        shopOpen = false;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            actionMessage = $"Press {inputManager.config.action}";
+            playerInRange = true;
+            gameUI?.ShowActionPrompt(actionMessage);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            playerInRange = false;
+            gameUI?.HideActionPrompt();
+
+            if (shopOpen)
+                CloseShop();
+        }
     }
 }

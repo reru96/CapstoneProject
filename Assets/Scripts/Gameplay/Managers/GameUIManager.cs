@@ -13,11 +13,7 @@ public class GameUIManager : Injectable<GameUIManager>
     public UITreasure treasureUI;
     public UInventory inventoryUI;
     public UIStatic staticUI;
-    public CanvasGroup shopGroup;
-    public Transform shopContentParent;
-    public GameObject shopItemButtonPrefab;
-
-    private StatueShop currentShop;
+    public ShopUI shopUI;
 
 
     [SerializeField] private CanvasGroup actionPromptGroup;
@@ -166,49 +162,6 @@ public class GameUIManager : Injectable<GameUIManager>
         actionPromptGroup.alpha = 1f;
         actionPromptGroup.interactable = false;
         actionPromptGroup.blocksRaycasts = false;
-    }
-
-    public void ShowShop(List<SOShopItem> items, PlayerStats playerStats, StatueShop shop)
-    {
-        if (shopGroup == null || shopItemButtonPrefab == null) return;
-
-        currentShop = shop;
-
-        shopGroup.alpha = 1f;
-        shopGroup.interactable = true;
-        shopGroup.blocksRaycasts = true;
-
-        foreach (Transform child in shopContentParent)
-            Destroy(child.gameObject);
-
-        foreach (var item in items)
-        {
-            var btnObj = Instantiate(shopItemButtonPrefab, shopContentParent);
-            var btn = btnObj.GetComponent<Button>();
-            var text = btnObj.GetComponentInChildren<TMPro.TextMeshProUGUI>();
-            text.text = $"{item.itemName} (+{item.amountToModify} {item.statToModify})";
-
-            btn.onClick.AddListener(() =>
-            {
-                item.Apply(playerStats);
-                playerStats.RecalculateStats(); 
-            });
-        }
-
-        var closeBtn = shopGroup.GetComponentInChildren<Button>();
-        if (closeBtn != null)
-            closeBtn.onClick.RemoveAllListeners();
-        closeBtn?.onClick.AddListener(HideShop);
-    }
-    public void HideShop()
-    {
-        if (shopGroup == null) return;
-
-        shopGroup.alpha = 0f;
-        shopGroup.interactable = false;
-        shopGroup.blocksRaycasts = false;
-
-        currentShop = null;
     }
 
     public void HideActionPrompt()
