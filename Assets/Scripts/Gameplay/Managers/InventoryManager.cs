@@ -10,6 +10,8 @@ namespace Gameplay
         public RunTimeInventory runInventory { get; private set; }
         public PermanentInventory permanentInventory { get; private set; }
 
+        public List<SOShopItem> allShopItems;
+
         protected override void Awake()
         {
             base.Awake();
@@ -25,16 +27,23 @@ namespace Gameplay
             LoadPermanentInventory();
         }
 
-      
         public void ResetRunInventory() => runInventory.ResetInventory();
 
-   
         public void SavePermanentInventory() =>
             SaveSystem.SavePermanentInventory(permanentInventory);
 
+        public void LoadPermanentInventory()
+        {
+            SaveSystem.LoadPermanentInventory(permanentInventory, allShopItems);
+        }
 
-        public void LoadPermanentInventory() =>
-            SaveSystem.LoadPermanentInventory(permanentInventory);
+        public void ApplyEquippedUpgrades(PlayerStats stats)
+        {
+            foreach (var item in permanentInventory.equippedUpgrades)
+            {
+                item.Apply(stats);
+            }
+        }
 
         private void OnApplicationQuit()
         {
