@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20d6ccac999001f47b7a859ffa98ab1c, type: 3}
+  m_Name: ArcaneUpgrade
+  m_EditorClassIdentifier: 
+  itemName: Mother Flame Fragment
+  description: '+ 5 Arcane
+
+'
+  itemType: 2
+  icon: {fileID: 1676642568, guid: 1666b0c96f5391444866e429adc2bd7e, type: 3}
+  value: 100
+  cost: 1000
+  statToModify: 4
+  amountToModify: 5

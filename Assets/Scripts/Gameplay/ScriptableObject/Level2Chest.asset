@@ -16,5 +16,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1283744e46de9ba46886d310cda16ce0, type: 2}
   - {fileID: 11400000, guid: 19b7931afca569745b4030fc6fdafdf9, type: 2}
   - {fileID: 11400000, guid: 2ca2744856537874aa149ff3e5061fa2, type: 2}
+  - {fileID: 11400000, guid: 5516fb16d5f201940b172e3bfbe3a607, type: 2}
   MaxLevel: 5
   NumberOfChoices: 3

@@ -6,7 +6,6 @@ using UnityEngine;
 [CreateAssetMenu(menuName = ("RPG/Inventory/ShopItem"))]
 public class SOShopItem : SOItem
 {
-    public string bonusType;
     public float value;
     public int cost;
     public StatType statToModify;
