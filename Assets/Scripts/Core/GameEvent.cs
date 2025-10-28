@@ -9,6 +9,7 @@ public static class GameEvent
 
     public static Action OnPlayerSpawned;
 
+    public static Action OnPlayerDead;
 
     public static void PlayerSpawned()
     {
@@ -18,5 +19,10 @@ public static class GameEvent
     {
         Debug.Log($"[GameEvent] DungeonReady invocato. Listener attivi: {OnDungeonReady?.GetInvocationList().Length ?? 0}");
         OnDungeonReady?.Invoke(); 
+    }
+
+    public static void PlayerDead()
+    { 
+        OnPlayerDead?.Invoke();
     }
 }
