@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -38,10 +39,14 @@ public class PlayerStats : MonoBehaviour
 
     public delegate void OnStatsRecalculated();
     public event OnStatsRecalculated StatsUpdated;
+    public event Action<int> ExpChanged;
+    public event Action<int> StatPointsChanged;
 
     private void Start()
     {
         RecalculateStats();
+        ExpChanged?.Invoke(exp);
+        StatPointsChanged?.Invoke(StatPoints);
     }
 
     public void RecalculateStats()
@@ -153,22 +158,28 @@ public class PlayerStats : MonoBehaviour
     public void AddExperience(int amount)
     {
         exp += amount;
-        if (exp >= expToNextLevel)
+        ExpChanged?.Invoke(exp);
+    }
+
+    public void ProcessLevelUpAtRestPoint()
+    {
+        bool leveledUp = false;
+        while (exp >= expToNextLevel)
         {
-            LevelUp();
+            exp -= expToNextLevel;
+            Level++;
+            StatPoints += 5;
+            expToNextLevel = Mathf.RoundToInt(expToNextLevel * levelMultiplier);
+            leveledUp = true;
+        }
+
+        if (leveledUp)
+        {
+            ExpChanged?.Invoke(exp);
+            StatPointsChanged?.Invoke(StatPoints);
+            RecalculateStats();
         }
     }
-
-    private void LevelUp()
-    {
-        exp -= expToNextLevel;
-        Level++;
-        StatPoints += 5;
-        expToNextLevel = Mathf.RoundToInt(expToNextLevel * levelMultiplier);
-
-        RecalculateStats();
-    }
-
     public bool AllocateStatPoint(string stat)
     {
         if (StatPoints <= 0)
@@ -191,6 +202,7 @@ public class PlayerStats : MonoBehaviour
 
         StatPoints--;
         RecalculateStats();
+        StatPointsChanged?.Invoke(StatPoints);
         return true;
     }
 

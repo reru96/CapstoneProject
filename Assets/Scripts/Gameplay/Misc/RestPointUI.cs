@@ -111,6 +111,7 @@ public class RestPointUI : MonoBehaviour
     public void ShowLevelUpPanel()
     {
         pendingChanges.Clear();
+        playerStats.ProcessLevelUpAtRestPoint();
         SetVisible(levelUpGroup, true);
         UpdateUI();
     }

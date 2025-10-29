@@ -9,8 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3864856666579923640}
+  - component: {fileID: 2450597645934197889}
+  - component: {fileID: 1552206651920441120}
   m_Layer: 0
-  m_Name: SpawnPoint
+  m_Name: BossSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28,9 +30,46 @@ Transform:
   m_LocalPosition: {x: 10.3, y: 0, z: -10.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 5890162646714873374}
   m_Father: {fileID: 4209166088813471400}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &2450597645934197889
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3013130807929476044}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 38, y: 1.7, z: 38}
+  m_Center: {x: 2, y: 1.08, z: 0}
+--- !u!114 &1552206651920441120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3013130807929476044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5257b028110817c4598106c69f9c158b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boss: {fileID: 11400000, guid: 2361a5778de5f3a4ab5119440fcfe7e4, type: 2}
+  spawnPoint: {fileID: 5890162646714873374}
+  activationRange: 15
 --- !u!1 &5328646956594413213
 GameObject:
   m_ObjectHideFlags: 0
@@ -41,7 +80,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4209166088813471400}
   - component: {fileID: 5837265233270168611}
-  - component: {fileID: 2821170230098296023}
   m_Layer: 0
   m_Name: BossRoom
   m_TagString: Untagged
@@ -111,21 +149,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomType: 5
---- !u!114 &2821170230098296023
-MonoBehaviour:
+--- !u!1 &6625212998099620755
+GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5328646956594413213}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5257b028110817c4598106c69f9c158b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bossPrefab: {fileID: 5328646956594413213}
-  spawnPoint: {fileID: 3864856666579923640}
-  activationRange: 15
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5890162646714873374}
+  m_Layer: 0
+  m_Name: spawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5890162646714873374
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6625212998099620755}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3864856666579923640}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8361575043626216835
 GameObject:
   m_ObjectHideFlags: 0

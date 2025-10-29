@@ -596,10 +596,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f00dbaef9f88e946af373097922eb3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  loseMenu: {fileID: 0}
-  winMenu: {fileID: 0}
-  deathMusic: 
-  winMusic: 
+  loseMenu: {fileID: 781885977}
+  winMenu: {fileID: 1539468239}
+  deathMusic: YouLose
+  winMusic: YouWin
 --- !u!1001 &1154025612
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -54,12 +54,15 @@ public class GameUIManager : Injectable<GameUIManager>
         var life = player.GetComponent<LifeController>();
         var mana = player.GetComponent<ManaController>();
         var stamina = player.GetComponent<StaminaController>();
-        var exp = player.GetComponent<PlayerStats>();
+        var playerStats = player.GetComponent<PlayerStats>();
 
-        staticUI?.Initialize(life, mana, stamina);
+        staticUI?.Initialize(life, mana, stamina, playerStats);
 
-        if (exp != null)
-            staticUI?.UpdateExp(exp.exp);
+        if (playerStats != null)
+            staticUI?.UpdateExp(playerStats.exp);
+
+        if (ServiceLocator.TryGet<GameManager>(out var gameManager))
+            staticUI?.UpdateCurrency(gameManager.Coins);
 
         UpdateWeaponUI();
     }

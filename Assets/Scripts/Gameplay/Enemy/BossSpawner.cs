@@ -6,9 +6,9 @@ using UnityEngine;
 
 public class BossSpawner : MonoBehaviour
 {
-    public GameObject bossPrefab;
+    public SOEnemy boss;
     public Transform spawnPoint;
-    public float activationRange = 15f;
+    public float activationRange = 1f;
 
     private PlayerSpawnManager spawnManager;
     private GameObject currentBoss;
@@ -63,7 +63,7 @@ public class BossSpawner : MonoBehaviour
 
     private void SpawnBoss()
     {
-        currentBoss = Instantiate(bossPrefab, spawnPoint.position, spawnPoint.rotation);
+        currentBoss = Instantiate(boss.enemyPrefab, spawnPoint.position, spawnPoint.rotation);
         bossSpawned = true;
         Debug.Log("[BossSpawner] Boss spawnato!");
     }
