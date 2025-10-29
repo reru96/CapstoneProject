@@ -27,3 +27,7 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: f77d582fc9fea3747ad2cfef89c4e92c, type: 3}
   - key: Swing
     clip: {fileID: 8300000, guid: f77d582fc9fea3747ad2cfef89c4e92c, type: 3}
+  - key: DungeonScene
+    clip: {fileID: 8300000, guid: 766527c4a4a7e564f82cce76db412201, type: 3}
+  - key: ClassSelectionScene
+    clip: {fileID: 8300000, guid: 766527c4a4a7e564f82cce76db412201, type: 3}

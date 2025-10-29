@@ -203,4 +203,48 @@ public class PlayerStats : MonoBehaviour
         }
         return incomingDamage;
     }
+
+    public void ResetStats()
+    {
+        if (playerClass == null)
+        {
+            Debug.LogWarning("[PlayerStats] playerClass mancante, impossibile resettare le statistiche");
+            return;
+        }
+
+        Level = 1;
+        exp = 0;
+        expToNextLevel = 100;
+        StatPoints = 0;
+
+        Health = playerClass.health;
+        Mana = playerClass.mana;
+        Stamina = playerClass.stamina;
+        Strength = playerClass.baseStrength;
+        Dexterity = playerClass.baseDexterity;
+        Intelligence = playerClass.baseIntelligence;
+        Faith = playerClass.baseFaith;
+        Arcane = playerClass.baseArcane;
+
+        buffHealth = 0;
+        buffMana = 0;
+        buffStamina = 0;
+        buffStrength = 0;
+        buffDexterity = 0;
+        buffIntelligence = 0;
+        buffFaith = 0;
+        buffArcane = 0;
+
+        currentWeapon = null;
+        currentArmor = null;
+
+        if (hand != null)
+        {
+            foreach (Transform child in hand.transform)
+                Destroy(child.gameObject);
+        }
+
+        RecalculateStats();
+    }
+
 }

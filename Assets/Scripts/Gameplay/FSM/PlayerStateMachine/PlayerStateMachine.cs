@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
@@ -114,5 +114,21 @@ public class PlayerStateMachine : StateMachine
     {
         if (animator == null || _upperBodyLayerIndex < 0) return;
         animator.SetLayerWeight(_upperBodyLayerIndex, active ? 1f : 0f);
+    }
+
+    private void OnEnable()
+    {
+        GameEvent.OnPlayerDead += EnterDeadState;
+    }
+
+    private void OnDisable()
+    {
+        GameEvent.OnPlayerDead -= EnterDeadState;
+    }
+
+    private void EnterDeadState()
+    {
+        Debug.Log("[PlayerStateMachine] PlayerDead evento ricevuto → entro in PlayerDeadState");
+        SwitchState(new PlayerDeadState(this));
     }
 }

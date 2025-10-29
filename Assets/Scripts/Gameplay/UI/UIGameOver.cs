@@ -1,57 +1,61 @@
 using System.Collections;
 using System.Collections.Generic;
+using Core;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class UIGameOver : MonoBehaviour
 {
-   
-    public GameObject winMenu;
+    public CanvasGroup loseMenu;
+    public CanvasGroup winMenu;
+
+    public string deathMusic;
+    public string winMusic;
+
+    private void OnEnable()
+    {
+        GameEvent.OnPlayerDead += ShowLoseMenu;
+        GameEvent.OnBossDead += ShowWinMenu;
+    }
+
+    private void OnDisable()
+    {
+        GameEvent.OnPlayerDead -= ShowLoseMenu;
+        GameEvent.OnBossDead -= ShowWinMenu;
+    }
 
     private void Start()
     {
-       
-        winMenu.SetActive(false);
+        Hide(loseMenu);
+        Hide(winMenu);
     }
 
-    public void ShowVictory()
+    private void ShowLoseMenu()
     {
-        
-        Time.timeScale = 0.5f;
-        StartCoroutine(ShowWinMenuDelayed());
+        Show(loseMenu);
+        var audioManager = ServiceLocator.TryGet<AudioManager>();
+        audioManager.PlaySfx(deathMusic);
     }
-
-    private IEnumerator ShowWinMenuDelayed()
-    {
-        yield return new WaitForSeconds(1f);
-        ShowWinMenu();
-    }
-
     private void ShowWinMenu()
     {
-        Time.timeScale = 0f;
-        winMenu.SetActive(true);
+        Show(winMenu);
+        var audioManager = ServiceLocator.TryGet<AudioManager>();
+        audioManager.PlaySfx(winMusic);
+        
     }
 
-    public void ReturnToMenu()
+    public void Show(CanvasGroup group)
     {
-        Time.timeScale = 1f;
-        SceneManager.LoadScene("StartMenu");
+        group.alpha = 1;
+        group.blocksRaycasts = true;
+        group.interactable = true;
     }
 
-    public void NextScene()
+    public void Hide(CanvasGroup group)
     {
-        Time.timeScale = 1f;
-        int nextScene = SceneManager.GetActiveScene().buildIndex + 1;
-        if (nextScene < SceneManager.sceneCountInBuildSettings)
-        {
-            SceneManager.LoadScene(nextScene);
-        }
+        group.alpha = 0;
+        group.blocksRaycasts = false;
+        group.interactable = false;
     }
 
-    public void RetryLevel()
-    {
-        Time.timeScale = 1f;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
 }

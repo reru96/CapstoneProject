@@ -12,7 +12,7 @@ public class AudioManager : Injectable<AudioManager>
     [SerializeField] private string musicVolumeParam = "MusicVolume";
     [SerializeField] private string sfxVolumeParam = "SfxVolume";
 
-    [Header("Audio Sources (optional, verranno creati se null)")]
+    [Header("Audio Sources ")]
     [SerializeField] private AudioSource musicSource;
     [SerializeField] private AudioSource sfxSource;
 

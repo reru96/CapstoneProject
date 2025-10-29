@@ -12,8 +12,9 @@ public class LifeController : MonoBehaviour
 
     public int GetMaxHp() => maxHp;
     public int GetHp() => currentHp;
+    public DeathAction Death => death;
 
-    public enum DeathAction { None, Destroy, Disable, Die, SceneReload }
+    public enum DeathAction { None, Destroy, Disable, Die, SceneReload, playerDead, BossDead, EnemyDead }
 
     private void Awake()
     {
@@ -49,6 +50,19 @@ public class LifeController : MonoBehaviour
             case DeathAction.SceneReload:
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
                 break;
+            case DeathAction.playerDead:
+                GameEvent.PlayerDead();
+                break;
+            case DeathAction.BossDead:
+                GameEvent.BossDead();
+                break;
+            case DeathAction.EnemyDead:
+                var enemySM = GetComponent<EnemyStateMachine>();
+                if (enemySM != null)
+                {
+                    enemySM.SwitchState(new EnemyDeadState(enemySM));
+                }
+                break;  
         }
     }
 }

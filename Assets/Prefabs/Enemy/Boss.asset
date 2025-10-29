@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32d0c64b5d31968419b3c19ed485692d, type: 3}
+  m_Name: Boss
+  m_EditorClassIdentifier: 
+  nameEnemy: Ogre
+  enemyType: 4
+  maxHP: 500
+  currentHP: 500
+  enemyPrefab: {fileID: 4462976378552247912, guid: 885c22f3affc7d649bf98e7cf9687ef0,
+    type: 3}
+  expDrop: 100
+  coinReward: 500
+  physicalDefense: 40
+  fireDefense: 20
+  magicDefense: 25
+  lightningDefense: 15
+  piercingDefense: 30
+  slashingDefense: 30
+  damagePopUpPrefab: {fileID: 8311443368703636777, guid: 63799abd5129c2e4ea2944785bf445e4,
+    type: 3}
+  basePhysicalDamage: 50
+  baseFireDamage: 50
+  baseIceDamage: 50
+  baseLightningDamage: 50
+  basePiercingDamage: 50
+  baseSlashingDamage: 50

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Core;
 using Gameplay;
 using Unity.VisualScripting;
@@ -44,15 +45,20 @@ public class EnemyStateMachine : StateMachine
     public float alertDuration = 5f;
     public float alertTimer;
 
-    private void Awake()
+    public LifeController life;
+
+    protected void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
+        life= GetComponent<LifeController>();
     }
 
     private void Start()
     {
+
         SwitchState(new PatrollingState(this));
+
     }
 
     protected override void Update()

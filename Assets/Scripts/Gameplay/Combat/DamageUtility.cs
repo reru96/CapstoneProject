@@ -42,6 +42,37 @@ public static class DamageUtility
         return totalDamage;
     }
 
+    public static float CalculateEnemyDamage(SOEnemy enemyData, PlayerStats pStats)
+    {
+        if (enemyData == null || pStats == null)
+        {
+            Debug.LogWarning("DamageUtility: missing data for enemy attack calculation");
+            return 0f;
+        }
+
+        float physical = enemyData.basePhysicalDamage;
+        float fire = enemyData.baseFireDamage;
+        float ice = enemyData.baseIceDamage;
+        float lightning = enemyData.baseLightningDamage;
+        float piercing = enemyData.basePiercingDamage;
+        float slashing = enemyData.baseSlashingDamage;
+
+      
+        float physicalAfterDef = pStats.GetDamageAfterDefense(physical, DamageType.Force);
+        float fireAfterDef = pStats.GetDamageAfterDefense(fire, DamageType.Fire);
+        float iceAfterDef = pStats.GetDamageAfterDefense(ice, DamageType.Ice);
+        float lightningAfterDef = pStats.GetDamageAfterDefense(lightning, DamageType.Electricity);
+        float piercingAfterDef = pStats.GetDamageAfterDefense(piercing, DamageType.Piercing);
+        float slashingAfterDef = pStats.GetDamageAfterDefense(slashing, DamageType.Slashing);
+
+        float totalDamage = physicalAfterDef + fireAfterDef + iceAfterDef + lightningAfterDef + piercingAfterDef + slashingAfterDef;
+
+        totalDamage *= Random.Range(0.9f, 1.1f);
+        totalDamage = Mathf.Max(1f, totalDamage);
+
+        return totalDamage;
+    }
+
     public static void ApplyDamageToEnemy(EnemyStateMachine enemy, float damage)
     {
         if (enemy == null || enemy.enemyData == null) return;
@@ -55,6 +86,24 @@ public static class DamageUtility
             Vector3 popupPos = enemy.transform.position + Vector3.up * 2f;
             popupPos += new Vector3(Random.Range(-0.3f, 0.3f), 0f, Random.Range(-0.3f, 0.3f));
             GameObject popup = Object.Instantiate(enemy.enemyData.damagePopUpPrefab, popupPos, Quaternion.identity);
+            var dmgPopup = popup.GetComponent<DamagePopUp>();
+            if (dmgPopup != null) dmgPopup.Setup(damage);
+        }
+    }
+
+    public static void ApplyDamageToPlayer(PlayerStats pStats, SOEnemy enemyData, float damage)
+    {
+        if (pStats == null || enemyData == null) return;
+
+        LifeController life = pStats.GetComponent<LifeController>();
+        if (life != null)
+            life.AddHp(-(int)damage);
+
+        if (enemyData.damagePopUpPrefab != null)
+        {
+            Vector3 popupPos = pStats.transform.position + Vector3.up * 2f;
+            popupPos += new Vector3(Random.Range(-0.3f, 0.3f), 0f, Random.Range(-0.3f, 0.3f));
+            GameObject popup = Object.Instantiate(enemyData.damagePopUpPrefab, popupPos, Quaternion.identity);
             var dmgPopup = popup.GetComponent<DamagePopUp>();
             if (dmgPopup != null) dmgPopup.Setup(damage);
         }

@@ -123,8 +123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5257b028110817c4598106c69f9c158b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bossPrefab: {fileID: 1830648231862840522, guid: 4c67e4e852930584a8f19e404cb079f4,
-    type: 3}
+  bossPrefab: {fileID: 5328646956594413213}
   spawnPoint: {fileID: 3864856666579923640}
   activationRange: 15
 --- !u!1 &8361575043626216835
