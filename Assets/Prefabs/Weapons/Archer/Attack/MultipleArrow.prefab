@@ -120,14 +120,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4cccb2dbe06d72459542b96f972910a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distance: 3
-  duration: 0.3
-  destroyDelay: 0.1
-  repulseForce: 1
   speed: 5
+  lifeTime: 5
+  repulseForce: 1
   firePoint: {fileID: 4038853382813408783}
   angle: 30
   numberOfArrows: 3
+  arrowPrefab: {fileID: 2018491215067575691, guid: d1adacf627072af4b880061218c682b1,
+    type: 3}
 --- !u!54 &-6951255658870946227
 Rigidbody:
   m_ObjectHideFlags: 0

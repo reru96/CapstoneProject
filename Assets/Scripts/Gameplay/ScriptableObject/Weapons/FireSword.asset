@@ -43,7 +43,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   hitDetectionPrefab: {fileID: 0}
-  physicalBaseDamage: 50
+  physicalBaseDamage: 0
   fireBaseDamage: 50
   iceBaseDamage: 0
   electricityBaseDamage: 0
@@ -57,7 +57,7 @@ MonoBehaviour:
   scalesWithIntelligence: 0
   scalesWithFaith: 0
   scalesWithArcane: 1
-  scalesWithDex: 0
+  scalesWithDex: 1
   scalesWithStrenght: 1
   strengthBonus: 10
   dexterityBonus: 0

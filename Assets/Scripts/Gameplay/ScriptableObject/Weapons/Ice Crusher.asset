@@ -17,18 +17,30 @@ MonoBehaviour:
 
 '
   itemType: 2
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: ae3c5c1306a708840b1e4cdef05b66e7, type: 3}
   level: 0
   prefab: {fileID: 0}
   attackType: []
-  swingSound: {fileID: 0}
+  swingSound:
+  - 0
   attackDuration: 0
   panelType: 0
+  hitType: 0
   hitDelay: 0.3
   animator: {fileID: 0}
+  particleSystem: []
+  isRanged: 0
+  projectilePrefab: {fileID: 0}
+  projectileSpeed: 15
+  attackWindow: 0.25
+  baseDamage: 50
+  hitLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  hitDetectionPrefab: {fileID: 0}
   physicalBaseDamage: 50
   fireBaseDamage: 0
-  iceBaseDamage: 0
+  iceBaseDamage: 50
   electricityBaseDamage: 0
   slashingBaseDamage: 0
   piercingBaseDamage: 0
@@ -40,7 +52,9 @@ MonoBehaviour:
   scalesWithIntelligence: 1
   scalesWithFaith: 0
   scalesWithArcane: 0
-  strengthBonus: 0
+  scalesWithDex: 1
+  scalesWithStrenght: 1
+  strengthBonus: 10
   dexterityBonus: 0
   intelligenceBonus: 10
   faithBonus: 0

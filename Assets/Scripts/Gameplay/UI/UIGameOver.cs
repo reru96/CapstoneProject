@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Core;
+using Gameplay;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -33,13 +34,15 @@ public class UIGameOver : MonoBehaviour
     private void ShowLoseMenu()
     {
         Show(loseMenu);
-        var audioManager = ServiceLocator.TryGet<AudioManager>();
+        var audioManager = ServiceLocator.Get<AudioManager>();
         audioManager.PlaySfx(deathMusic);
+        var gameManager = ServiceLocator.Get<GameManager>();
+        gameManager.LoadScene("Level1");
     }
     private void ShowWinMenu()
     {
         Show(winMenu);
-        var audioManager = ServiceLocator.TryGet<AudioManager>();
+        var audioManager = ServiceLocator.Get<AudioManager>();
         audioManager.PlaySfx(winMusic);
         
     }

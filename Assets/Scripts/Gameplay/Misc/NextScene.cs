@@ -9,14 +9,18 @@ public class NextScene : MonoBehaviour
 {
     public string scene = "DungeonScene";
     private bool playerInTrigger = false;
+    private GameManager gameManager;
 
-
+    private void Start()
+    {
+        gameManager = ServiceLocator.Get<GameManager>();
+    }
     private void Update()
     {
         var inputManager = ServiceLocator.Get<InputManager>();
         if (playerInTrigger && Input.GetKeyDown(inputManager.config.ability_1))
         {
-            SceneManager.LoadScene(scene);
+            gameManager.LoadScene(scene);
         }
     }
 

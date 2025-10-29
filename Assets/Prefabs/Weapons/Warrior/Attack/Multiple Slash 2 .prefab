@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 3858622025608294646}
   - component: {fileID: 3477272991562575618}
   - component: {fileID: 1754790541576499598}
-  - component: {fileID: 2198240247817227154}
   - component: {fileID: 8743966453498317958}
   - component: {fileID: 7691658691831110962}
   - component: {fileID: 5503069885500782277}
+  - component: {fileID: 4980683411009492608}
   m_Layer: 0
   m_Name: 'Multiple Slash 2 '
   m_TagString: Untagged
@@ -5010,27 +5010,6 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!65 &2198240247817227154
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1400255665468144947}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &8743966453498317958
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5070,8 +5049,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c94c3f89deaa69f4c87f413a6ece7ce5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
-  lifeTime: 2
+  speed: 0.1
+  lifeTime: 1
 --- !u!114 &5503069885500782277
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5084,7 +5063,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c265fcfddaba07b41ba223524d6f3974, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  returnDelay: 2
+  returnDelay: 1
+--- !u!135 &4980683411009492608
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1400255665468144947}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 1.65
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8326875285562556626
 GameObject:
   m_ObjectHideFlags: 0
@@ -10100,7 +10100,7 @@ GameObject:
   - component: {fileID: 6167906232561510582}
   - component: {fileID: 4642735012205261206}
   - component: {fileID: 2862039325231839043}
-  - component: {fileID: 2422093434900680325}
+  - component: {fileID: 3246220331470944218}
   m_Layer: 0
   m_Name: '2nd Slash '
   m_TagString: Untagged
@@ -15094,8 +15094,8 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!65 &2422093434900680325
-BoxCollider:
+--- !u!135 &3246220331470944218
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -15113,5 +15113,5 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 5.26029, y: 5.2600904, z: 5.26029}
+  m_Radius: 1.84
   m_Center: {x: 0, y: 0, z: 0}

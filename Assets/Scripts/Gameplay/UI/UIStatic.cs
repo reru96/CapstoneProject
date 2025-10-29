@@ -65,28 +65,25 @@ public class UIStatic : MonoBehaviour
     {
         UpdateBars();
     }
-
+   
     private void UpdateBars()
     {
         if (lifeController != null && healthBar != null)
         {
-            float hp = lifeController.GetHp();
-            float maxHp = Mathf.Max(1f, lifeController.GetMaxHp());
-            healthBar.value = Mathf.Clamp01(hp / maxHp);
+            healthBar.maxValue = lifeController.GetMaxHp();
+            healthBar.value = lifeController.GetHp();
         }
 
         if (manaController != null && manaBar != null)
         {
-            float cur = manaController.currentMana;
-            float max = Mathf.Max(1f, manaController.MaxMana);
-            manaBar.value = Mathf.Clamp01(cur / max);
+            manaBar.maxValue = manaController.MaxMana;
+            manaBar.value = manaController.currentMana;
         }
 
         if (staminaController != null && staminaBar != null)
         {
-            float cur = staminaController.currentStamina;
-            float max = Mathf.Max(1f, staminaController.maxStamina);
-            staminaBar.value = Mathf.Clamp01(cur / max);
+            staminaBar.maxValue = staminaController.maxStamina;
+            staminaBar.value = staminaController.currentStamina;
         }
     }
 

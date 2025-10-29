@@ -147,14 +147,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 301f9f85ffdf4d14c8cb904b658d98f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distance: 3
-  duration: 0.3
-  destroyDelay: 0.1
-  repulseForce: 1
   speed: 20
+  lifeTime: 5
+  repulseForce: 1
   explosionRadius: 3
   explosionForce: 5
-  explosionEffect: {fileID: 0}
+  explosionEffect: {fileID: 8610335023335938215, guid: d6a3eae78fe86084780c9a8d3072bdb3,
+    type: 3}
 --- !u!114 &-801057542624093899
 MonoBehaviour:
   m_ObjectHideFlags: 0

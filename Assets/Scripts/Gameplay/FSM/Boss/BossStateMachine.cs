@@ -27,4 +27,13 @@ public class BossStateMachine : EnemyStateMachine
     {
         SwitchState(new BossDeadState(this));
     }
+
+    public override void OnHit(Vector3 hitPosition)
+    {
+        lastSeenPosition = hitPosition;
+        lastSeenTime = Time.time;
+
+        if (!(CurrentState is BossHitState))
+            SwitchState(new BossHitState(this));
+    }
 }

@@ -121,14 +121,7 @@ public class EnemyStateMachine : StateMachine
         agent.SetDestination(newGoal);
     }
 
-    public IEnumerator WaitAndPatrolAgain()
-    {
-        yield return new WaitForSeconds(waitTimeAtGoal);
-        GoToNewDynamicGoal();
-        waitCoroutine = null;
-    }
-
-    public void OnHit(Vector3 hitPosition)
+    public virtual void OnHit(Vector3 hitPosition)
     {
         lastSeenPosition = hitPosition;
         lastSeenTime = Time.time;

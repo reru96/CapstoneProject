@@ -28,7 +28,7 @@ public class PlayerDeadState : PlayerBaseState
             player.agent.isStopped = true;
 
         if (player.animator != null)
-            player.animator.SetTrigger("Die");
+            player.animator.Play("Die");
 
         player.StartCoroutine(DeathSequence());
     }

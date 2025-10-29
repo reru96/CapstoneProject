@@ -15,24 +15,36 @@ MonoBehaviour:
   itemName: Thunder Spear
   description: 
   itemType: 2
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 1d9a3d8d881a8f247b37129770cfac2c, type: 3}
   level: 0
-  prefab: {fileID: 0}
+  prefab: {fileID: 5474014686464707439, guid: 1a8eaaa38b934ed4dbe357ed598e1318, type: 3}
   attackType:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  swingSound: {fileID: 0}
+  - {fileID: 5503505460791601945, guid: 74c549d1b06b6b140a1fd9536eea637f, type: 3}
+  - {fileID: 3600389243222657682, guid: 3fee2e03e4bdc854bb38f7bcbca7c75d, type: 3}
+  - {fileID: 1400255665468144947, guid: 6c21e7a6e514dd9499418cbbb66211cf, type: 3}
+  swingSound:
+  - 0
   attackDuration: 0
   panelType: 0
+  hitType: 0
   hitDelay: 0.3
-  animator: {fileID: 0}
-  physicalBaseDamage: 50
+  animator: {fileID: 9100000, guid: ea6bf651b492e1f4d920b8127c3abb1b, type: 2}
+  particleSystem: []
+  isRanged: 0
+  projectilePrefab: {fileID: 0}
+  projectileSpeed: 15
+  attackWindow: 0.25
+  baseDamage: 50
+  hitLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  hitDetectionPrefab: {fileID: 0}
+  physicalBaseDamage: 0
   fireBaseDamage: 0
   iceBaseDamage: 0
-  electricityBaseDamage: 0
+  electricityBaseDamage: 50
   slashingBaseDamage: 0
-  piercingBaseDamage: 0
+  piercingBaseDamage: 50
   strengthScaling: 4
   dexterityScaling: 2
   intelligenceScaling: 5
@@ -41,10 +53,12 @@ MonoBehaviour:
   scalesWithIntelligence: 0
   scalesWithFaith: 1
   scalesWithArcane: 0
+  scalesWithDex: 1
+  scalesWithStrenght: 1
   strengthBonus: 0
   dexterityBonus: 10
   intelligenceBonus: 0
-  faithBonus: 0
+  faithBonus: 10
   arcaneBonus: 0
   defenseBonus: 0
   speedBonus: 0

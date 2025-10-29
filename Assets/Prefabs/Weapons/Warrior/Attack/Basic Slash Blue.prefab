@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 143779303158445915}
   - component: {fileID: 5729379207388846900}
   - component: {fileID: 6959914774300640250}
-  - component: {fileID: 2775917191403395915}
   m_Layer: 0
   m_Name: Shockwave
   m_TagString: Untagged
@@ -4889,27 +4888,6 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!135 &2775917191403395915
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1818488343670424439}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 2.38
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3837305093315562307
 GameObject:
   m_ObjectHideFlags: 0
@@ -14712,8 +14690,8 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 3.287656
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 2.23
+  m_Center: {x: 0, y: 0.000072956085, z: 0}
 --- !u!54 &3529192765634862911
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -14754,7 +14732,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0.5
-  lifeTime: 2
+  lifeTime: 1
 --- !u!114 &-221950536827109307
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14767,7 +14745,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c265fcfddaba07b41ba223524d6f3974, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  returnDelay: 2
+  returnDelay: 1
 --- !u!1 &8373613166400002822
 GameObject:
   m_ObjectHideFlags: 0
@@ -14779,7 +14757,6 @@ GameObject:
   - component: {fileID: 7575075834177399963}
   - component: {fileID: 7981800728490180044}
   - component: {fileID: 5246517689844900732}
-  - component: {fileID: 5291372546194993830}
   m_Layer: 0
   m_Name: Shockwave 2
   m_TagString: Untagged
@@ -19657,24 +19634,3 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!135 &5291372546194993830
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8373613166400002822}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 2.77
-  m_Center: {x: 0, y: 0, z: 0}

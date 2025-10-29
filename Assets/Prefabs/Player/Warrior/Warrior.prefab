@@ -1333,10 +1333,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62db3828c36e7cd419c281eaff80dd86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHp: 1
-  currentHp: 1
+  maxHp: 100
+  currentHp: 100
   fullHpOnAwake: 1
-  death: 0
+  death: 5
 --- !u!114 &5639985677662380651
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1350,7 +1350,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   p_data: {fileID: 11400000, guid: e1c6311a5c7ec6f4fbe68d6766b8e65e, type: 2}
-  weapon: {fileID: 11400000, guid: 28197a96ff12a554fb1916a24671cb0e, type: 2}
+  weapon: {fileID: 11400000, guid: 19b7931afca569745b4030fc6fdafdf9, type: 2}
   p_stats: {fileID: 4038690714759056641}
   weaponInstance: {fileID: 0}
   currentVelocity: {x: 0, y: 0, z: 0}
@@ -1374,7 +1374,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerClass: {fileID: 11400000, guid: e1c6311a5c7ec6f4fbe68d6766b8e65e, type: 2}
-  currentWeapon: {fileID: 11400000, guid: 28197a96ff12a554fb1916a24671cb0e, type: 2}
+  currentWeapon: {fileID: 11400000, guid: 19b7931afca569745b4030fc6fdafdf9, type: 2}
   currentArmor: {fileID: 11400000, guid: ce62bea9a60f38a48ace46f3d6648e44, type: 2}
   hand: {fileID: 9177872514103173886}
   buffHealth: 0
@@ -1453,7 +1453,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f18d55b67610bc40b28721956a315ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: 28197a96ff12a554fb1916a24671cb0e, type: 2}
+  data: {fileID: 11400000, guid: 19b7931afca569745b4030fc6fdafdf9, type: 2}
 --- !u!1 &5191853845579050268
 GameObject:
   m_ObjectHideFlags: 0
