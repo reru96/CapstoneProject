@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clips:
   - key: StartMenuMusic
-    clip: {fileID: 8300000, guid: 90c2c78951ad8cf45b591422ed0bfa70, type: 3}
+    clip: {fileID: 8300000, guid: 63e35f5a447aa9546a3497d5d3a6f74a, type: 3}
   - key: Level1Music
     clip: {fileID: 8300000, guid: ce9706b89a6ab2f498423fd2fa61059c, type: 3}
   - key: Torch
