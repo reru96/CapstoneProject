@@ -7,6 +7,9 @@ public class SOPlayerClass: ScriptableObject
 {
  
     public string className;
+   
+
+    public ClassType classType;
     [TextArea(3, 5)]
     public string description;
 
@@ -38,3 +41,5 @@ public class SOPlayerClass: ScriptableObject
     public float rotationSpeedDuringAttack = 0.2f;
 
 }
+[System.Serializable]
+ public enum ClassType { Warrior, Archer, Mage}

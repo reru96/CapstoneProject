@@ -18,15 +18,19 @@ MonoBehaviour:
   currentHP: 100
   enemyPrefab: {fileID: 1830648231862840522, guid: 4c67e4e852930584a8f19e404cb079f4,
     type: 3}
+  expDrop: 100
+  coinReward: 0
   physicalDefense: 40
   fireDefense: 20
   magicDefense: 25
   lightningDefense: 15
-  holyDefense: 30
-  isBackstabbed: 0
-  isParried: 0
-  enemyState: {fileID: 3384972753145021838, guid: 4c67e4e852930584a8f19e404cb079f4,
-    type: 3}
-  damagePopUp: {fileID: 0}
+  piercingDefense: 30
+  slashingDefense: 30
   damagePopUpPrefab: {fileID: 3705150944341254709, guid: f5fa3463b2dd27448a36388eec004e06,
     type: 3}
+  basePhysicalDamage: 10
+  baseFireDamage: 0
+  baseIceDamage: 0
+  baseLightningDamage: 0
+  basePiercingDamage: 0
+  baseSlashingDamage: 0

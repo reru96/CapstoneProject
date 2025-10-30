@@ -9,7 +9,7 @@ public class BossApproachingState : BossBaseState
     public override void Enter()
     {
         boss.agent.speed = boss.chasingSpeed;
-        boss.agent.stoppingDistance = 3f;
+        boss.agent.stoppingDistance = 1f;
         boss.agent.SetDestination(boss.targetPlayer.position);
         PlayAnim("Run");
     }

@@ -47,7 +47,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 787d3c7abcbd28e43a790426be253a37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chestData: {fileID: 11400000, guid: 10c7f37d8a9f3b04fa4ce8b503f2f374, type: 2}
+  classChestData:
+  - {fileID: 11400000, guid: 10c7f37d8a9f3b04fa4ce8b503f2f374, type: 2}
+  - {fileID: 11400000, guid: 831ec28a743e3204ebec603c65aaa964, type: 2}
   uiManager: {fileID: 5981429064697049103, guid: 5418c5e17c4122940b3f6cfb2f7e08fb,
     type: 3}
   top: {fileID: 3495986025644869002}

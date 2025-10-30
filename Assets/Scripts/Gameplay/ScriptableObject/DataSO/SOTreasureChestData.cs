@@ -7,10 +7,10 @@ using Gameplay;
 [CreateAssetMenu(fileName = "TreasureChest", menuName = "Treasure/TreasureChestData")]
 public class SOTreasureChestData : ScriptableObject
 {
-    [Header("Configurazione")]
     public List<SORunItem> allItems;
     public int MaxLevel = 5;
     public int NumberOfChoices = 3;
+    public ClassType classType;
 
     public List<SORunItem> GetRandomItems()
     {

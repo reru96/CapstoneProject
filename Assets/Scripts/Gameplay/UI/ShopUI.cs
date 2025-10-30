@@ -10,46 +10,59 @@ using UnityEngine.UI;
 
 public class ShopUI : MonoBehaviour
 {
+    [Header("UI References")]
     public CanvasGroup canvasGroup;
-    public SOShopItem[] items;           
-    public Button[] buttons;             
-    public TextMeshProUGUI[] labels;     
+    public SOShopItem[] items;
+    public Button[] buttons;
+    public TextMeshProUGUI[] labels;
     public TextMeshProUGUI[] priceLabels;
-    public Image[] icons;                
-
+    public Image[] icons;
     public TextMeshProUGUI coinsText;
 
     private PermanentInventory inventory;
     private PlayerStats playerStats;
-    private GameManager gameManager;
     private Coroutine[] messageCoroutines;
+
+    private InventoryManager inventoryManager;
 
     private void OnEnable()
     {
         Hide();
-        if (gameManager == null)
-            gameManager = ServiceLocator.Get<GameManager>();
 
+        inventoryManager = ServiceLocator.Get<InventoryManager>();
+        if (inventoryManager == null)
+        {
+            Debug.LogError("[ShopUI] InventoryManager non trovato!");
+            return;
+        }
+
+        inventory = inventoryManager.permanentInventory;
+
+        inventoryManager.OnInventoryChanged += RefreshShop;
         CoinManager.Instance.OnCoinsChanged += UpdateCoinsUI;
+
         UpdateCoinsUI(CoinManager.Instance.GetCoins());
+        InitializeShop();
     }
 
     private void OnDisable()
     {
-        CoinManager.Instance.OnCoinsChanged -= UpdateCoinsUI;
+        if (inventoryManager != null)
+            inventoryManager.OnInventoryChanged -= RefreshShop;
+
+        if (CoinManager.Instance != null)
+            CoinManager.Instance.OnCoinsChanged -= UpdateCoinsUI;
     }
 
-    public void Initialize(PermanentInventory inv, PlayerStats stats)
+    private void InitializeShop()
     {
-        inventory = inv;
-        playerStats = stats;
-
         int count = Mathf.Min(items.Length, buttons.Length);
         messageCoroutines = new Coroutine[count];
 
         for (int i = 0; i < count; i++)
         {
             int index = i;
+
             if (buttons[i] != null)
             {
                 buttons[i].onClick.RemoveAllListeners();
@@ -59,15 +72,14 @@ public class ShopUI : MonoBehaviour
             if (icons[i] != null && items[i] != null && items[i].icon != null)
                 icons[i].sprite = items[i].icon;
 
-            UpdateButtonState(i);
+            UpdateButtonState(index);
         }
-
-        UpdateCoinsUI(CoinManager.Instance.GetCoins());
     }
 
     private void OnBuyItem(int index)
     {
         var item = items[index];
+        if (item == null || inventory == null) return;
 
         if (inventory.unlockedUpgrades.Contains(item))
         {
@@ -82,7 +94,8 @@ public class ShopUI : MonoBehaviour
         }
 
         inventory.UnlockUpgrade(item);
-        ServiceLocator.Get<InventoryManager>().SavePermanentInventory();
+        inventoryManager.SavePermanentInventory();
+
         item.Apply(playerStats);
 
         SetSoldState(index);
@@ -131,29 +144,37 @@ public class ShopUI : MonoBehaviour
         messageCoroutines[index] = null;
     }
 
+    private void RefreshShop()
+    {
+        for (int i = 0; i < items.Length; i++)
+            UpdateButtonState(i);
+    }
+
     private void UpdateCoinsUI(int amount)
     {
         if (coinsText != null)
             coinsText.text = $"Coins: {amount}";
     }
 
-    public void Hide()
-    {
-        if(canvasGroup != null)
-        {
-            canvasGroup.alpha = 0f;
-            canvasGroup.blocksRaycasts = false;
-            canvasGroup.interactable = false;
-        }
-    }
-
     public void Show()
     {
-        if(canvasGroup != null)
-        {
-            canvasGroup.alpha = 1f;
-            canvasGroup.blocksRaycasts = true;
-            canvasGroup.interactable = true;
-        }
+        if (canvasGroup == null) return;
+        canvasGroup.alpha = 1f;
+        canvasGroup.blocksRaycasts = true;
+        canvasGroup.interactable = true;
+        UpdateCoinsUI(CoinManager.Instance.GetCoins());
+    }
+
+    public void Hide()
+    {
+        if (canvasGroup == null) return;
+        canvasGroup.alpha = 0f;
+        canvasGroup.blocksRaycasts = false;
+        canvasGroup.interactable = false;
+    }
+
+    public void SetPlayerStats(PlayerStats stats)
+    {
+        playerStats = stats;
     }
 }

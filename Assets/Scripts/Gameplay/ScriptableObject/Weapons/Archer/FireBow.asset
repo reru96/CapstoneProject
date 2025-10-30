@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: FireBow
   m_EditorClassIdentifier: 
   itemName: 
-  description: 
-  itemType: 0
+  description: '+ 50 '
+  itemType: 2
   icon: {fileID: 0}
   level: 0
   prefab: {fileID: 2121025029592088486, guid: b38c0a1a4c25f0441913a9de3b647317, type: 3}
@@ -54,13 +54,13 @@ MonoBehaviour:
   arcaneScaling: 5
   scalesWithIntelligence: 0
   scalesWithFaith: 0
-  scalesWithArcane: 0
+  scalesWithArcane: 1
   scalesWithDex: 0
-  scalesWithStrenght: 0
-  strengthBonus: 0
+  scalesWithStrenght: 1
+  strengthBonus: 10
   dexterityBonus: 0
   intelligenceBonus: 0
   faithBonus: 0
-  arcaneBonus: 0
+  arcaneBonus: 10
   defenseBonus: 0
   speedBonus: 0

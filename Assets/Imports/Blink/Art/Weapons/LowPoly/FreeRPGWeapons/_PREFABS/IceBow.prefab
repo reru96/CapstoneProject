@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2010966721360703333}
   m_Layer: 0
-  m_Name: Bow_Epic
+  m_Name: IceBow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

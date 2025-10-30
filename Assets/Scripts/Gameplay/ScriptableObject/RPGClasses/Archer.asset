@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Archer
   m_EditorClassIdentifier: 
   className: Archer
+  classType: 1
   description: 
   previewImage: {fileID: 0}
   classColor: {r: 1, g: 1, b: 1, a: 1}
@@ -35,3 +36,5 @@ MonoBehaviour:
   baseArcane: 0
   abilityNames: []
   abilityIcons: []
+  attackMoveMultiplier: 0.25
+  rotationSpeedDuringAttack: 0.2

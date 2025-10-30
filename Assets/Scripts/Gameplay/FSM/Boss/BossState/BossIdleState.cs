@@ -3,7 +3,7 @@
 public class BossIdleState : BossBaseState
 {
     private float timer = 0f;
-    private float idleDuration = 2f;
+    private float idleDuration = 0.2f;
 
     public BossIdleState(BossStateMachine boss) : base(boss) {}
 

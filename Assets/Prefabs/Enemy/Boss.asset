@@ -29,8 +29,8 @@ MonoBehaviour:
   damagePopUpPrefab: {fileID: 8311443368703636777, guid: 63799abd5129c2e4ea2944785bf445e4,
     type: 3}
   basePhysicalDamage: 50
-  baseFireDamage: 50
-  baseIceDamage: 50
-  baseLightningDamage: 50
-  basePiercingDamage: 50
-  baseSlashingDamage: 50
+  baseFireDamage: 0
+  baseIceDamage: 0
+  baseLightningDamage: 0
+  basePiercingDamage: 0
+  baseSlashingDamage: 0

@@ -52,13 +52,12 @@ public class StatueShop : MonoBehaviour
             return;
 
         shopUI.Show();
-        shopUI.Initialize(inventoryManager.permanentInventory, playerStats);
 
         gameUI.HideActionPrompt();
         shopOpen = true;
     }
 
-    private void CloseShop()
+    public void CloseShop()
     {
         if (shopUI == null) return;
 

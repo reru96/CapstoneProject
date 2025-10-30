@@ -9,7 +9,7 @@ using TMPro;
 
 public class TreasurePickUp : MonoBehaviour
 {
-    public SOTreasureChestData chestData;
+    public List<SOTreasureChestData> classChestData; 
     public UITreasure uiManager;
     public GameObject top;
 
@@ -20,6 +20,7 @@ public class TreasurePickUp : MonoBehaviour
     {
         if (!playerInRange || chestOpened)
             return;
+
         var inputManager = ServiceLocator.Get<InputManager>();
         if (Input.GetKeyDown(inputManager.config.action))
         {
@@ -31,7 +32,7 @@ public class TreasurePickUp : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            playerInRange = true; 
+            playerInRange = true;
             var inputManager = ServiceLocator.Get<InputManager>();
             var gameUIManager = ServiceLocator.Get<GameUIManager>();
             gameUIManager?.ShowActionPrompt($"Press {inputManager.config.action} to open");
@@ -56,10 +57,22 @@ public class TreasurePickUp : MonoBehaviour
 
         if (top != null)
             top.transform.Rotate(-90f, 0, 0);
-        
+
         var gameUIManager = ServiceLocator.Get<GameUIManager>();
         gameUIManager?.HideActionPrompt();
-        var items = chestData.GetRandomItems(); 
+
+        var player = GameObject.FindGameObjectWithTag("Player");
+        var stateMachine = player?.GetComponent<PlayerStateMachine>();
+        ClassType playerClassType = stateMachine != null ? stateMachine.p_data.classType : ClassType.Warrior;
+
+
+        SOTreasureChestData chosenChest = classChestData.Find(chest => chest.classType == playerClassType);
+
+        if (chosenChest == null && classChestData.Count > 0)
+            chosenChest = classChestData[0];
+
+        var items = chosenChest != null ? chosenChest.GetRandomItems() : new List<SORunItem>();
+
         gameUIManager?.ShowTreasure(items);
         uiManager?.ShowChoices(items);
     }

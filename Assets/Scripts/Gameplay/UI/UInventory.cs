@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Core;
@@ -8,12 +9,13 @@ public class UInventory : MonoBehaviour
 {
     public InventoryPanel[] panels;
     public CanvasGroup inventoryCanvasGroup;
+
     private InventoryManager _inventoryManager;
 
     private void Start()
     {
         _inventoryManager = ServiceLocator.Get<InventoryManager>();
-        _inventoryManager.OnInventoryChanged += RefreshAllPanels; 
+        _inventoryManager.OnInventoryChanged += RefreshAllPanels;
         SetInventoryVisibility(false);
     }
 
@@ -35,45 +37,16 @@ public class UInventory : MonoBehaviour
     {
         foreach (var panel in panels)
         {
-            switch (panel.type)
-            {
-                case PanelType.Weapons:
-                    RefreshRunItemsPanel(panel, _inventoryManager.runInventory.items, skipBaseWeapon: true);
-                    break;
-                case PanelType.Consumables:
-                    RefreshRunItemsPanel(panel, _inventoryManager.runInventory.consumables);
-                    break;
-                case PanelType.Upgrades:
-                    RefreshPassivePanel(panel, _inventoryManager.permanentInventory.unlockedUpgrades);
-                    break;
-            }
+            RefreshUpgradePanel(panel, _inventoryManager.permanentInventory.unlockedUpgrades);
         }
     }
 
-    private void RefreshRunItemsPanel(InventoryPanel panel, List<SORunItem> items, bool skipBaseWeapon = false)
-    {
-        int startIndex = skipBaseWeapon ? 1 : 0; 
-
-        for (int i = startIndex; i < panel.slots.Length; i++)
-        {
-            int itemIndex = i; 
-        
-            if (skipBaseWeapon)
-                itemIndex = i; 
-
-            if (itemIndex < items.Count)
-                panel.slots[i].SetItem(items[itemIndex]);
-            else
-                panel.slots[i].Clear();
-        }
-    }
-
-    private void RefreshPassivePanel(InventoryPanel panel, List<SOShopItem> passives)
+    private void RefreshUpgradePanel(InventoryPanel panel, System.Collections.Generic.List<SOShopItem> upgrades)
     {
         for (int i = 0; i < panel.slots.Length; i++)
         {
-            if (i < passives.Count)
-                panel.slots[i].SetItem(passives[i]);
+            if (i < upgrades.Count)
+                panel.slots[i].SetItem(upgrades[i]);
             else
                 panel.slots[i].Clear();
         }

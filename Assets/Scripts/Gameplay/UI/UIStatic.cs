@@ -1,9 +1,10 @@
-﻿using TMPro;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using System.Collections.Generic;
 using Core;
 using Gameplay;
-using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class UIStatic : MonoBehaviour
 {
@@ -20,6 +21,13 @@ public class UIStatic : MonoBehaviour
     private PlayerStats playerStats;
     private GameManager gameManager;
 
+    public Button backToStartMenuButton;
+
+    public GameObject confirmationPrompt; 
+    public Button yesButton;
+    public Button noButton;
+    public TextMeshProUGUI promptText;
+
     private void Awake()
     {
         SetVisible(true);
@@ -27,6 +35,17 @@ public class UIStatic : MonoBehaviour
 
         if (gameManager != null)
             CoinManager.Instance.OnCoinsChanged += UpdateCurrency;
+
+        if (backToStartMenuButton != null)
+            backToStartMenuButton.onClick.AddListener(ShowConfirmationPrompt);
+
+        if (yesButton != null)
+            yesButton.onClick.AddListener(ConfirmReturnToStartMenu);
+        if (noButton != null)
+            noButton.onClick.AddListener(HideConfirmationPrompt);
+
+        if (confirmationPrompt != null)
+            confirmationPrompt.SetActive(false);
     }
 
     public void Initialize(LifeController life, ManaController mana, StaminaController stamina, PlayerStats stats)
@@ -54,6 +73,13 @@ public class UIStatic : MonoBehaviour
 
     private void OnDisable()
     {
+        if (backToStartMenuButton != null)
+            backToStartMenuButton.onClick.RemoveListener(ShowConfirmationPrompt);
+        if (yesButton != null)
+            yesButton.onClick.RemoveListener(ConfirmReturnToStartMenu);
+        if (noButton != null)
+            noButton.onClick.RemoveListener(HideConfirmationPrompt);
+
         if (playerStats != null)
             playerStats.ExpChanged -= UpdateExp;
 
@@ -126,6 +152,27 @@ public class UIStatic : MonoBehaviour
             cg.interactable = visible;
             cg.blocksRaycasts = visible;
         }
+    }
+
+    private void ShowConfirmationPrompt()
+    {
+        if (confirmationPrompt != null)
+        {
+            promptText.text = "Do you want to return to the Start Menu?";
+            confirmationPrompt.SetActive(true);
+        }
+    }
+
+    private void HideConfirmationPrompt()
+    {
+        if (confirmationPrompt != null)
+            confirmationPrompt.SetActive(false);
+    }
+
+    private void ConfirmReturnToStartMenu()
+    {
+        GameController.Instance?.SaveGame();
+        SceneManager.LoadScene("StartMenu");
     }
 }
 
