@@ -2,19 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BossMiddleRangeState : BossBaseState
+public class BossMeleeState : BossBaseState
 {
-    private float attackRange = 1f;
     private bool isAttacking = false;
+    private float attackRange = 1.5f;
+    private float attackRecovery = 1.2f;
 
-    public BossMiddleRangeState(BossStateMachine boss) : base(boss) { }
+    public BossMeleeState(BossStateMachine boss) : base(boss)
+    {
+    }
 
     public override void Enter()
     {
         isAttacking = true;
-        boss.agent.isStopped = true;   
+        boss.agent.isStopped = true;
         boss.transform.LookAt(boss.targetPlayer.position);
-        PlayAnim("MiddleRange");
+        PlayAnim("Attack");
 
         TryDealDamage();
 
@@ -29,32 +32,25 @@ public class BossMiddleRangeState : BossBaseState
 
     public override void Tick()
     {
-        if (boss.targetPlayer == null) return;
+        if (boss.targetPlayer == null)
+        {
+            boss.SwitchState(new BossIdleState(boss));
+            return;
+        }
 
         float distance = DistanceToPlayer();
-        boss.transform.LookAt(boss.targetPlayer.position);
 
-        if (distance > 6f)
+        if (!isAttacking && distance > attackRange + 0.5f)
         {
             boss.SwitchState(new BossApproachingState(boss));
-            return;
         }
-
-        if (distance <= 2f)
-        {
-            boss.SwitchState(new BossRangeState(boss));
-            return;
-        }
-
-        if (!isAttacking)
-            boss.agent.SetDestination(boss.targetPlayer.position);
     }
 
     private System.Collections.IEnumerator EndAttack()
     {
-        yield return new WaitForSeconds(0.8f); 
-        boss.agent.isStopped = false;
+        yield return new WaitForSeconds(attackRecovery);
         isAttacking = false;
+        boss.SwitchState(new BossApproachingState(boss));
     }
 
     private void TryDealDamage()
@@ -62,7 +58,7 @@ public class BossMiddleRangeState : BossBaseState
         if (boss.targetPlayer == null) return;
 
         float distance = DistanceToPlayer();
-        if (distance <= attackRange + 0.5f)
+        if (distance <= attackRange)
         {
             var life = boss.targetPlayer.GetComponent<LifeController>();
             if (life != null)
@@ -73,7 +69,7 @@ public class BossMiddleRangeState : BossBaseState
 
             if (boss.hitEffectPrefab != null)
             {
-                Object.Instantiate(boss.hitEffectPrefab, boss.targetPlayer.position + Vector3.up * 1f, Quaternion.identity);
+                Object.Instantiate(boss.hitEffectPrefab, boss.targetPlayer.position + Vector3.up, Quaternion.identity);
             }
         }
     }

@@ -556,7 +556,8 @@ MonoBehaviour:
   alertDuration: 5
   alertTimer: 0
   life: {fileID: 3661999976145996474}
-  projectilePrefab: {fileID: 0}
+  projectilePrefab: {fileID: 3671129203654801915, guid: f542d863a60bfb944bd91a2755b44471,
+    type: 3}
 --- !u!114 &3661999976145996474
 MonoBehaviour:
   m_ObjectHideFlags: 0

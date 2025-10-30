@@ -8,22 +8,31 @@ public class BossApproachingState : BossBaseState
 
     public override void Enter()
     {
+        boss.agent.isStopped = false;
         boss.agent.speed = boss.chasingSpeed;
         boss.agent.stoppingDistance = 1f;
-        boss.agent.SetDestination(boss.targetPlayer.position);
         PlayAnim("Run");
     }
 
-    public override void Exit() { }
+    public override void Exit()
+    {
+        boss.agent.isStopped = true;
+    }
 
     public override void Tick()
     {
-        if (boss.targetPlayer == null) return;
+        if (boss.targetPlayer == null)
+        {
+            boss.SwitchState(new BossIdleState(boss));
+            return;
+        }
 
         boss.agent.SetDestination(boss.targetPlayer.position);
 
         float distance = DistanceToPlayer();
-        if (distance <= 4f)
-            boss.SwitchState(new BossMiddleRangeState(boss));
+        if (distance <= boss.agent.stoppingDistance + 0.1f)
+        {
+            boss.SwitchState(new BossMeleeState(boss));
+        }
     }
 }
