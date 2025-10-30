@@ -26,7 +26,7 @@ public class UIStatic : MonoBehaviour
         ServiceLocator.TryGet(out gameManager);
 
         if (gameManager != null)
-            GameManager.OnCoinsChanged += UpdateCurrency;
+            CoinManager.Instance.OnCoinsChanged += UpdateCurrency;
     }
 
     public void Initialize(LifeController life, ManaController mana, StaminaController stamina, PlayerStats stats)
@@ -49,7 +49,7 @@ public class UIStatic : MonoBehaviour
         UpdateBars();
         UpdateExp(playerStats?.exp ?? 0);
         if (gameManager != null)
-            UpdateCurrency(gameManager.Coins);
+            UpdateCurrency(CoinManager.Instance.GetCoins());
     }
 
     private void OnDisable()
@@ -58,7 +58,7 @@ public class UIStatic : MonoBehaviour
             playerStats.ExpChanged -= UpdateExp;
 
         if (gameManager != null)
-            GameManager.OnCoinsChanged -= UpdateCurrency;
+            CoinManager.Instance.OnCoinsChanged -= UpdateCurrency;
     }
 
     private void Update()

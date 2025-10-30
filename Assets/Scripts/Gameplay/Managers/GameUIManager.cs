@@ -61,8 +61,7 @@ public class GameUIManager : Injectable<GameUIManager>
         if (playerStats != null)
             staticUI?.UpdateExp(playerStats.exp);
 
-        if (ServiceLocator.TryGet<GameManager>(out var gameManager))
-            staticUI?.UpdateCurrency(gameManager.Coins);
+            staticUI?.UpdateCurrency(CoinManager.Instance.GetCoins());
 
         UpdateWeaponUI();
     }

@@ -49,23 +49,37 @@ namespace Gameplay
 
         public void SavePermanentInventory()
         {
-            var gameManager = ServiceLocator.Get<GameManager>();
-            int coins = gameManager != null ? gameManager.Coins : 0;
+            SaveData data = SaveSystem.Load(); 
+            data.unlockedUpgrades = permanentInventory.unlockedUpgrades.ConvertAll(u => u.name);
+            data.equippedUpgrades = permanentInventory.equippedUpgrades.ConvertAll(e => e.name);
 
-            SaveSystem.SavePermanentInventory(permanentInventory, coins);
+            SaveSystem.Save(data);
+            Debug.Log("[InventoryManager] PermanentInventory salvato!");
         }
 
         public void LoadPermanentInventory()
         {
-            int loadedCoins = SaveSystem.LoadPermanentInventory(permanentInventory, allShopItems);
+            SaveData data = SaveSystem.Load();
 
-            var gameManager = ServiceLocator.Get<GameManager>();
-            if (gameManager != null)
+            permanentInventory.unlockedUpgrades.Clear();
+            permanentInventory.equippedUpgrades.Clear();
+
+            foreach (var name in data.unlockedUpgrades)
             {
-                gameManager.SetCoins(loadedCoins);
+                SOShopItem item = allShopItems.Find(i => i.name == name);
+                if (item != null)
+                    permanentInventory.unlockedUpgrades.Add(item);
+            }
+
+            foreach (var name in data.equippedUpgrades)
+            {
+                SOShopItem item = allShopItems.Find(i => i.name == name);
+                if (item != null)
+                    permanentInventory.equippedUpgrades.Add(item);
             }
 
             OnInventoryChanged?.Invoke();
+            Debug.Log("[InventoryManager] PermanentInventory caricato!");
         }
 
         public void ApplyEquippedUpgrades(PlayerStats stats)

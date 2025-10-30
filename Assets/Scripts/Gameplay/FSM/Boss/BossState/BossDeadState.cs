@@ -13,8 +13,7 @@ public class BossDeadState : BossBaseState
         boss.agent.isStopped = true;
         var col = boss.GetComponent<Collider>();
         if (col != null) col.enabled = false;
-        var gameManager = ServiceLocator.Get<GameManager>();
-        gameManager.AddCoins(boss.enemyData.coinReward);
+        CoinManager.Instance.AddCoins(boss.enemyData.coinReward);
 
         PlayAnim("Die");
 

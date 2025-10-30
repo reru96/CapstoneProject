@@ -13,21 +13,12 @@ namespace Gameplay
         [SerializeField] private CanvasGroup screenFader;
         [SerializeField] private float fadeDuration = 1f;
 
-        public int Coins { get; private set; } = 0;
-
-        public static event Action<int> OnCoinsChanged;
         public static event Action<string> OnSceneLoaded;
 
         protected override void Awake()
         {
             base.Awake();
             DontDestroyOnLoad(gameObject);
-
-            if (FindObjectsOfType<GameManager>().Length > 1)
-            {
-                Destroy(gameObject);
-                return;
-            }
 
             if (screenFader == null)
             {
@@ -53,33 +44,6 @@ namespace Gameplay
         {
             FadeIn();
             OnSceneLoaded?.Invoke(scene.name);
-        }
-
-        public void AddCoins(int amount)
-        {
-            Coins += amount;
-            OnCoinsChanged?.Invoke(Coins);
-            Debug.Log($"[GameManager] Coins: {Coins}");
-        }
-
-        public bool SpendCoins(int amount)
-        {
-            if (Coins < amount)
-            {
-                Debug.LogWarning("[GameManager] Non abbastanza coins!");
-                return false;
-            }
-
-            Coins -= amount;
-            OnCoinsChanged?.Invoke(Coins);
-            return true;
-        }
-
-        public void SetCoins(int amount)
-        {
-            Coins = amount;
-            OnCoinsChanged?.Invoke(Coins);
-            Debug.Log("[GameManager] Coins resettati");
         }
 
         public void LoadScene(string sceneName)
@@ -118,15 +82,7 @@ namespace Gameplay
 
             yield return screenFader.DOFade(1f, fadeDuration).WaitForCompletion();
         }
-        private void OnApplicationQuit()
-        {
-            var inventoryManager = ServiceLocator.Get<InventoryManager>();
-            if (inventoryManager != null)
-            {
-                SaveSystem.SavePermanentInventory(inventoryManager.permanentInventory, Coins);
-                Debug.Log($"[GameManager] Dati salvati con {Coins} coins.");
-            }
-        }
+       
 
     }
 }

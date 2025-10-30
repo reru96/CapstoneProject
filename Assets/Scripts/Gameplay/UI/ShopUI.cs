@@ -30,20 +30,19 @@ public class ShopUI : MonoBehaviour
         if (gameManager == null)
             gameManager = ServiceLocator.Get<GameManager>();
 
-        GameManager.OnCoinsChanged += UpdateCoinsUI;
-        UpdateCoinsUI(gameManager.Coins);
+        CoinManager.Instance.OnCoinsChanged += UpdateCoinsUI;
+        UpdateCoinsUI(CoinManager.Instance.GetCoins());
     }
 
     private void OnDisable()
     {
-        GameManager.OnCoinsChanged -= UpdateCoinsUI;
+        CoinManager.Instance.OnCoinsChanged -= UpdateCoinsUI;
     }
 
     public void Initialize(PermanentInventory inv, PlayerStats stats)
     {
         inventory = inv;
         playerStats = stats;
-        gameManager = ServiceLocator.Get<GameManager>();
 
         int count = Mathf.Min(items.Length, buttons.Length);
         messageCoroutines = new Coroutine[count];
@@ -63,7 +62,7 @@ public class ShopUI : MonoBehaviour
             UpdateButtonState(i);
         }
 
-        UpdateCoinsUI(gameManager.Coins);
+        UpdateCoinsUI(CoinManager.Instance.GetCoins());
     }
 
     private void OnBuyItem(int index)
@@ -76,7 +75,7 @@ public class ShopUI : MonoBehaviour
             return;
         }
 
-        if (!gameManager.SpendCoins(item.cost))
+        if (!CoinManager.Instance.SpendCoins(item.cost))
         {
             ShowMessage(index, "Not enough coins");
             return;
@@ -87,7 +86,7 @@ public class ShopUI : MonoBehaviour
         item.Apply(playerStats);
 
         SetSoldState(index);
-        UpdateCoinsUI(gameManager.Coins);
+        UpdateCoinsUI(CoinManager.Instance.GetCoins());
     }
 
     private void UpdateButtonState(int index)

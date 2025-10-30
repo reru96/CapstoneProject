@@ -6,52 +6,37 @@ using UnityEngine;
 
 public static class SaveSystem
 {
+    private static string savePath = Application.persistentDataPath + "/save.json";
 
-    private static string path = Application.persistentDataPath + "/saveData.json";
-
-    public static void SavePermanentInventory(PermanentInventory inventory, int coins)
+    public static void Save(SaveData data)
     {
-        SaveData data = new SaveData
-        {
-            unlockedUpgrades = inventory.unlockedUpgrades.ConvertAll(u => u.name),
-            equippedUpgrades = inventory.equippedUpgrades.ConvertAll(e => e.name),
-            coin = coins
-        };
-
         string json = JsonUtility.ToJson(data, true);
-        File.WriteAllText(path, json);
-        Debug.Log($"[SaveSystem] Salvataggio completato. Coins: {coins}");
+        File.WriteAllText(savePath, json);
+        Debug.Log("[SaveSystem] Salvataggio completato!");
     }
 
-    public static int LoadPermanentInventory(PermanentInventory inventory, List<SOShopItem> allItems)
+    public static SaveData Load()
     {
-        if (!File.Exists(path))
+        if (File.Exists(savePath))
         {
-            Debug.Log("Nessun salvataggio trovato, nuovo inventario creato.");
-            return 0;
+            string json = File.ReadAllText(savePath);
+            SaveData data = JsonUtility.FromJson<SaveData>(json);
+            Debug.Log("[SaveSystem] Salvataggio caricato!");
+            return data;
         }
-
-        string json = File.ReadAllText(path);
-        SaveData data = JsonUtility.FromJson<SaveData>(json);
-
-        inventory.unlockedUpgrades.Clear();
-        inventory.equippedUpgrades.Clear();
-
-        foreach (var itemName in data.unlockedUpgrades)
+        else
         {
-            SOShopItem item = allItems.Find(i => i.name == itemName);
-            if (item != null)
-                inventory.unlockedUpgrades.Add(item);
+            Debug.Log("[SaveSystem] Nessun salvataggio trovato, creando nuovo SaveData.");
+            return new SaveData(); 
         }
+    }
 
-        foreach (var itemName in data.equippedUpgrades)
+    public static void DeleteSave()
+    {
+        if (File.Exists(savePath))
         {
-            SOShopItem item = allItems.Find(i => i.name == itemName);
-            if (item != null)
-                inventory.equippedUpgrades.Add(item);
+            File.Delete(savePath);
+            Debug.Log("[SaveSystem] Salvataggio eliminato.");
         }
-
-        Debug.Log($"[SaveSystem] Caricamento completato. Coins: {data.coin}");
-        return data.coin;
     }
 }

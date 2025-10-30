@@ -7,5 +7,5 @@ public class SaveData
 {
     public List<string> unlockedUpgrades = new();
     public List<string> equippedUpgrades = new();
-    public int coin = 0;
+    public int coins = 0;
 }

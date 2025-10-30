@@ -12,59 +12,61 @@ public class StartMenu : MonoBehaviour
     public GameObject settingsMenu;
     public GameObject VolumePanel;
     public GameObject InputPanel; 
-    private SaveData lastSave;
 
     private void Start()
     {
-        settingsMenu.SetActive(false); 
+        settingsMenu.SetActive(false);
+
         var inventory = ServiceLocator.Get<InventoryManager>()?.permanentInventory;
         if (inventory != null)
         {
-            SaveSystem.LoadPermanentInventory(inventory, ServiceLocator.Get<InventoryManager>().allShopItems);
+            ServiceLocator.Get<InventoryManager>().LoadPermanentInventory();
         }
 
- 
-        lastSave = new SaveData();
-        var gameManager = ServiceLocator.Get<GameManager>();
-        if (gameManager != null)
+        if (CoinManager.Instance != null)
         {
-            lastSave.coin = gameManager.Coins;
+            CoinManager.Instance.LoadCoins();
         }
     }
 
     public void NewGame()
     {
-        var inventory = ServiceLocator.Get<InventoryManager>()?.permanentInventory;
-        if (inventory != null)
+        var inventoryManager = ServiceLocator.Get<InventoryManager>();
+        if (inventoryManager != null)
         {
-            inventory.unlockedUpgrades.Clear();
-            inventory.equippedUpgrades.Clear();
+            inventoryManager.permanentInventory.unlockedUpgrades.Clear();
+            inventoryManager.permanentInventory.equippedUpgrades.Clear();
+            inventoryManager.SavePermanentInventory();
         }
 
-        var gameManager = ServiceLocator.Get<GameManager>();
-        if (gameManager != null)
+        if (CoinManager.Instance != null)
         {
-            gameManager.SetCoins(0);
+            CoinManager.Instance.SetCoins(0);
         }
 
         SaveData newSave = new SaveData
         {
-            coin = 0
+            coins = 0
         };
+        SaveSystem.Save(newSave);
 
-        SaveSystem.SavePermanentInventory(inventory, 0);
-
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene("ClassSelection");
     }
 
     public void ContinueGame()
     {
-        var inventory = ServiceLocator.Get<InventoryManager>()?.permanentInventory;
-        if (inventory != null)
+        var inventoryManager = ServiceLocator.Get<InventoryManager>();
+        if (inventoryManager != null)
         {
-            SaveSystem.LoadPermanentInventory(inventory, ServiceLocator.Get<InventoryManager>().allShopItems);
+            inventoryManager.LoadPermanentInventory();
         }
 
+        if (CoinManager.Instance != null)
+        {
+            CoinManager.Instance.LoadCoins();
+        }
+
+        SaveData data = SaveSystem.Load();
         SceneManager.LoadScene("ClassSelection");
     }
 
