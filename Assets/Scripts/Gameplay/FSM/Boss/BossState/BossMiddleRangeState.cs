@@ -17,7 +17,7 @@ public class BossMiddleRangeState : BossBaseState
         timer = 0f;
         boss.agent.isStopped = false;
         boss.agent.speed = boss.chasingSpeed * 0.75f; 
-        PlayAnim("Idle");
+        PlayAnim("Run");
     }
 
     public override void Exit()
