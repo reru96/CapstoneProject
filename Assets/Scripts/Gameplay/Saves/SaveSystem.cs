@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using System.IO;
+using Core;
+using Gameplay;
 using UnityEngine;
 
 public static class SaveSystem 
@@ -8,10 +10,14 @@ public static class SaveSystem
 
     public static void SavePermanentInventory(PermanentInventory inventory)
     {
+        var gameManager = ServiceLocator.Get<GameManager>();
+        int coins = gameManager != null ? gameManager.Coins : 0;
+
         SaveData data = new SaveData
         {
             unlockedUpgrades = inventory.unlockedUpgrades.ConvertAll(u => u.name),
-            equippedUpgrades = inventory.equippedUpgrades.ConvertAll(e => e.name)
+            equippedUpgrades = inventory.equippedUpgrades.ConvertAll(e => e.name),
+            coin = coins
         };
 
         string json = JsonUtility.ToJson(data, true);
@@ -45,5 +51,9 @@ public static class SaveSystem
             if (item != null)
                 inventory.equippedUpgrades.Add(item);
         }
+
+        var gameManager = ServiceLocator.Get<GameManager>();
+        if (gameManager != null)
+            gameManager.SetCoins(data.coin);
     }
 }

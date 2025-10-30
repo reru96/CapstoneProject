@@ -69,9 +69,9 @@ namespace Gameplay
             return true;
         }
 
-        public void ResetCoins()
+        public void SetCoins(int amount)
         {
-            Coins = 0;
+            Coins = amount;
             OnCoinsChanged?.Invoke(Coins);
             Debug.Log("[GameManager] Coins resettati");
         }
