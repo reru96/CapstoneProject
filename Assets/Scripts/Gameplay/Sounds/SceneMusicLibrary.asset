@@ -16,4 +16,8 @@ MonoBehaviour:
   - sceneName: StartMenu
     musicKey: StartMenuMusic
   - sceneName: Level1
-    musicKey: Level1Music
+    musicKey: Level1
+  - sceneName: ClassSelection
+    musicKey: ClassSelection
+  - sceneName: DungeonScene
+    musicKey: DungeonScene
