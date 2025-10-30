@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Ice Crusher
   m_EditorClassIdentifier: 
   itemName: Ice Crusher
-  description: '
+  description: 'Strenght: B Intelligence: B  50 physical Damage  50 Ice Damage
 
 '
   itemType: 2
@@ -30,7 +30,7 @@ MonoBehaviour:
   panelType: 0
   hitType: 0
   hitDelay: 0.3
-  animator: {fileID: 0}
+  animator: {fileID: 9100000, guid: 71dae9dae1f898943aa533be20d7404e, type: 2}
   particleSystem: []
   isRanged: 0
   projectilePrefab: {fileID: 0}

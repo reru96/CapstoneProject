@@ -5,7 +5,7 @@ using UnityEngine;
 public class BossMiddleRangeState : BossBaseState
 {
     private float attackCooldown = 2f;    
-    private float attackRange = 3f;       
+    private float attackRange = 1f;       
     private float attackWindup = 1f;    
     private float timer;
     private bool isAttacking = false;

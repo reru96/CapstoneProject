@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3384972753145021838}
   - component: {fileID: 4135535478696431797}
   - component: {fileID: 5837224802786794311}
+  - component: {fileID: 8438109373883349228}
   m_Layer: 7
   m_Name: Zombie
   m_TagString: Enemy
@@ -164,6 +165,19 @@ MonoBehaviour:
   currentHp: 100
   fullHpOnAwake: 1
   death: 7
+--- !u!114 &8438109373883349228
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1830648231862840522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c265fcfddaba07b41ba223524d6f3974, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  returnDelay: 100
 --- !u!1 &2753077597935359027
 GameObject:
   m_ObjectHideFlags: 0

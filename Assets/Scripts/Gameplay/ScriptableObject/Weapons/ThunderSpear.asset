@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: ThunderSpear
   m_EditorClassIdentifier: 
   itemName: Thunder Spear
-  description: 
+  description: 'Dexterity: B Faith: B  50 Piercing Damage 50 Lightning Damage
+
+'
   itemType: 2
   icon: {fileID: 21300000, guid: 1d9a3d8d881a8f247b37129770cfac2c, type: 3}
   level: 0

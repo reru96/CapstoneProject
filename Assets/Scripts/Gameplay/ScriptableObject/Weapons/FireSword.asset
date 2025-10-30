@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: FireSword
   m_EditorClassIdentifier: 
   itemName: LavaSword
-  description: 'Strenght: B Arcane:B  50 physical Damage 50 Slashing Damage 50 FireDamage
+  description: 'Strenght: B Arcane:B  50 Slashing Damage 50 FireDamage
 
 '
   itemType: 2
