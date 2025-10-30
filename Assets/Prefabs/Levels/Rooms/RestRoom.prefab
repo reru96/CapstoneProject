@@ -239,14 +239,19 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cauldron_Full
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6796805398523835098, guid: d6ade90f396755c42b43f8006323ec2c, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 1359375955376413434, guid: d6ade90f396755c42b43f8006323ec2c,
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 794464279604852639}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1359375955376506586, guid: d6ade90f396755c42b43f8006323ec2c,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3701744144385885704}
   m_SourcePrefab: {fileID: 100100000, guid: d6ade90f396755c42b43f8006323ec2c, type: 3}
 --- !u!4 &4293360344870634452 stripped
 Transform:
@@ -254,6 +259,33 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2974747701841254702}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &4293360344870739956 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1359375955376506586, guid: d6ade90f396755c42b43f8006323ec2c,
+    type: 3}
+  m_PrefabInstance: {fileID: 2974747701841254702}
+  m_PrefabAsset: {fileID: 0}
+--- !u!135 &3701744144385885704
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4293360344870739956}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 2.12
+  m_Center: {x: -0.0036780834, y: -0.040211767, z: 0.000000074505806}
 --- !u!1001 &9082249648788365061
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -4,15 +4,13 @@ using Core;
 using Gameplay;
 using UnityEngine;
 
-public static class SaveSystem 
+public static class SaveSystem
 {
+
     private static string path = Application.persistentDataPath + "/saveData.json";
 
-    public static void SavePermanentInventory(PermanentInventory inventory)
+    public static void SavePermanentInventory(PermanentInventory inventory, int coins)
     {
-        var gameManager = ServiceLocator.Get<GameManager>();
-        int coins = gameManager != null ? gameManager.Coins : 0;
-
         SaveData data = new SaveData
         {
             unlockedUpgrades = inventory.unlockedUpgrades.ConvertAll(u => u.name),
@@ -22,14 +20,15 @@ public static class SaveSystem
 
         string json = JsonUtility.ToJson(data, true);
         File.WriteAllText(path, json);
+        Debug.Log($"[SaveSystem] Salvataggio completato. Coins: {coins}");
     }
 
-    public static void LoadPermanentInventory(PermanentInventory inventory, List<SOShopItem> allItems)
+    public static int LoadPermanentInventory(PermanentInventory inventory, List<SOShopItem> allItems)
     {
         if (!File.Exists(path))
         {
             Debug.Log("Nessun salvataggio trovato, nuovo inventario creato.");
-            return;
+            return 0;
         }
 
         string json = File.ReadAllText(path);
@@ -52,8 +51,7 @@ public static class SaveSystem
                 inventory.equippedUpgrades.Add(item);
         }
 
-        var gameManager = ServiceLocator.Get<GameManager>();
-        if (gameManager != null)
-            gameManager.SetCoins(data.coin);
+        Debug.Log($"[SaveSystem] Caricamento completato. Coins: {data.coin}");
+        return data.coin;
     }
 }

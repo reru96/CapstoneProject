@@ -10,10 +10,17 @@ public class UInventory : MonoBehaviour
     public CanvasGroup inventoryCanvasGroup;
     private InventoryManager _inventoryManager;
 
-    private void Awake()
+    private void Start()
     {
         _inventoryManager = ServiceLocator.Get<InventoryManager>();
+        _inventoryManager.OnInventoryChanged += RefreshAllPanels; 
         SetInventoryVisibility(false);
+    }
+
+    private void OnDestroy()
+    {
+        if (_inventoryManager != null)
+            _inventoryManager.OnInventoryChanged -= RefreshAllPanels;
     }
 
     public void SetInventoryVisibility(bool visible)
@@ -37,7 +44,7 @@ public class UInventory : MonoBehaviour
                     RefreshRunItemsPanel(panel, _inventoryManager.runInventory.consumables);
                     break;
                 case PanelType.Upgrades:
-                    RefreshPassivePanel(panel, _inventoryManager.permanentInventory.equippedUpgrades);
+                    RefreshPassivePanel(panel, _inventoryManager.permanentInventory.unlockedUpgrades);
                     break;
             }
         }

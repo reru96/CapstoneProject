@@ -1995,7 +1995,7 @@ MonoBehaviour:
     - {fileID: 6163664399129863699}
     - {fileID: 6422912305886311197}
     type: 2
-  - panelName: Consumables
+  - panelName: UnEquip-Upgrades
     slots:
     - {fileID: 7199122280491449643}
     - {fileID: 5202808762621127018}
@@ -2007,7 +2007,7 @@ MonoBehaviour:
     - {fileID: 1512058264357099578}
     - {fileID: 7769890352305855530}
     - {fileID: 274792615879486496}
-    type: 1
+    type: 3
   inventoryCanvasGroup: {fileID: 5456982755012652117}
 --- !u!225 &5456982755012652117
 CanvasGroup:

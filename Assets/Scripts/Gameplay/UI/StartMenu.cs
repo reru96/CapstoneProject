@@ -52,7 +52,7 @@ public class StartMenu : MonoBehaviour
             coin = 0
         };
 
-        SaveSystem.SavePermanentInventory(inventory);
+        SaveSystem.SavePermanentInventory(inventory, 0);
 
         SceneManager.LoadScene(1);
     }

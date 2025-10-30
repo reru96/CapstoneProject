@@ -23,6 +23,12 @@ namespace Gameplay
             base.Awake();
             DontDestroyOnLoad(gameObject);
 
+            if (FindObjectsOfType<GameManager>().Length > 1)
+            {
+                Destroy(gameObject);
+                return;
+            }
+
             if (screenFader == null)
             {
                 GameObject faderObj = new GameObject("ScreenFader");
@@ -112,5 +118,15 @@ namespace Gameplay
 
             yield return screenFader.DOFade(1f, fadeDuration).WaitForCompletion();
         }
+        private void OnApplicationQuit()
+        {
+            var inventoryManager = ServiceLocator.Get<InventoryManager>();
+            if (inventoryManager != null)
+            {
+                SaveSystem.SavePermanentInventory(inventoryManager.permanentInventory, Coins);
+                Debug.Log($"[GameManager] Dati salvati con {Coins} coins.");
+            }
+        }
+
     }
 }

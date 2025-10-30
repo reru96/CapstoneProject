@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Core;
+using System;
 
 namespace Gameplay
 {
@@ -12,10 +13,11 @@ namespace Gameplay
 
         public List<SOShopItem> allShopItems;
 
+        public event Action OnInventoryChanged;
+
         protected override void Awake()
         {
             base.Awake();
-
             DontDestroyOnLoad(gameObject);
 
             if (runInventory == null)
@@ -27,14 +29,43 @@ namespace Gameplay
             LoadPermanentInventory();
         }
 
-        public void ResetRunInventory() => runInventory.ResetInventory();
+        public void ResetRunInventory()
+        {
+            runInventory.ResetInventory();
+            OnInventoryChanged?.Invoke();
+        }
 
-        public void SavePermanentInventory() =>
-            SaveSystem.SavePermanentInventory(permanentInventory);
+        public void EquipUpgrade(SOShopItem upgrade)
+        {
+            permanentInventory.EquipUpgrade(upgrade);
+            OnInventoryChanged?.Invoke();
+        }
+
+        public void UnequipUpgrade(SOShopItem upgrade)
+        {
+            permanentInventory.UnequipUpgrade(upgrade);
+            OnInventoryChanged?.Invoke();
+        }
+
+        public void SavePermanentInventory()
+        {
+            var gameManager = ServiceLocator.Get<GameManager>();
+            int coins = gameManager != null ? gameManager.Coins : 0;
+
+            SaveSystem.SavePermanentInventory(permanentInventory, coins);
+        }
 
         public void LoadPermanentInventory()
         {
-            SaveSystem.LoadPermanentInventory(permanentInventory, allShopItems);
+            int loadedCoins = SaveSystem.LoadPermanentInventory(permanentInventory, allShopItems);
+
+            var gameManager = ServiceLocator.Get<GameManager>();
+            if (gameManager != null)
+            {
+                gameManager.SetCoins(loadedCoins);
+            }
+
+            OnInventoryChanged?.Invoke();
         }
 
         public void ApplyEquippedUpgrades(PlayerStats stats)

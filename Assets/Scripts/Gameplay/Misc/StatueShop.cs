@@ -6,9 +6,7 @@ using UnityEngine;
 
 public class StatueShop : MonoBehaviour
 {
-    [Header("Shop Settings")]
-    [SerializeField] private string actionMessage;
-
+    private string actionMessage;
     private GameUIManager gameUI;
     [SerializeField]private ShopUI shopUI;
     private InputManager inputManager;
@@ -24,7 +22,7 @@ public class StatueShop : MonoBehaviour
         gameUI = ServiceLocator.Get<GameUIManager>();
         inputManager = ServiceLocator.Get<InputManager>();
         inventoryManager = ServiceLocator.Get<InventoryManager>();
-        shopUI = gameUI.GetComponentInChildren<ShopUI>();
+        shopUI = GetComponentInChildren<ShopUI>();
 
         var spawnManager = ServiceLocator.Get<PlayerSpawnManager>();
         if (spawnManager != null)
