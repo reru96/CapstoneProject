@@ -31,7 +31,7 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 766527c4a4a7e564f82cce76db412201, type: 3}
   - key: YouLose
     clip: {fileID: 8300000, guid: cc6dea63d488be2499ec6cd700cf1351, type: 3}
-  - key: YouWon
+  - key: YouWin
     clip: {fileID: 8300000, guid: c4d5ee383a0b88c428fc0ac997e1fbb3, type: 3}
   - key: ClassSelectionScene
     clip: {fileID: 8300000, guid: 766527c4a4a7e564f82cce76db412201, type: 3}

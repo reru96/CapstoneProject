@@ -3,6 +3,7 @@ using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
+using System.Collections;
 
 namespace Gameplay
 {
@@ -80,14 +81,13 @@ namespace Gameplay
             StartCoroutine(LoadSceneRoutine(sceneName));
         }
 
-        private System.Collections.IEnumerator LoadSceneRoutine(string sceneName)
+        private IEnumerator LoadSceneRoutine(string sceneName)
         {
             yield return FadeOut();
-
+            yield return new WaitForSeconds(0.1f);
             AsyncOperation op = SceneManager.LoadSceneAsync(sceneName);
             while (!op.isDone)
                 yield return null;
-
             FadeIn();
         }
         public void FadeIn()
@@ -102,7 +102,7 @@ namespace Gameplay
             });
         }
 
-        public System.Collections.IEnumerator FadeOut()
+        public IEnumerator FadeOut()
         {
             if (screenFader == null)
                 yield break;

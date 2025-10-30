@@ -17,17 +17,17 @@ MonoBehaviour:
   itemType: 2
   icon: {fileID: 21300000, guid: 1d9a3d8d881a8f247b37129770cfac2c, type: 3}
   level: 0
-  prefab: {fileID: 5474014686464707439, guid: 1a8eaaa38b934ed4dbe357ed598e1318, type: 3}
+  prefab: {fileID: 4863889794124601055, guid: 0718e32306e3bcd47a7bf8996bf1f3b0, type: 3}
   attackType:
   - {fileID: 5503505460791601945, guid: 74c549d1b06b6b140a1fd9536eea637f, type: 3}
   - {fileID: 3600389243222657682, guid: 3fee2e03e4bdc854bb38f7bcbca7c75d, type: 3}
   - {fileID: 1400255665468144947, guid: 6c21e7a6e514dd9499418cbbb66211cf, type: 3}
   swingSound:
   - 0
-  attackDuration: 0
+  attackDuration: 0.2
   panelType: 0
   hitType: 0
-  hitDelay: 0.3
+  hitDelay: 0.1
   animator: {fileID: 9100000, guid: ea6bf651b492e1f4d920b8127c3abb1b, type: 2}
   particleSystem: []
   isRanged: 0

@@ -24,7 +24,7 @@ public class StatueShop : MonoBehaviour
         gameUI = ServiceLocator.Get<GameUIManager>();
         inputManager = ServiceLocator.Get<InputManager>();
         inventoryManager = ServiceLocator.Get<InventoryManager>();
-        shopUI = gameUI.GetComponent<ShopUI>();
+        shopUI = gameUI.GetComponentInChildren<ShopUI>();
 
         var spawnManager = ServiceLocator.Get<PlayerSpawnManager>();
         if (spawnManager != null)

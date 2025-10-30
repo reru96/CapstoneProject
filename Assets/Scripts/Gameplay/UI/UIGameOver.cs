@@ -32,19 +32,26 @@ public class UIGameOver : MonoBehaviour
     }
 
     private void ShowLoseMenu()
-    {
-        Show(loseMenu);
+    {   
         var audioManager = ServiceLocator.Get<AudioManager>();
         audioManager.PlaySfx(deathMusic);
-        var gameManager = ServiceLocator.Get<GameManager>();
-        gameManager.LoadScene("Level1");
+        Show(loseMenu);
+        StartCoroutine(RestartLevel());
+
     }
+    private IEnumerator RestartLevel()
+    {
+        yield return new WaitForSeconds(1f); 
+        SceneManager.LoadScene("Level1");
+       
+    }
+
     private void ShowWinMenu()
     {
         Show(winMenu);
         var audioManager = ServiceLocator.Get<AudioManager>();
         audioManager.PlaySfx(winMusic);
-        
+        StartCoroutine(RestartLevel());
     }
 
     public void Show(CanvasGroup group)

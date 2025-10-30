@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6210190708990851087}
   m_Layer: 0
-  m_Name: Mace2h
+  m_Name: IceCrusher
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -150,9 +150,9 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.06
-  m_Height: 1.2689146
+  m_Height: 0.74
   m_Direction: 1
-  m_Center: {x: -0.000043973327, y: 0.37407845, z: 0.0000013150275}
+  m_Center: {x: -0.000043973327, y: 0.57, z: 0.0000013150275}
 --- !u!65 &7799942605933283353
 BoxCollider:
   m_ObjectHideFlags: 0
