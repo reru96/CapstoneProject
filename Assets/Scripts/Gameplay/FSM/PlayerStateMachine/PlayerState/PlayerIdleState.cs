@@ -1,10 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using Core;
 using Gameplay;
 using UnityEngine;
-using static Codice.Client.Commands.WkTree.WorkspaceTreeNode;
-using static Codice.Client.Common.WebApi.WebApiEndpoints;
+
 
 public class PlayerIdleState : PlayerBaseState
 {

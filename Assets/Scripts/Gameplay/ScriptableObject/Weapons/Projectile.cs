@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Core;
+using GamePlay;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour

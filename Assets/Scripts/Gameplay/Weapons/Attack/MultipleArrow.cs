@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using Core;
-using UnityEditor.EditorTools;
 using UnityEngine;
 
 public class MultipleArrow : Arrow

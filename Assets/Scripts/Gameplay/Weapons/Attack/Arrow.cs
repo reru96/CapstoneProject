@@ -1,7 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using Codice.CM.Common;
 using Core;
+using GamePlay;
 using UnityEngine;
 
 public class Arrow : Projectile

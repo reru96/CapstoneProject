@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using JetBrains.Annotations;
-using PlasticGui;
 using UnityEngine;
 
 public class PlayerDodgeState : PlayerBaseState
