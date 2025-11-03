@@ -5,6 +5,7 @@ public class PlayerDodgeState : PlayerBaseState
    
     private static readonly float animationEndThreshold = 0.95f; 
     private readonly int dodgeHash = Animator.StringToHash("Dodge");
+    Collider col;
 
     public PlayerDodgeState(PlayerStateMachine player) : base(player) { }
 
@@ -12,6 +13,9 @@ public class PlayerDodgeState : PlayerBaseState
     {
         player.isDodging = true;
         player.isInvincible = true;
+
+        col = player.GetComponentInChildren<Collider>();
+        col.enabled = false;
 
         player.animator.SetBool("isDodging", true);
         player.agent.velocity = Vector3.zero;
@@ -21,6 +25,7 @@ public class PlayerDodgeState : PlayerBaseState
     {
         HandleMovement();
 
+       
         AnimatorStateInfo stateInfo = player.animator.GetCurrentAnimatorStateInfo(0);
 
         if (stateInfo.shortNameHash == dodgeHash && stateInfo.normalizedTime >= animationEndThreshold)
@@ -71,7 +76,7 @@ public class PlayerDodgeState : PlayerBaseState
         player.isDodging = false;
         player.isInvincible = false;
         player.animator.SetBool("isDodging", false);
-
+        col.enabled = true;
     }
 }
 

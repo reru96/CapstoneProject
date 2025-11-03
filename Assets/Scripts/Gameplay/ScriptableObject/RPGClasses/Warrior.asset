@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Warrior
   m_EditorClassIdentifier: 
   className: Warrior
+  classType: 0
   description: 
   previewImage: {fileID: 0}
   classColor: {r: 1, g: 1, b: 1, a: 1}
@@ -28,12 +29,12 @@ MonoBehaviour:
   health: 100
   mana: 100
   stamina: 100
-  baseStrength: 1
-  baseDexterity: 1
-  baseIntelligence: 1
-  baseFaith: 1
-  baseArcane: 1
+  baseStrength: 10
+  baseDexterity: 5
+  baseIntelligence: 2
+  baseFaith: 5
+  baseArcane: 5
   abilityNames: []
   abilityIcons: []
-  attackMoveMultiplier: 0
-  rotationSpeedDuringAttack: 0
+  attackMoveMultiplier: 0.5
+  rotationSpeedDuringAttack: 0.1
