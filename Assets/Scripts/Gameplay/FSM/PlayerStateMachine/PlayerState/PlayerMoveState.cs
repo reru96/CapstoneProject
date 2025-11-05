@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using Core;
 using Gameplay;
-using JetBrains.Annotations;
 using UnityEngine;
 
 public class PlayerMoveState : PlayerBaseState
@@ -21,7 +18,7 @@ public class PlayerMoveState : PlayerBaseState
         var inputManager = ServiceLocator.Get<InputManager>();
         Vector3 input = GetMovementInput();
 
-        Vector3 targetVelocity = input.normalized * player.agent.speed;
+        Vector3 targetVelocity = input.normalized * player.p_data.moveSpeed;
 
         player.agent.velocity = Vector3.SmoothDamp(
             player.agent.velocity,
@@ -33,7 +30,7 @@ public class PlayerMoveState : PlayerBaseState
         if (input.sqrMagnitude > 0.01f)
         {
             Quaternion targetRotation = Quaternion.LookRotation(input.normalized, Vector3.up);
-            player.transform.rotation = Quaternion.Slerp(player.rb.rotation, targetRotation, Time.deltaTime * player.rotationSpeed);
+            player.transform.rotation = Quaternion.Slerp(player.transform.rotation, targetRotation, Time.deltaTime * player.p_data.rotSpeed);
         }
 
         player.animator.SetFloat("Speed", player.agent.velocity.magnitude);

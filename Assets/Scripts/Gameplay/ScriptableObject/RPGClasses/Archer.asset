@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: Archer
   m_EditorClassIdentifier: 
   className: Archer
+  moveSpeed: 5
+  rotSpeed: 25
+  dodgeSpeed: 10
   classType: 1
   description: 
   previewImage: {fileID: 0}
@@ -29,12 +32,12 @@ MonoBehaviour:
   health: 100
   mana: 100
   stamina: 100
-  baseStrength: 0
-  baseDexterity: 0
-  baseIntelligence: 0
-  baseFaith: 0
-  baseArcane: 0
+  baseStrength: 10
+  baseDexterity: 10
+  baseIntelligence: 2
+  baseFaith: 2
+  baseArcane: 2
   abilityNames: []
   abilityIcons: []
-  attackMoveMultiplier: 0.25
-  rotationSpeedDuringAttack: 0.2
+  attackMoveMultiplier: 0
+  rotationSpeedDuringAttack: 0.1

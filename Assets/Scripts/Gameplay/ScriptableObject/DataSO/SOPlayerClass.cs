@@ -7,8 +7,10 @@ public class SOPlayerClass: ScriptableObject
 {
  
     public string className;
-   
 
+    public float moveSpeed;
+    public float rotSpeed;
+    public float dodgeSpeed;
     public ClassType classType;
     [TextArea(3, 5)]
     public string description;

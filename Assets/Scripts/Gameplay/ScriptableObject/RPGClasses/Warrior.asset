@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: Warrior
   m_EditorClassIdentifier: 
   className: Warrior
+  moveSpeed: 3.5
+  rotSpeed: 25
+  dodgeSpeed: 10
   classType: 0
   description: 
   previewImage: {fileID: 0}
@@ -36,5 +39,5 @@ MonoBehaviour:
   baseArcane: 5
   abilityNames: []
   abilityIcons: []
-  attackMoveMultiplier: 0.5
-  rotationSpeedDuringAttack: 0.1
+  attackMoveMultiplier: 0
+  rotationSpeedDuringAttack: 0

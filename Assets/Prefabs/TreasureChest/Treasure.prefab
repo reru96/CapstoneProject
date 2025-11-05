@@ -48,8 +48,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   classChestData:
-  - {fileID: 11400000, guid: 10c7f37d8a9f3b04fa4ce8b503f2f374, type: 2}
-  - {fileID: 11400000, guid: 831ec28a743e3204ebec603c65aaa964, type: 2}
+  - {fileID: 11400000, guid: 0f98b5921a8d4f441ae6dfe7727d7f89, type: 2}
+  - {fileID: 11400000, guid: d113d17af89458c4fa0aa479a64df5c0, type: 2}
   uiManager: {fileID: 5981429064697049103, guid: 5418c5e17c4122940b3f6cfb2f7e08fb,
     type: 3}
   top: {fileID: 3495986025644869002}

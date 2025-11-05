@@ -14,7 +14,7 @@ public class PlayerAttackState : PlayerBaseState
 
     private readonly string[] attackAnimations = { "Attack1", "Attack2", "Attack3" };
     private readonly float[] bufferTimes = { 0.3f, 0.3f, 0.3f };
-    private readonly float[] endTimes = { 1f, 1f, 1f }; 
+    private readonly float[] endTimes = { 0.9f, 0.9f, 0.9f }; 
 
     private const int UpperBodyLayerIndex = 1;
     private float rotationSpeedDuringAttack;

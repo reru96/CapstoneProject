@@ -1,8 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
-using Core;
-using Gameplay;
 
 [CreateAssetMenu(fileName = "TreasureChest", menuName = "Treasure/TreasureChestData")]
 public class SOTreasureChestData : ScriptableObject

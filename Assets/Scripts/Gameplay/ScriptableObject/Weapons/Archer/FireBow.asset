@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16c40c636d807904cb0a4826fc7d6e00, type: 3}
   m_Name: FireBow
   m_EditorClassIdentifier: 
-  itemName: 
-  description: '+ 50 '
+  itemName: Fire Bow
+  description: '+50 Piercing Damage
+
+    +50 Fire Damage'
   itemType: 2
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: fc7abac7313b9864a9644f9762129b10, type: 3}
   level: 0
   prefab: {fileID: 2121025029592088486, guid: b38c0a1a4c25f0441913a9de3b647317, type: 3}
   attackType:
@@ -30,7 +32,7 @@ MonoBehaviour:
   panelType: 0
   hitType: 0
   hitDelay: 0.3
-  animator: {fileID: 0}
+  animator: {fileID: 9100000, guid: 1dc2eff5a37070345a2f29f04ce41305, type: 2}
   particleSystem: []
   isRanged: 0
   projectilePrefab: {fileID: 0}
@@ -41,17 +43,17 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   hitDetectionPrefab: {fileID: 0}
-  physicalBaseDamage: 50
-  fireBaseDamage: 0
+  physicalBaseDamage: 0
+  fireBaseDamage: 50
   iceBaseDamage: 0
   electricityBaseDamage: 0
   slashingBaseDamage: 0
-  piercingBaseDamage: 0
+  piercingBaseDamage: 50
   strengthScaling: 4
-  dexterityScaling: 4
+  dexterityScaling: 2
   intelligenceScaling: 5
   faithScaling: 5
-  arcaneScaling: 5
+  arcaneScaling: 2
   scalesWithIntelligence: 0
   scalesWithFaith: 0
   scalesWithArcane: 1

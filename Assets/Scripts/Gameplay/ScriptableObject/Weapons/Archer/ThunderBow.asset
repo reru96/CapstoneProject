@@ -12,27 +12,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16c40c636d807904cb0a4826fc7d6e00, type: 3}
   m_Name: ThunderBow
   m_EditorClassIdentifier: 
-  itemName: 
-  description: 
-  itemType: 0
-  icon: {fileID: 0}
+  itemName: Thunder Bow
+  description: '+50 Piercing Damage
+
+    +50 Electric Damage'
+  itemType: 2
+  icon: {fileID: 21300000, guid: 9c0405b77ae90e0438e0cd8d008d356a, type: 3}
   level: 0
   prefab: {fileID: 2121025029592088486, guid: b38c0a1a4c25f0441913a9de3b647317, type: 3}
   attackType:
   - {fileID: 6214830578606716803, guid: 64a53b2c0f1fcd8479f7e5484fd9935d, type: 3}
   - {fileID: 6214830578606716803, guid: 64a53b2c0f1fcd8479f7e5484fd9935d, type: 3}
   - {fileID: 6214830578606716803, guid: 64a53b2c0f1fcd8479f7e5484fd9935d, type: 3}
-  swingSound: {fileID: 0}
+  swingSound:
+  - 0
   attackDuration: 0.2
   panelType: 0
+  hitType: 0
   hitDelay: 0.3
   animator: {fileID: 9100000, guid: 1dc2eff5a37070345a2f29f04ce41305, type: 2}
-  physicalBaseDamage: 50
+  particleSystem: []
+  isRanged: 0
+  projectilePrefab: {fileID: 0}
+  projectileSpeed: 15
+  attackWindow: 0.25
+  baseDamage: 50
+  hitLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  hitDetectionPrefab: {fileID: 0}
+  physicalBaseDamage: 0
   fireBaseDamage: 0
   iceBaseDamage: 0
-  electricityBaseDamage: 0
+  electricityBaseDamage: 50
   slashingBaseDamage: 0
-  piercingBaseDamage: 0
+  piercingBaseDamage: 50
   strengthScaling: 4
   dexterityScaling: 4
   intelligenceScaling: 5

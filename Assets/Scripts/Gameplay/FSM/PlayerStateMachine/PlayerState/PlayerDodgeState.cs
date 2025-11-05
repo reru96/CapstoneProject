@@ -41,7 +41,7 @@ public class PlayerDodgeState : PlayerBaseState
         if (input.sqrMagnitude > 0.01f)
         {
             Vector3 direction = input.normalized;
-            player.agent.velocity = direction * player.agent.speed;
+            player.agent.velocity = direction * player.p_data.dodgeSpeed;
 
             Quaternion targetRotation = Quaternion.LookRotation(direction, Vector3.up);
             player.transform.rotation = Quaternion.Slerp(player.rb.rotation, targetRotation, Time.deltaTime * player.rotationSpeed);

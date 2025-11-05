@@ -147,15 +147,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dafbe9d1e88512e429ef911048c13a6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distance: 3
-  duration: 0.3
-  destroyDelay: 0.1
-  repulseForce: 1
   speed: 20
+  lifeTime: 5
+  repulseForce: 1
   pullRadius: 5
   pullForce: 10
   pullDuration: 1.5
-  magneticEffectPrefab: {fileID: 0}
+  magneticEffectPrefab: {fileID: 7834434380170384362, guid: 68101499d07aced4aa0ded4acb624942,
+    type: 3}
 --- !u!114 &6770725813473166949
 MonoBehaviour:
   m_ObjectHideFlags: 0

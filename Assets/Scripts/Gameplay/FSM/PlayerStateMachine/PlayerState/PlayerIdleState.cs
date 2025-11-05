@@ -32,7 +32,7 @@ public class PlayerIdleState : PlayerBaseState
         if (input.sqrMagnitude > 0.001f)
         {
             Quaternion targetRotation = Quaternion.LookRotation(input.normalized, Vector3.up);
-            player.transform.rotation = Quaternion.Slerp(player.rb.rotation, targetRotation, Time.deltaTime * player.rotationSpeed);
+            player.transform.rotation = Quaternion.Slerp(player.rb.rotation, targetRotation, Time.deltaTime * player.p_data.rotSpeed);
         }
 
         if (input.magnitude > 0.1f)
