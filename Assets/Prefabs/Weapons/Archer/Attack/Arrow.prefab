@@ -112,14 +112,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3e001b748ea5f44cbf6b5cf26c0eaca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distance: 20
-  duration: 10
-  destroyDelay: 5
-  repulseForce: 1.24
-  startPos: {x: 0, y: 1.6, z: 0.5}
-  endPos: {x: 0, y: 1.6, z: 20}
-  AttackType: 1
   speed: 20
+  lifeTime: 5
+  repulseForce: 1.24
 --- !u!54 &-4740303241866148867
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -142,7 +137,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0

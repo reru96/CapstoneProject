@@ -44,8 +44,9 @@ public class WeaponCombat : MonoBehaviour
 
         yield return new WaitForSeconds(data.hitDelay);
 
-        
-        GameObject attack = Instantiate(data.attackType[number], player.transform.position, player.transform.rotation);
+
+        var poolManager = ServiceLocator.Get<ObjectPooler>();
+        GameObject attack = poolManager.Spawn(data.attackType[number], player.transform.position, player.transform.rotation);
         var proj = attack.GetComponent<Projectile>();
         if (proj != null)
             proj.Initialize(player.p_stats, data);

@@ -8,7 +8,7 @@ using UnityEngine.AI;
 public class MagneticArrow : Arrow
 {
 
-    [SerializeField] private float pullRadius = 5f;
+    [SerializeField] private float pullRadius = 2.5f;
     [SerializeField] private float pullForce = 10f;
     [SerializeField] private float pullDuration = 1.5f;
     [SerializeField] private GameObject magneticEffectPrefab;
@@ -40,44 +40,55 @@ public class MagneticArrow : Arrow
 
     private IEnumerator ActivateMagneticField()
     {
-        var pooler = ServiceLocator.Get<ObjectPooler>();
+        GameObject fxInstance = null;
 
-        if (magneticEffectPrefab != null && pooler != null)
+        if (magneticEffectPrefab != null)
         {
-            var fx = pooler.Spawn<Poolable>(magneticEffectPrefab, transform.position, Quaternion.identity);
-            fx?.gameObject.SetActive(true);
+            fxInstance = Instantiate(magneticEffectPrefab, transform.position, Quaternion.identity);
+
+            fxInstance.transform.localScale = Vector3.one * pullRadius;
         }
 
         float elapsed = 0f;
-        Vector3 center = transform.position;
 
         while (elapsed < pullDuration)
         {
             elapsed += Time.deltaTime;
 
-            Collider[] hits = Physics.OverlapSphere(center, pullRadius);
+            if (fxInstance != null)
+                fxInstance.transform.position = transform.position;
+
+            Collider[] hits = Physics.OverlapSphere(transform.position, pullRadius);
             foreach (var hit in hits)
             {
                 if (!hit.CompareTag("Enemy")) continue;
 
                 var enemy = hit.GetComponent<EnemyStateMachine>();
                 var agent = hit.GetComponent<NavMeshAgent>();
+
                 if (enemy != null)
                 {
-           
                     float dmg = DamageUtility.CalculateDamage(shooterStats, weaponData, enemy.enemyData);
                     DamageUtility.ApplyDamageToEnemy(enemy, dmg);
 
                     if (agent != null)
                     {
-                        Vector3 dir = (center - enemy.transform.position).normalized;
+                        Vector3 dir = (transform.position - enemy.transform.position).normalized;
                         agent.Move(dir * pullForce * Time.deltaTime);
+                    }
+                    else
+                    {
+                        enemy.transform.position = Vector3.MoveTowards(enemy.transform.position,transform.position, pullForce * Time.deltaTime);
+                        
                     }
                 }
             }
 
             yield return null;
         }
+
+        if (fxInstance != null)
+            Destroy(fxInstance);
 
         if (poolable != null)
             poolable.ReturnToPool();
