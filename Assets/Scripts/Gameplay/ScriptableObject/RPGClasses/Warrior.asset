@@ -15,7 +15,7 @@ MonoBehaviour:
   className: Warrior
   moveSpeed: 3.5
   rotSpeed: 25
-  dodgeSpeed: 10
+  dodgeSpeed: 5
   classType: 0
   description: 
   previewImage: {fileID: 0}
@@ -29,7 +29,7 @@ MonoBehaviour:
   defaultPoolSize: 10
   prefab: {fileID: 5156660526780872327, guid: 965175182c90004459731f37915a2a13, type: 3}
   requiredLevel: 0
-  health: 100
+  health: 250
   mana: 100
   stamina: 100
   baseStrength: 10
