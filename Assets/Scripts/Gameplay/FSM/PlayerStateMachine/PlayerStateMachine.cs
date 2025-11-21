@@ -18,6 +18,8 @@ public class PlayerStateMachine : StateMachine
     public Rigidbody rb { get; private set; }
     public NavMeshAgent agent { get; private set; }
 
+    public StaminaController staminaController { get; private set; }
+
     [HideInInspector] public WeaponCombat weaponInstance;
     private InventoryManager _inventory;
 
@@ -45,6 +47,7 @@ public class PlayerStateMachine : StateMachine
         rb = GetComponent<Rigidbody>();
         agent = GetComponent<NavMeshAgent>();
         p_stats = GetComponent<PlayerStats>();
+        staminaController = GetComponent<StaminaController>();
 
         weaponInstance = GetComponentInChildren<WeaponCombat>();
         if (weaponInstance != null)

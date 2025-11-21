@@ -16,9 +16,7 @@ public class PlayerAttackState : PlayerBaseState
     private readonly float[] bufferTimes = { 0.3f, 0.3f, 0.3f };
     private readonly float[] endTimes = { 0.9f, 0.9f, 0.9f }; 
 
-    private const int UpperBodyLayerIndex = 1;
-    private float rotationSpeedDuringAttack;
-    private float attackMoveMultiplier; 
+    private const int UpperBodyLayerIndex = 1; 
     private const float queueAcceptWindow = 0.35f; 
 
     private float queueWindowStartTime = 0f;
@@ -31,6 +29,7 @@ public class PlayerAttackState : PlayerBaseState
 
     public override void Enter()
     {
+        player.staminaController.ConsumeStamina(20);
         attackQueued = false;
         canQueue = false;
         queueWindowStartTime = 0f;

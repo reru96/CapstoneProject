@@ -11,6 +11,7 @@ public class PlayerDodgeState : PlayerBaseState
 
     public override void Enter()
     {
+        player.staminaController.ConsumeStamina(10f);
         player.isDodging = true;
         player.isInvincible = true;
 
